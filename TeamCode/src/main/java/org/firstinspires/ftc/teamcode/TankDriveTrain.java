@@ -4,20 +4,22 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 
 public class TankDriveTrain {
 
-    private DcMotor motorLeft, motorRight;
+    private DcMotor motorLeft, motorRight, motorStrafe;
 
     private final int MOTOR_0_DIRECTION = 1;
     private final int MOTOR_1_DIRECTION = -1;
     private double x0;
     private double x1;
+    private double x2;
     private double powerScale = (1/1.3);
     private int gear = 1;
     public boolean isPressed = false;
 
-    public TankDriveTrain(DcMotor motor0, DcMotor motor1) {
+    public TankDriveTrain(DcMotor motor0, DcMotor motor1, DcMotor motor3) {
 
         this.motorLeft = motor0;
         this.motorRight = motor1;
+        this.motorStrafe = motor3;
 
     }
 
@@ -40,21 +42,21 @@ public class TankDriveTrain {
         }
     }
 
-    public void dpad(boolean up, boolean down)
+    public void dpad(boolean up1, boolean down1, boolean up2, boolean down2)
     {
-        if (up && gear < 3 && !isPressed) {
+        if ((up1 || up2) && gear < 3 && !isPressed) {
 
             gear++;
             isPressed = true;
 
-        } else if (down && gear > 1 && !isPressed) {
+        } else if ((down1 || down2) && gear > 1 && !isPressed) {
 
             gear--;
             isPressed = true;
 
         }
 
-        if (!up && !down) {
+        if ((!up1 || !up2) && (!down1 || !down2)) {
             isPressed = false;
         }
 
@@ -73,6 +75,15 @@ public class TankDriveTrain {
             motorRight.setPower(MOTOR_1_DIRECTION * x1);
         } else if (motor1Power < 0) {
             motorRight.setPower(MOTOR_1_DIRECTION * -x1);
+        }
+    }
+
+    public void strafe(double motor3Power) {
+        x2 = powerScale*(Math.pow(motor3Power, 2));
+        if (motor3Power >= 0) {
+            motorLeft.setPower(MOTOR_0_DIRECTION * x0);
+        } else if (motor3Power < 0) {
+            motorLeft.setPower(MOTOR_0_DIRECTION * -x0);
         }
     }
 
