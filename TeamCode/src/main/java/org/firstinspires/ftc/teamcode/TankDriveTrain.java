@@ -15,11 +15,11 @@ public class TankDriveTrain {
     private int gear = 1;
     public boolean isPressed = false;
 
-    public TankDriveTrain(DcMotor motor0, DcMotor motor1, DcMotor motor3) {
+    public TankDriveTrain(DcMotor motor0, DcMotor motor1/*, DcMotor motor3*/) {
 
         this.motorLeft = motor0;
         this.motorRight = motor1;
-        this.motorStrafe = motor3;
+//        this.motorStrafe = motor3;
 
     }
 
@@ -78,14 +78,15 @@ public class TankDriveTrain {
         }
     }
 
-    public void strafe(double motor3Power) {
-        x2 = powerScale*(Math.pow(motor3Power, 2));
-        if (motor3Power >= 0) {
-            motorLeft.setPower(MOTOR_0_DIRECTION * x0);
-        } else if (motor3Power < 0) {
-            motorLeft.setPower(MOTOR_0_DIRECTION * -x0);
-        }
-    }
+    //STRAFE
+//    public void strafe(double motor3Power) {
+//        x2 = powerScale*(Math.pow(motor3Power, 2));
+//        if (motor3Power >= 0) {
+//            motorLeft.setPower(MOTOR_0_DIRECTION * x0);
+//        } else if (motor3Power < 0) {
+//            motorLeft.setPower(MOTOR_0_DIRECTION * -x0);
+//        }
+//    }
 
     public double getPowerScale() { return powerScale; }
     public double getGear() { return gear; }
