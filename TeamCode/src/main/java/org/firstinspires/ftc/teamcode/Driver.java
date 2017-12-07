@@ -47,21 +47,21 @@ public class Driver extends LinearOpMode {
             driveTrain.dpad(this.gamepad1.dpad_up, this.gamepad2.dpad_up, this.gamepad1.dpad_down, this.gamepad2.dpad_down);
             if (gamepad1.left_stick_y != 0 || gamepad1.right_stick_y != 0) {
                 driveTrain.move(this.gamepad1.right_stick_y, this.gamepad1.left_stick_y);
-            } else if (gamepad2.left_stick_y != 0 || gamepad2.right_stick_y != 0) {
+            } else {
                 driveTrain.move(this.gamepad2.right_stick_y, this.gamepad2.left_stick_y);
             }
 
             //STRAFE
 //            if (gamepad1.left_stick_x != 0) {
 //                driveTrain.strafe(this.gamepad1.left_stick_x);
-//            } else if (gamepad2.left_stick_x != 0) {
+//            } else {
 //                driveTrain.strafe(this.gamepad2.left_stick_x);
 //            }
 
             //GRABBER
             if (gamepad1.right_bumper) {
                 grabber.Grab(this.gamepad1.right_bumper);
-            } else if (gamepad2.right_bumper) {
+            } else {
                 grabber.Grab(this.gamepad2.right_bumper);
             }
 
@@ -69,7 +69,7 @@ public class Driver extends LinearOpMode {
 //            lift.Lift(this.gamepad1.left_bumper, this.gamepad2.left_bumper, this.gamepad1.left_trigger, this.gamepad2.left_trigger);
             if (gamepad1.left_trigger != 0|| gamepad1.right_trigger != 0) {
                 liftMotor.Lift(this.gamepad1.left_trigger, this.gamepad1.right_trigger);
-            } else if (gamepad2.left_trigger != 0|| gamepad2.right_trigger != 0) {
+            } else {
                 liftMotor.Lift(this.gamepad2.left_trigger, this.gamepad2.right_trigger);
             }
 
