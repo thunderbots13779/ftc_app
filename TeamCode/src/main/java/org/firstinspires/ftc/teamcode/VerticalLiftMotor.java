@@ -9,16 +9,18 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 public class VerticalLiftMotor {
 
     private DcMotor liftMotor;
+   // private DcMotor liftMotor1;
     private double x0;
     private double x1;
 
-    public VerticalLiftMotor(DcMotor motor) {
+    public VerticalLiftMotor(DcMotor motor/*, DcMotor motor1*/) {
 
         this.liftMotor = motor;
+       // this.liftMotor1 = motor1;
 
     }
 
-    public void Lift(double Left, double Right) {
+    public void Lift(double Left, double Right, boolean lb) {
 
 //        if (gp1LeftBumper|| gp2LeftBumper) {
 //            liftMotor.setPower(1.0);
@@ -28,15 +30,30 @@ public class VerticalLiftMotor {
 //            liftMotor.setPower(0.0);
 //        }
 
-        x0 = (1/1.3)*(Math.pow(Left, 2));
-        x1 = (1/1.3)*(Math.pow(Right, 2));
-        if (Left != 0) {
-            liftMotor.setPower(-x0);
-        } else if (Right != 0) {
-            liftMotor.setPower(x1);
-        } else if (Left == 0 || Right == 0){
-            liftMotor.setPower(0);
-        }
+        x0 = (1 / 1.3) * (Math.pow(Left, 2));
+        x1 = (1 / 1.3) * (Math.pow(Right, 2));
+//        boolean liftHeight = true;
+
+//        if (lb)
+//           liftHeight = !liftHeight;
+//
+//        if (liftHeight = true) {
+            if (Left != 0) {
+                liftMotor.setPower(-x0);
+            } else if (Right != 0) {
+                liftMotor.setPower(x1);
+            } else if (Left == 0 || Right == 0) {
+                liftMotor.setPower(0);
+            }
+//        } else {
+//            if (Left != 0) {
+//                liftMotor1.setPower(-x0);
+//            } else if (Right != 0) {
+//                liftMotor1.setPower(x1);
+//            } else if (Left == 0 || Right == 0) {
+//                liftMotor1.setPower(0);
+//            }
+//        }
     }
 
 }

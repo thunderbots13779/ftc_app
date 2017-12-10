@@ -42,21 +42,21 @@ public class TankDriveTrain {
         }
     }
 
-    public void dpad(boolean up1, boolean down1, boolean up2, boolean down2)
+    public void dpad(boolean up, boolean down)
     {
-        if ((up1 || up2) && gear < 3 && !isPressed) {
+        if (up && gear < 3 && !isPressed) {
 
             gear++;
             isPressed = true;
 
-        } else if ((down1 || down2) && gear > 1 && !isPressed) {
+        } else if (down && gear > 1 && !isPressed) {
 
             gear--;
             isPressed = true;
 
         }
 
-        if ((!up1 || !up2) && (!down1 || !down2)) {
+        if (!up && !down) {
             isPressed = false;
         }
 
@@ -76,6 +76,16 @@ public class TankDriveTrain {
         } else if (motor1Power < 0) {
             motorRight.setPower(MOTOR_1_DIRECTION * -x1);
         }
+    }
+
+    public void moveSeconds(long miliseconds) {
+        move(1,.90);
+        try {
+            Thread.sleep(miliseconds);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        move(0,0);
     }
 
     //STRAFE
