@@ -19,7 +19,6 @@ public class TankDriveTrain {
 
         this.motorLeft = motor0;
         this.motorRight = motor1;
-//        this.motorStrafe = motor3;
 
     }
 

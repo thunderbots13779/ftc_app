@@ -39,89 +39,53 @@ public class test extends LinearOpMode {
         waitForStart();
 
         int scale = 1000;
-        int cc = 0;
-        int x = 0;
+        double threshold = 4.5;
+
+        double red = 0;
+        double blue = 0;
+
+        boolean redVisible;
+
         while(opModeIsActive()) {
+
             NormalizedRGBA colors = colorSensor.getNormalizedColors();
             int color = colors.toColor();
+
+            red = scale * colors.red;
+            blue = scale * colors.blue;
+
+            redVisible = (red > threshold) && (red > blue);
+
             telemetry.addLine("rawAndroid color: ")
-                    .addData("r", scale * colors.red)
-                    .addData("b", scale * colors.blue);
+                    .addData("r", red)
+                    .addData("b", blue);
+            telemetry.addLine().addData("red visible", redVisible);
             telemetry.update();
-            servo0.setPosition(77.0/180.0);
-//            while(x <= 5) {
-//                motor1.setPower(.5);
-//                if ((1000*colors.red) > 20) {
-//                    cc++;
-//                }
-//                try {
-//                    Thread.sleep(1000);
-//                } catch (InterruptedException e) {
-//                    e.printStackTrace();
-//                }
-//
-//                motor1.setPower(-.5);
-//                x++;
-//            }
-            //motor1.setPower(0);
-            if (((1000*colors.red) > 4.5) && (1000*colors.red) > 1000*colors.blue) {
-                motor1.setPower(.5);
-                try {
-                    Thread.sleep(500);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } finally {
-                    motor1.setPower(0);
-                    servo0.setPosition(174.0/180.0);
-                    stop();
-                }
-            } else {
-                motor1.setPower(-.5);
-                try {
-                    Thread.sleep(500);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } finally {
-                    motor1.setPower(0);
-                    servo0.setPosition(174.0/180.0);
-                    stop();
-                }
-            }
+//            servo0.setPosition(77.0 / 180.0);
+
+            if (redVisible) {
 //                motor1.setPower(.5);
 //                try {
-//                    Thread.sleep(1000);
-//                } catch (InterruptedException e) {
-//                    e.printStackTrace();
-//                }
-//                finally {
-//                    motor1.setPower(0);
-//                    stop();
-//                }
-//            } else {
-//                motor1.setPower(.5);
-//                try {
-//                    Thread.sleep(1000);
-//                } catch (InterruptedException e) {
-//                    e.printStackTrace();
-//                }
-//                motor1.setPower(-.5);
-//                try {
-//                    Thread.sleep(1000);
+//                    Thread.sleep(500);
 //                } catch (InterruptedException e) {
 //                    e.printStackTrace();
 //                } finally {
 //                    motor1.setPower(0);
+//                    servo0.setPosition(174.0 / 180.0);
 //                    stop();
 //                }
-//            }
-            //drop.Drop(1000 * colors.red);
-
+            } else {
+//                motor1.setPower(-.5);
+//                try {
+//                    Thread.sleep(500);
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                } finally {
+//                    motor1.setPower(0);
+//                    servo0.setPosition(174.0 / 180.0);
+//                    stop();
+//                }
+            }
         }
-
-       // driveTrain.moveSeconds(350);
-
-
-
-//        grabber.reset();
     }
 }
