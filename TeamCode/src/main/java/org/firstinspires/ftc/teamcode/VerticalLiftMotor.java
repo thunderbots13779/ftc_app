@@ -30,7 +30,7 @@ public class VerticalLiftMotor {
 //            liftMotor.setPower(0.0);
 //        }
 
-        x0 = (1 / 1.3) * (Math.pow(Left, 2));
+        x0 = (0.5) * (Math.pow(Left, 2));
         x1 = (1 / 1.3) * (Math.pow(Right, 2));
 //        boolean liftHeight = true;
 

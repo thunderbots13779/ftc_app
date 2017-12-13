@@ -10,6 +10,7 @@ import com.qualcomm.robotcore.hardware.Servo;
  */
 @TeleOp
 public class Driver extends LinearOpMode {
+//    private NormalizedColorSensor color;
     private DcMotor motor0;
     private DcMotor motor1;
     private DcMotor motor2;
@@ -29,22 +30,35 @@ public class Driver extends LinearOpMode {
         servo0 = hardwareMap.get(Servo.class, "servo0");
         servo1 = hardwareMap.get(Servo.class, "servo1");
         servo2 = hardwareMap.get(Servo.class, "servo2");
+//        color = hardwareMap.get(NormalizedColorSensor.class, "color");
 
         //INITIALIZATION
         TankDriveTrain driveTrain = new TankDriveTrain(motor0, motor1);
         Grabber grabber = new Grabber(servo1, servo2);
         VerticalLiftMotor liftMotor = new VerticalLiftMotor(motor2/*, motor3*/);
-        Dropdown drop = new Dropdown(servo0);
+//        Dropdown drop = new Dropdown(servo0, motor1);
 
         //sends tests data to dc phone
         telemetry.addData("Status", "Initialized");
         telemetry.update();
+
+//        NormalizedColorSensor colorSensor = hardwareMap.get(NormalizedColorSensor.class, "sensor_color");
 
         //Wait for the game to start (driver presses PLAY)
         waitForStart();
 
         //run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
+
+//            SwitchableLight light = (SwitchableLight)color;
+//            light.enableLight(!light.isLightOn());
+
+//            NormalizedRGBA colors = colorSensor.getNormalizedColors();
+//            telemetry.addLine()
+//                    .addData("a", "%.3f", colors.alpha)
+//                    .addData("r", "%.3f", colors.red)
+//                    .addData("g", "%.3f", colors.green)
+//                    .addData("b", "%.3f", colors.blue);
 
             //DRIVE TRAIN
             if (gamepad1.left_stick_y != 0 || gamepad1.right_stick_y != 0) {
