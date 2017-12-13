@@ -38,8 +38,8 @@ public class test extends LinearOpMode {
         //Wait for the game to start (driver presses PLAY)
         waitForStart();
 
-        int scale = 1000;
-        double threshold = 4.5;
+        int scale = 10000;
+        double threshold = 20;
 
         double red = 0;
         double blue = 0;
@@ -57,14 +57,15 @@ public class test extends LinearOpMode {
             redVisible = (red > threshold) && (red > blue);
 
             telemetry.addLine("rawAndroid color: ")
-                    .addData("r", red)
-                    .addData("b", blue);
+                    .addData("r", (int)red)
+                    .addData("b", (int)blue);
             telemetry.addLine().addData("red visible", redVisible);
             telemetry.update();
 //            servo0.setPosition(77.0 / 180.0);
 
             if (redVisible) {
 //                motor1.setPower(.5);
+//                motor0.setPower(-.5);
 //                try {
 //                    Thread.sleep(500);
 //                } catch (InterruptedException e) {
@@ -75,6 +76,7 @@ public class test extends LinearOpMode {
 //                    stop();
 //                }
             } else {
+//                motor0.setPower(.5);
 //                motor1.setPower(-.5);
 //                try {
 //                    Thread.sleep(500);
