@@ -168,8 +168,6 @@ public class Competition extends LinearOpMode {
 
     private boolean color() {
         int scale = 10000;
-        double threshold = 20;
-
         double maxRed = 0;
         double maxBlue = 0;
 
@@ -189,7 +187,7 @@ public class Competition extends LinearOpMode {
             }
         }
 
-        boolean redVisible = (maxRed > threshold) && (maxRed > maxBlue);
+        boolean redVisible = maxRed > maxBlue;
 
         return redVisible;
     }
