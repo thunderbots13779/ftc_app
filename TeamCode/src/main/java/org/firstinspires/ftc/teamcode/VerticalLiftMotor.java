@@ -16,28 +16,11 @@ public class VerticalLiftMotor {
     public VerticalLiftMotor(DcMotor motor/*, DcMotor motor1*/) {
 
         this.liftMotor = motor;
-       // this.liftMotor1 = motor1;
-
     }
 
     public void Lift(double Left, double Right, boolean lb) {
-
-//        if (gp1LeftBumper|| gp2LeftBumper) {
-//            liftMotor.setPower(1.0);
-//        } else if (gp1Trigger != 0 || gp2Trigger != 0) {
-//            liftMotor.setPower(-1.0);
-//        } else {
-//            liftMotor.setPower(0.0);
-//        }
-
         x0 = (0.5) * (Math.pow(Left, 2));
         x1 = (1 / 1.3) * (Math.pow(Right, 2));
-//        boolean liftHeight = true;
-
-//        if (lb)
-//           liftHeight = !liftHeight;
-//
-//        if (liftHeight = true) {
             if (Left != 0) {
                 liftMotor.setPower(-x0);
             } else if (Right != 0) {
@@ -45,15 +28,16 @@ public class VerticalLiftMotor {
             } else if (Left == 0 || Right == 0) {
                 liftMotor.setPower(0);
             }
-//        } else {
-//            if (Left != 0) {
-//                liftMotor1.setPower(-x0);
-//            } else if (Right != 0) {
-//                liftMotor1.setPower(x1);
-//            } else if (Left == 0 || Right == 0) {
-//                liftMotor1.setPower(0);
-//            }
-//        }
+    }
+
+    public void autoLift(double power, double time) {
+        liftMotor.setPower(power);
+        try {
+            Thread.sleep((long)(time*1000));
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        liftMotor.setPower(0);
     }
 
 }

@@ -17,10 +17,10 @@ public class Grabber {
     public boolean sideIsPressed = false;
 
     private final double LEFT_FULL_OPEN_POSITION = (174.0/180.0);
-    private final double LEFT_OPEN_POSITION = (169.0/180.0);
+    private final double LEFT_OPEN_POSITION = (129.0/180.0);
     private final double LEFT_CLOSED_POSITION = (84.0/180.0);
     private final double RIGHT_FULL_OPEN_POSITION = (28.0/180.0);
-    private final double RIGHT_OPEN_POSITION = (33.0/180.0);
+    private final double RIGHT_OPEN_POSITION = (73.0/180.0);
     private final double RIGHT_CLOSED_POSITION = (118.0/180.0);
 
     public Grabber(Servo left, Servo right) {
@@ -92,10 +92,5 @@ public class Grabber {
             sideIsPressed = false;
         }
     }
-
-//    public void reset() {
-//        leftServo.setPosition(LEFT_FULL_OPEN_POSITION);
-//        rightServo.setPosition(RIGHT_FULL_OPEN_POSITION);
-//    }
 
 }

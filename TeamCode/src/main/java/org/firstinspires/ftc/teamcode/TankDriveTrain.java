@@ -77,10 +77,10 @@ public class TankDriveTrain {
         }
     }
 
-    public void moveSeconds(long miliseconds, int direction) {
+    public void moveSeconds(double time, int direction) {
         move(direction,direction * .90);
         try {
-            Thread.sleep(miliseconds);
+            Thread.sleep((long)(time*1000));
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
