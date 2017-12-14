@@ -86,6 +86,7 @@ public class Driver extends LinearOpMode {
             } else {
                 grabber.Grab(this.gamepad2.right_bumper);
             }
+            grabber.GrabSide(this.gamepad1.dpad_left, this.gamepad1.dpad_right);
 
             //VERTICAL LIFT
 //            lift.Lift(this.gamepad1.left_bumper, this.gamepad2.left_bumper, this.gamepad1.left_trigger, this.gamepad2.left_trigger);

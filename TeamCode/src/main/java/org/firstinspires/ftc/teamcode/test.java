@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 package org.firstinspires.ftc.teamcode;
 
 /**
@@ -93,3 +94,5 @@ public class test extends LinearOpMode {
         }
     }
 }
+=======
+>>>>>>> 044f912596f754c81b61a1b53836de73fd78232a
