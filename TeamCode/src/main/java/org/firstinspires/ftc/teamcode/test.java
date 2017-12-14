@@ -1,16 +1,16 @@
-<<<<<<< HEAD
-package org.firstinspires.ftc.teamcode;
-
-/**
- * Created by pramo on 12/9/2017.
- */
-
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.NormalizedColorSensor;
 import com.qualcomm.robotcore.hardware.NormalizedRGBA;
 import com.qualcomm.robotcore.hardware.Servo;
+
+import org.firstinspires.ftc.teamcode.TankDriveTrain;
+package org.firstinspires.ftc.teamcode;
+
+/**
+ * Created by pramo on 12/9/2017.
+ */
 
 @TeleOp
 public class test extends LinearOpMode {
@@ -94,5 +94,4 @@ public class test extends LinearOpMode {
         }
     }
 }
-=======
->>>>>>> 044f912596f754c81b61a1b53836de73fd78232a
+

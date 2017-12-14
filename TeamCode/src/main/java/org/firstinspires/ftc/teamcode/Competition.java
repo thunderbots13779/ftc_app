@@ -4,9 +4,10 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Gamepad;
-import com.qualcomm.robotcore.hardware.NormalizedRGBA;
 import com.qualcomm.robotcore.hardware.NormalizedColorSensor;
+import com.qualcomm.robotcore.hardware.NormalizedRGBA;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.hardware.SwitchableLight;
 
 @TeleOp
 public class Competition extends LinearOpMode {
@@ -61,6 +62,8 @@ public class Competition extends LinearOpMode {
 
         //run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
+            //SETUP
+            setupTeleOp();
 
             //DRIVE TRAIN
             move();
@@ -74,6 +77,15 @@ public class Competition extends LinearOpMode {
             //TELEMETRY
             telemetry(this.gamepad1);
         }
+    }
+
+    private void setupTeleOp() {
+        //INITIALIZATION
+        servo0.setPosition(174.0/180.0);
+
+        //LIGHT
+        SwitchableLight light = (SwitchableLight)colorSensor;
+        light.enableLight(!light.isLightOn());
     }
 
     private void initialization() {
