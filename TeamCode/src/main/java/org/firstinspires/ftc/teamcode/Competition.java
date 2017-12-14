@@ -1,11 +1,14 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.NormalizedRGBA;
 import com.qualcomm.robotcore.hardware.NormalizedColorSensor;
 import com.qualcomm.robotcore.hardware.Servo;
 
+@TeleOp
 public class Competition extends LinearOpMode {
 
     private DcMotor motor0;
@@ -17,42 +20,44 @@ public class Competition extends LinearOpMode {
     private Servo servo2;
     private NormalizedColorSensor colorSensor;
     private TankDriveTrain driveTrain;
+    private Grabber grabber;
+    private VerticalLiftMotor liftMotor;
 
     @Override
     public void runOpMode() {
 
-        //HARDWARE MAPS
-        motor0 = hardwareMap.get(DcMotor.class, "motor0");
-        motor1 = hardwareMap.get(DcMotor.class, "motor1");
-        motor2 = hardwareMap.get(DcMotor.class, "motor2");
-        // motor3 = hardwareMap.get(DcMotor.class, "motor3");
-        servo0 = hardwareMap.get(Servo.class, "servo0");
-        servo1 = hardwareMap.get(Servo.class, "servo1");
-        servo2 = hardwareMap.get(Servo.class, "servo2");
-        colorSensor = hardwareMap.get(NormalizedColorSensor.class, "color");
-
-        //INITIALIZATION
-        driveTrain = new TankDriveTrain(motor0, motor1);
-        Grabber grabber = new Grabber(servo1, servo2);
-        VerticalLiftMotor liftMotor = new VerticalLiftMotor(motor2/*, motor3*/);
-
-        //sends tests data to dc phone
-        telemetry.addData("Status", "Initialized");
-        telemetry.update();
+        initialization();
 
         //Wait for the game to start (driver presses PLAY)
         waitForStart();
 
-        int scale = 10000;
-        double threshold = 20;
-
-        NormalizedRGBA colors = colorSensor.getNormalizedColors();
-        int color = colors.toColor();
-
-        double red = scale * colors.red;
-        double blue = scale * colors.blue;
-
-        boolean redVisible = (red > threshold) && (red > blue);
+        boolean redVisible = color();
+        telemetry.addData("red? ", redVisible);
+        servo0.setPosition(77.0/180.0);
+        try {
+            Thread.sleep((long)1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        if (redVisible) {
+            driveTrain.moveSeconds((long)100, 1);
+        } else {
+            motor0.setPower(-1);
+            motor1.setPower(.9);
+            try {
+                Thread.sleep((long)100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            motor0.setPower(0);
+            motor1.setPower(0);
+        }
+        try {
+            Thread.sleep((long)200);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        servo0.setPosition(174.0/180.0);
 
         //run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
@@ -61,34 +66,38 @@ public class Competition extends LinearOpMode {
             move();
 
             //GRABBER
-            if (gamepad1.right_bumper) {
-                grabber.Grab(this.gamepad1.right_bumper);
-            } else {
-                grabber.Grab(this.gamepad2.right_bumper);
-            }
+            grab();
 
             //VERTICAL LIFT
-            if (gamepad1.left_trigger != 0|| gamepad1.right_trigger != 0) {
-                liftMotor.Lift(this.gamepad1.left_trigger, this.gamepad1.right_trigger, this.gamepad1.left_bumper);
-            } else {
-                liftMotor.Lift(this.gamepad2.left_trigger, this.gamepad2.right_trigger, this.gamepad2.left_bumper);
-            }
+            lift();
 
             //TELEMETRY
-            telemetry.addData("Left Bumper", this.gamepad1.left_bumper);
-            telemetry.addData("Right Bumper", this.gamepad1.right_bumper);
-            telemetry.addData("Left Trigger", this.gamepad1.left_trigger);
-            telemetry.addData("Right Trigger", this.gamepad1.right_trigger);
-            telemetry.addData("Left Stick Y", this.gamepad1.left_stick_y);
-            telemetry.addData("Right Stick Y", this.gamepad1.right_stick_y);
-            telemetry.addData("A", this.gamepad1.a);
-            telemetry.addData("power level", driveTrain.getPowerScale());
-            telemetry.addData("gear", driveTrain.getGear());
-            telemetry.update();
+            telemetry(this.gamepad1);
         }
     }
 
-    public void move() {
+    private void initialization() {
+        //HARDWARE MAPS
+        motor0 = hardwareMap.get(DcMotor.class, "motor0");
+        motor1 = hardwareMap.get(DcMotor.class, "motor1");
+        motor2 = hardwareMap.get(DcMotor.class, "motor2");
+        // motor3 = hardwareMap.get(DcMotor.class, "motor3");
+        servo0 = hardwareMap.get(Servo.class, "servo0");
+        servo1 = hardwareMap.get(Servo.class, "servo1");
+        servo2 = hardwareMap.get(Servo.class, "servo2");
+        colorSensor = hardwareMap.get(NormalizedColorSensor.class, "colorSensor");
+
+        //INITIALIZATION
+        driveTrain = new TankDriveTrain(motor0, motor1);
+        grabber = new Grabber(servo1, servo2);
+        liftMotor = new VerticalLiftMotor(motor2);
+
+        //sends tests data to dc phone
+        telemetry.addData("Status", "Initialized");
+        telemetry.update();
+    }
+
+    private void move() {
         if (gamepad1.left_stick_y != 0 || gamepad1.right_stick_y != 0) {
             driveTrain.move(this.gamepad1.right_stick_y, this.gamepad1.left_stick_y);
         } else {
@@ -98,5 +107,73 @@ public class Competition extends LinearOpMode {
         } else {
             driveTrain.dpad(this.gamepad2.dpad_up, this.gamepad2.dpad_down);
         }
+    }
+
+    private void grab() {
+        if (gamepad1.right_bumper) {
+            grabber.Grab(this.gamepad1.right_bumper);
+        } else {
+            grabber.Grab(this.gamepad2.right_bumper);
+        }
+    }
+
+    private void lift() {
+        if (gamepad1.left_trigger != 0|| gamepad1.right_trigger != 0) {
+            liftMotor.Lift(this.gamepad1.left_trigger, this.gamepad1.right_trigger, this.gamepad1.left_bumper);
+        } else {
+            liftMotor.Lift(this.gamepad2.left_trigger, this.gamepad2.right_trigger, this.gamepad2.left_bumper);
+        }
+    }
+
+    private void telemetry(Gamepad gamepad) {
+        double rounding = 0.001;
+        double leftStickY = gamepad.left_stick_y - gamepad.left_stick_y % rounding;
+        double leftStickX = gamepad.left_stick_x - gamepad.left_stick_x % rounding;
+        double rightStickY = gamepad.right_stick_y - gamepad.right_stick_y % rounding;
+        double rightStickX = gamepad.right_stick_x - gamepad.right_stick_x % rounding;
+
+        telemetry.addLine("")
+                .addData("right: ", gamepad.right_bumper)
+                .addData("left: ", gamepad.left_bumper);
+        telemetry.addLine("")
+                .addData("right: ", gamepad.right_trigger)
+                .addData("left: ", gamepad.left_trigger);
+        telemetry.addLine("")
+                .addData("x: ", leftStickX)
+                .addData("y: ", leftStickY);
+        telemetry.addLine("")
+                .addData("x: ", rightStickX)
+                .addData("y: ", rightStickY);
+        telemetry.addData("gear: ", driveTrain.getGear());
+        telemetry.update();
+
+    }
+
+    private boolean color() {
+        int scale = 10000;
+        double threshold = 20;
+
+        double maxRed = 0;
+        double maxBlue = 0;
+
+        for (int i = 0; i < 10; i++) {
+            NormalizedRGBA colors = colorSensor.getNormalizedColors();
+
+            double red = scale * colors.red;
+            double blue = scale * colors.blue;
+            if (red > maxRed)
+                maxRed = red;
+            if (blue > maxBlue)
+                maxBlue = blue;
+            try {
+                Thread.sleep((long).1);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+        boolean redVisible = (maxRed > threshold) && (maxRed > maxBlue);
+
+        return redVisible;
     }
 }

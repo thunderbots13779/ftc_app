@@ -77,8 +77,8 @@ public class TankDriveTrain {
         }
     }
 
-    public void moveSeconds(long miliseconds) {
-        move(1,.90);
+    public void moveSeconds(long miliseconds, int direction) {
+        move(direction,direction * .90);
         try {
             Thread.sleep(miliseconds);
         } catch (InterruptedException e) {

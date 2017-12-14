@@ -38,6 +38,8 @@ public class test extends LinearOpMode {
         //Wait for the game to start (driver presses PLAY)
         waitForStart();
 
+        servo0.setPosition(77.0/180.0);
+
         int scale = 10000;
         double threshold = 20;
 
