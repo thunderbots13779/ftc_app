@@ -75,7 +75,7 @@ public class Competition extends LinearOpMode {
             lift();
 
             //TELEMETRY
-            telemetry(this.gamepad1);
+            telemetry(this.gamepad1, this.gamepad2);
         }
     }
 
@@ -117,7 +117,7 @@ public class Competition extends LinearOpMode {
         if (gamepad1.dpad_down || gamepad1.dpad_up) {
             driveTrain.dpad(this.gamepad1.dpad_up, this.gamepad1.dpad_down);
         } else {
-            driveTrain.dpad(this.gamepad2.dpad_up, this.gamepad2.dpad_down);
+            driveTrain.dpad(this.gamepad2.dpad_up, this.gamepad1.dpad_down);
         }
     }
 
@@ -137,26 +137,31 @@ public class Competition extends LinearOpMode {
         }
     }
 
-    private void telemetry(Gamepad gamepad) {
+    private void telemetry(Gamepad gamepad, Gamepad gamepadB) {
         double rounding = 0.001;
         double leftStickY = gamepad.left_stick_y - gamepad.left_stick_y % rounding;
         double leftStickX = gamepad.left_stick_x - gamepad.left_stick_x % rounding;
         double rightStickY = gamepad.right_stick_y - gamepad.right_stick_y % rounding;
         double rightStickX = gamepad.right_stick_x - gamepad.right_stick_x % rounding;
 
-        telemetry.addLine("")
-                .addData("right: ", gamepad.right_bumper)
-                .addData("left: ", gamepad.left_bumper);
-        telemetry.addLine("")
-                .addData("right: ", gamepad.right_trigger)
-                .addData("left: ", gamepad.left_trigger);
-        telemetry.addLine("")
-                .addData("x: ", leftStickX)
-                .addData("y: ", leftStickY);
-        telemetry.addLine("")
-                .addData("x: ", rightStickX)
-                .addData("y: ", rightStickY);
-        telemetry.addData("gear: ", driveTrain.getGear());
+        //DRIVE GAMEPAD/GAMEPAD A
+        telemetry.addLine("--- Gamepad A ---");
+        telemetry.addLine("Left Trigger: ")
+                .addData("  x: ", leftStickX)
+                .addData("  y: ", leftStickY);
+        telemetry.addLine("Right Trigger: ")
+                .addData("  x: ", rightStickX)
+                .addData("  y: ", rightStickY);
+        telemetry.addData("Gear: ", driveTrain.getGear());
+
+        //LIFT GAMEPAD/GAMEPAD B
+        telemetry.addLine("Bumpers: ")
+                .addData("  right: ", gamepadB.right_bumper)
+                .addData("  left: ", gamepadB.left_bumper);
+        telemetry.addLine("Triggers")
+                .addData("  right: ", gamepad.right_trigger)
+                .addData("  left: ", gamepad.left_trigger);
+
         telemetry.update();
 
     }

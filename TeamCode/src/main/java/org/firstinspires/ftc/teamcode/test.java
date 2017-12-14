@@ -6,7 +6,6 @@ import com.qualcomm.robotcore.hardware.NormalizedRGBA;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.TankDriveTrain;
-package org.firstinspires.ftc.teamcode;
 
 /**
  * Created by pramo on 12/9/2017.

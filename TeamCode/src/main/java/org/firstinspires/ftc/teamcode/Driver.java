@@ -70,7 +70,7 @@ public class Driver extends LinearOpMode {
             if (gamepad1.dpad_down || gamepad1.dpad_up) {
                 driveTrain.dpad(this.gamepad1.dpad_up, this.gamepad1.dpad_down);
             } else {
-                driveTrain.dpad(this.gamepad2.dpad_up, this.gamepad2.dpad_down);
+                driveTrain.dpad(this.gamepad2.dpad_up, this.gamepad1.dpad_down);
             }
 
             //STRAFE
