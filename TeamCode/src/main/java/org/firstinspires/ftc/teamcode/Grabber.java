@@ -11,14 +11,17 @@ public class Grabber {
     private Servo leftServo, rightServo;
 
     public boolean closed = false;
+    public boolean leftClosed = false;
+    public boolean rightClosed = false;
     public boolean isPressed = false;
+    public boolean sideIsPressed = false;
 
-    private final double LEFT_FULL_OPEN_POSITION = (174.0/180);
-    private final double LEFT_OPEN_POSITION = (139.0/180);
-    private final double LEFT_CLOSED_POSITION = (84.0/180);
-    private final double RIGHT_FULL_OPEN_POSITION = (28.0/180);
-    private final double RIGHT_OPEN_POSITION = (63.0/180);
-    private final double RIGHT_CLOSED_POSITION = (118.0/180);
+    private final double LEFT_FULL_OPEN_POSITION = (174.0/180.0);
+    private final double LEFT_OPEN_POSITION = (169.0/180.0);
+    private final double LEFT_CLOSED_POSITION = (84.0/180.0);
+    private final double RIGHT_FULL_OPEN_POSITION = (28.0/180.0);
+    private final double RIGHT_OPEN_POSITION = (33.0/180.0);
+    private final double RIGHT_CLOSED_POSITION = (118.0/180.0);
 
     public Grabber(Servo left, Servo right) {
 
@@ -58,35 +61,35 @@ public class Grabber {
 
     public void GrabSide(boolean left, boolean right) {
 
-        if (!isPressed) {
+        if (!sideIsPressed) {
 
             if (right) {
-                if (closed) {
+                if (rightClosed) {
                     rightServo.setPosition(RIGHT_OPEN_POSITION);
-                    closed = false;
+                    rightClosed = false;
                 } else {
                     rightServo.setPosition(RIGHT_CLOSED_POSITION);
-                    closed = true;
+                    rightClosed = true;
                 }
 
-                isPressed = true;
+                sideIsPressed = true;
             }
 
             if (left) {
-                if (closed) {
+                if (leftClosed) {
                     leftServo.setPosition(LEFT_OPEN_POSITION);
-                    closed = false;
+                    leftClosed = false;
                 } else {
                     leftServo.setPosition(LEFT_CLOSED_POSITION);
-                    closed = true;
+                    leftClosed = true;
                 }
 
-                isPressed = true;
+                sideIsPressed = true;
             }
 
         }
         if (!right && !left) {
-            isPressed = false;
+            sideIsPressed = false;
         }
     }
 
