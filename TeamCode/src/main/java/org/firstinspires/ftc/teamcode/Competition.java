@@ -7,7 +7,6 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.NormalizedColorSensor;
 import com.qualcomm.robotcore.hardware.NormalizedRGBA;
 import com.qualcomm.robotcore.hardware.Servo;
-import com.qualcomm.robotcore.hardware.SwitchableLight;
 
 @TeleOp
 public class Competition extends LinearOpMode {
@@ -32,33 +31,33 @@ public class Competition extends LinearOpMode {
         //Wait for the game to start (driver presses PLAY)
         waitForStart();
 
-        boolean redVisible = color();
-        telemetry.addData("red? ", redVisible);
-        servo0.setPosition(77.0/180.0);
-        try {
-            Thread.sleep((long)1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        if (redVisible) {
-            driveTrain.moveSeconds((long)100, 1);
-        } else {
-            motor0.setPower(-1);
-            motor1.setPower(.9);
-            try {
-                Thread.sleep((long)100);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            motor0.setPower(0);
-            motor1.setPower(0);
-        }
-        try {
-            Thread.sleep((long)200);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        servo0.setPosition(174.0/180.0);
+//        boolean redVisible = color();
+//        telemetry.addData("red? ", redVisible);
+//        servo0.setPosition(77.0/180.0);
+//        try {
+//            Thread.sleep((long)1000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+//        if (redVisible) {
+//            driveTrain.moveSeconds((long)100, 1);
+//        } else {
+//            motor0.setPower(-1);
+//            motor1.setPower(.9);
+//            try {
+//                Thread.sleep((long)100);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+//            motor0.setPower(0);
+//            motor1.setPower(0);
+//        }
+//        try {
+//            Thread.sleep((long)200);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+//        servo0.setPosition(174.0/180.0);
 
         //run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
@@ -84,8 +83,8 @@ public class Competition extends LinearOpMode {
         servo0.setPosition(174.0/180.0);
 
         //LIGHT
-        SwitchableLight light = (SwitchableLight)colorSensor;
-        light.enableLight(!light.isLightOn());
+//        SwitchableLight light = (SwitchableLight)colorSensor;
+//        light.enableLight(!light.isLightOn());
     }
 
     private void initialization() {
@@ -155,6 +154,7 @@ public class Competition extends LinearOpMode {
         telemetry.addData("Gear: ", driveTrain.getGear());
 
         //LIFT GAMEPAD/GAMEPAD B
+        telemetry.addLine("--- Gamepad B ---");
         telemetry.addLine("Bumpers: ")
                 .addData("  right: ", gamepadB.right_bumper)
                 .addData("  left: ", gamepadB.left_bumper);

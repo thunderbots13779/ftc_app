@@ -11,7 +11,7 @@ public class TankDriveTrain {
     private double x0;
     private double x1;
     private double x2;
-    private double powerScale = (1/1.3);
+    private double powerScale = (1/1.1);
     private int gear = 1;
     public boolean isPressed = false;
 
@@ -78,13 +78,21 @@ public class TankDriveTrain {
     }
 
     public void moveSeconds(double time, int direction) {
-        move(direction,direction * .90);
+        if (direction == 1) {
+            motorLeft.setPower(1);
+            motorRight.setPower(-1);
+            timer(time);
+            motorLeft.setPower(0);
+            motorRight.setPower(0);
+        }
+    }
+
+    private void timer(double time) {
         try {
             Thread.sleep((long)(time*1000));
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        move(0,0);
     }
 
     //STRAFE

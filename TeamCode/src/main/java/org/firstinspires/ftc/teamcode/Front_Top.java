@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.hardware.NormalizedRGBA;
 import com.qualcomm.robotcore.hardware.Servo;
 
 @Autonomous
-public class Front_2 extends LinearOpMode {
+public class Front_Top extends LinearOpMode {
 
     private DcMotor motor0;
     private DcMotor motor1;
@@ -35,16 +35,17 @@ public class Front_2 extends LinearOpMode {
             boolean redVisible = color();
             telemetry(redVisible);
             grabber.Grab(true);
-            liftMotor.autoLift(.5, .2);
+//            liftMotor.autoLift(.5, .2);
             servo0.setPosition(77.0/180.0);
             timer(1);
             if (redVisible) {
-                driveRed();
+                driveTapnGo();
             } else {
-                driveBlue();
+                driveGo();
             }
-            timer(0.2);
+            timer(1);
             servo0.setPosition(174.0/180.0);
+            stop();
         }
     }
 
@@ -89,11 +90,7 @@ public class Front_2 extends LinearOpMode {
         telemetry.addData("red? ", red);
     }
 
-    private void driveRed() {
-        driveTrain.moveSeconds(.4, 1);
-    }
-
-    private void driveBlue() {
+    private void driveTapnGo() {
         motor0.setPower(-1);
         motor1.setPower(.9);
         timer(.1);
@@ -102,6 +99,15 @@ public class Front_2 extends LinearOpMode {
         timer(.4);
         motor0.setPower(0);
         motor1.setPower(0);
+    }
+
+    private void driveGo() {
+        motor0.setPower(1);
+        motor1.setPower(-.9);
+        timer(.4);
+        motor0.setPower(0);
+        motor1.setPower(0);
+
     }
 
     private boolean color() {
@@ -118,14 +124,15 @@ public class Front_2 extends LinearOpMode {
                 maxRed = red;
             if (blue > maxBlue)
                 maxBlue = blue;
-            try {
-                Thread.sleep((long).1);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            timer(.1);
         }
 
-        boolean redVisible = maxRed > maxBlue;
+        boolean redVisible;
+
+        if (maxRed > maxBlue)
+            redVisible = true;
+        else
+            redVisible = false;
 
         return redVisible;
     }
