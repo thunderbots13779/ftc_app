@@ -94,11 +94,17 @@ public class TankDriveTrain {
             motorRight.setPower(-.5);
             motorLeft.setPower(-.4);
             stop(time);
-        } else if (direction.equals("pivotLeft")){
+        } else if (direction.equals("pivotLeftBack")){
             motorLeft.setPower(.4);
             stop(time);
-        } else if (direction.equals("pivotRight")){
+        } else if (direction.equals("pivotRightBack")){
             motorRight.setPower(-.5);
+            stop(time);
+        } else if (direction.equals("pivotLeftFront")){
+            motorLeft.setPower(-.4);
+            stop(time);
+        } else if (direction.equals("pivotRightFront")){
+            motorRight.setPower(.5);
             stop(time);
         } else {
             motorRight.setPower(0);

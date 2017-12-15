@@ -38,7 +38,8 @@ public class Front_Top extends LinearOpMode{
         //run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
 
-            Auto.auto("red");
+            Auto.auto("blue", "back");
+            Auto.topBack();
             stop();
 
         }

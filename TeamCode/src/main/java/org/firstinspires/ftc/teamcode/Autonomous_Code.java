@@ -20,6 +20,12 @@ public class Autonomous_Code {
     private VerticalLiftMotor liftMotor;
     private double servoUp = (174.0/180.0);
     private double servoDown = (67.0/180.0);
+    private final double LEFT_OPEN_POSITION = (129.0/180.0);
+    private final double LEFT_CLOSED_POSITION = (84.0/180.0);
+    private final double RIGHT_OPEN_POSITION = (73.0/180.0);
+    private final double RIGHT_CLOSED_POSITION = (118.0/180.0);
+    double back = 0;
+    double turn = 0;
 
     public Autonomous_Code (DcMotor motor_0, DcMotor motor_1, DcMotor motor_2, DcMotor motor_3,
                        Servo servo_0, Servo servo_1, Servo servo_2, NormalizedColorSensor color_sensor,
@@ -37,40 +43,17 @@ public class Autonomous_Code {
         this.liftMotor = lift_Motor;
     }
 
-    public  void auto(String color) {
-        grabber.Grab(true);
-        motor2.setPower(.5);
-        timer(.1);
-        motor2.setPower(0);
+    public  void auto(String color, String direction) {
+        grab();
+        liftUp();
         servo0.setPosition(servoDown);
         timer(1);
-        boolean redVisible = color(color);
-        if (redVisible) {
-            driveGoFront();
+        boolean colorCheck = color(color);
+        if (direction.equals("back")) {
+            driveKnockBack(colorCheck);
         } else {
-            driveGoBack();
+            driveKnockFront(colorCheck);
         }
-        timer(1);
-        servo0.setPosition(servoUp);
-        timer(1);
-
-        driveTrain.moveAuto("back");
-        timer(1);
-        driveTrain.moveAuto("right");
-        timer(.4);
-        driveTrain.moveAuto("fwd");
-        timer(.4);
-        driveTrain.moveAuto("left");
-        timer(1.75);
-        driveTrain.moveAuto("fwd");
-        timer(.45);
-        timer(.5);
-        grabber.Grab(true);
-        timer(.5);
-        driveTrain.moveAuto("back");
-        timer(.3);
-
-
     }
 
     public static void timer(double time) {
@@ -81,23 +64,127 @@ public class Autonomous_Code {
         }
     }
 
-    public void driveKnockBack(boolean redVisible) {
-        if (redVisible) {
-            driveTrain.moveAuto("fwd", .2);
-            timer(.2);
-            driveTrain.moveAuto("back");
-            timer(.22);
-            driveTrain.moveAuto("stop");
+    public void driveKnockBack(boolean colorVisible) {
+        if (colorVisible) {
+            driveTrain.moveAuto("pivotRightFront", .185);
+            servoPosUp();
+            driveTrain.moveAuto("pivotRightBack", .22);
+            back = .77;
+            turn = .55;
+        } else {
+            driveTrain.moveAuto("pivotRightBack", .2);
+            servoPosUp();
+            driveTrain.moveAuto("pivotLeftBack", .22);
+            back = .5;
+            turn = .65;
         }
     }
 
-    public void driveKnockFront() {
-        driveTrain.moveAuto("back");
-        timer(.2);
-        driveTrain.moveAuto("fwd");
-        timer(.2);
-        driveTrain.moveAuto("stop");
+    public void driveKnockFront(boolean colorVisible) {
+        if (colorVisible) {
+            driveTrain.moveAuto("pivotRightFront", .185);
+            servoPosUp();
+            driveTrain.moveAuto("pivotRightFront", .22);
+            back = .77;
+            turn = .55;
+        } else {
+            driveTrain.moveAuto("pivotRightBack", .2);
+            servoPosUp();
+            driveTrain.moveAuto("pivotRightFront", .22);
+            back = .6;
+            turn = .7;
+        }
+
     }
+
+    public void servoPosUp() {
+        timer(1);
+        servo0.setPosition(servoUp);
+        timer(1);
+    }
+
+    public void grab() {
+        timer(.5);
+        servo2.setPosition(LEFT_CLOSED_POSITION);
+        servo1.setPosition(RIGHT_CLOSED_POSITION);
+        timer(.5);
+    }
+
+    public void ungrab() {
+        timer(.5);
+        servo2.setPosition(LEFT_OPEN_POSITION);
+        servo1 .setPosition(RIGHT_OPEN_POSITION);
+        timer(.5);
+    }
+
+    public void liftUp() {
+        motor2.setPower(1);
+        timer(.55);
+        motor2.setPower(0);
+        timer(.5);
+    }
+
+    public void liftDown() {
+        motor2.setPower(-1);
+        timer(.55);
+        motor2.setPower(0);
+        timer(.55);
+    }
+
+    /**CASES**/
+    public void topBack() {
+        driveTrain.moveAuto("back", back);
+        driveTrain.moveAuto("left", turn);
+        driveTrain.moveAuto("fwd", .45);
+        ungrab();
+        driveTrain.moveAuto("back", .3);
+        grab();
+        liftDown();
+        driveTrain.moveAuto("fwd", .3);
+        driveTrain.moveAuto("back", .15);
+    }
+
+    public void botttomBack () {
+        driveTrain.moveAuto("back", .2);
+        driveTrain.moveAuto("right", .7);
+        driveTrain.moveAuto("back", .2);
+        driveTrain.moveAuto("left", .2);
+        driveTrain.moveAuto("fwd", .5);
+        driveTrain.moveAuto("right", 1.55);
+        driveTrain.moveAuto("fwd", .35);
+        ungrab();
+        driveTrain.moveAuto("back", .3);
+        grab();
+        liftDown();
+        driveTrain.moveAuto("fwd", .3);
+        driveTrain.moveAuto("back", .15);
+    }
+
+    public void topFront () {
+        driveTrain.moveAuto("front", back);
+        driveTrain.moveAuto("left", turn);
+        driveTrain.moveAuto("fwd", .45);
+        ungrab();
+        driveTrain.moveAuto("back", .3);
+        grab();
+        liftDown();
+        driveTrain.moveAuto("fwd", .3);
+        driveTrain.moveAuto("back", .15);
+    }
+
+    public void botttomFront () {
+        driveTrain.moveAuto("right", .5);
+        driveTrain.moveAuto("fwd", .5);
+        driveTrain.moveAuto("right", .65);
+        driveTrain.moveAuto("fwd", .7);
+        ungrab();
+        driveTrain.moveAuto("back", .3);
+        grab();
+        liftDown();
+        driveTrain.moveAuto("fwd", .3);
+        driveTrain.moveAuto("back", .15);
+    }
+    /*********/
 
     public boolean color(String color) {
         int scale = 10000;
@@ -117,19 +204,20 @@ public class Autonomous_Code {
         }
 
         boolean redVisible;
+        boolean blueVisible;
 
         if (color.equals("red")) {
             if (maxRed > maxBlue)
                 redVisible = true;
             else
                 redVisible = false;
+            return redVisible;
         } else {
             if (maxRed < maxBlue)
-                redVisible = false;
+                blueVisible = true;
             else
-                redVisible = true;
+                blueVisible = false;
+            return blueVisible;
         }
-
-        return redVisible;
     }
 }
