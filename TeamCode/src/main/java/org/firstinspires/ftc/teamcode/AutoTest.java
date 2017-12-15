@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.NormalizedColorSensor;
+import com.qualcomm.robotcore.hardware.NormalizedRGBA;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
@@ -39,6 +40,7 @@ public class AutoTest extends LinearOpMode{
     private VerticalLiftMotor liftMotor;
     private Autonomous_Code Auto;
     private VuforiaLocalizer vuforia;
+    private int column;
 
     @Override
     public void runOpMode() {
@@ -60,6 +62,8 @@ public class AutoTest extends LinearOpMode{
 
         //Wait for the game to start (driver presses PLAY)
         waitForStart();
+
+        jewelKnockoff();
 
         relicTrackables.activate();
 
@@ -95,6 +99,8 @@ public class AutoTest extends LinearOpMode{
                 telemetry.addData("VuMark", "not visible");
             }
 
+            telemetry.update();
+
         }
     }
 
@@ -113,6 +119,66 @@ public class AutoTest extends LinearOpMode{
         driveTrain = new TankDriveTrain(motor0, motor1);
         grabber = new Grabber(servo1, servo2);
         liftMotor = new VerticalLiftMotor(motor2);
+    }
+
+    public void pictograph() {
+
+    }
+
+    public void jewelKnockoff() {
+        boolean redVisible = color();
+        telemetry.addData("red? ", redVisible);
+        servo0.setPosition(77.0/180.0);
+        try {
+            Thread.sleep((long)1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        if (redVisible) {
+            driveTrain.moveSeconds((long)1, 1);
+        } else {
+            motor0.setPower(-1);
+            motor1.setPower(.9);
+            try {
+                Thread.sleep((long)100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            motor0.setPower(0);
+            motor1.setPower(0);
+        }
+        try {
+            Thread.sleep((long)200);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        servo0.setPosition(174.0/180.0);
+    }
+
+    private boolean color() {
+        int scale = 10000;
+        double maxRed = 0;
+        double maxBlue = 0;
+
+        for (int i = 0; i < 10; i++) {
+            NormalizedRGBA colors = colorSensor.getNormalizedColors();
+
+            double red = scale * colors.red;
+            double blue = scale * colors.blue;
+            if (red > maxRed)
+                maxRed = red;
+            if (blue > maxBlue)
+                maxBlue = blue;
+            try {
+                Thread.sleep((long).1);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+        boolean redVisible = maxRed > maxBlue;
+
+        return redVisible;
     }
 
     String format(OpenGLMatrix transformationMatrix) {
