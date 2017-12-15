@@ -7,6 +7,20 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.NormalizedColorSensor;
 import com.qualcomm.robotcore.hardware.NormalizedRGBA;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.hardware.SwitchableLight;
+
+import org.firstinspires.ftc.robotcore.external.ClassFactory;
+import org.firstinspires.ftc.robotcore.external.matrices.OpenGLMatrix;
+import org.firstinspires.ftc.robotcore.external.matrices.VectorF;
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
+import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
+import org.firstinspires.ftc.robotcore.external.navigation.RelicRecoveryVuMark;
+import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
+import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackable;
+import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackableDefaultListener;
+import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
 
 @TeleOp
 public class Competition extends LinearOpMode {
@@ -28,41 +42,16 @@ public class Competition extends LinearOpMode {
 
         initialization();
 
+        SwitchableLight light = (SwitchableLight)colorSensor;
+        light.enableLight(false);
+
         //Wait for the game to start (driver presses PLAY)
         waitForStart();
 
-//        boolean redVisible = color();
-//        telemetry.addData("red? ", redVisible);
-//        servo0.setPosition(77.0/180.0);
-//        try {
-//            Thread.sleep((long)1000);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
-//        if (redVisible) {
-//            driveTrain.moveSeconds((long)100, 1);
-//        } else {
-//            motor0.setPower(-1);
-//            motor1.setPower(.9);
-//            try {
-//                Thread.sleep((long)100);
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//            }
-//            motor0.setPower(0);
-//            motor1.setPower(0);
-//        }
-//        try {
-//            Thread.sleep((long)200);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
-//        servo0.setPosition(174.0/180.0);
-
         //run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
-            //SETUP
-            setupTeleOp();
+
+            servo0.setPosition(174.0/180.0);
 
             //DRIVE TRAIN
             move();
@@ -78,24 +67,17 @@ public class Competition extends LinearOpMode {
         }
     }
 
-    private void setupTeleOp() {
-        //INITIALIZATION
-        servo0.setPosition(174.0/180.0);
-
-        //LIGHT
-//        SwitchableLight light = (SwitchableLight)colorSensor;
-//        light.enableLight(!light.isLightOn());
-    }
-
     private void initialization() {
+
         //HARDWARE MAPS
         motor0 = hardwareMap.get(DcMotor.class, "motor0");
         motor1 = hardwareMap.get(DcMotor.class, "motor1");
         motor2 = hardwareMap.get(DcMotor.class, "motor2");
-        // motor3 = hardwareMap.get(DcMotor.class, "motor3");
+
         servo0 = hardwareMap.get(Servo.class, "servo0");
         servo1 = hardwareMap.get(Servo.class, "servo1");
         servo2 = hardwareMap.get(Servo.class, "servo2");
+
         colorSensor = hardwareMap.get(NormalizedColorSensor.class, "colorSensor");
 
         //INITIALIZATION
