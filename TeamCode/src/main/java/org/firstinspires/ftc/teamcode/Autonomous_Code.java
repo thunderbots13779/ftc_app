@@ -19,7 +19,7 @@ public class Autonomous_Code {
     private Grabber grabber;
     private VerticalLiftMotor liftMotor;
     private double servoUp = (174.0/180.0);
-    private double servoDown = (77.0/180.0);
+    private double servoDown = (67.0/180.0);
 
     public Autonomous_Code (DcMotor motor_0, DcMotor motor_1, DcMotor motor_2, DcMotor motor_3,
                        Servo servo_0, Servo servo_1, Servo servo_2, NormalizedColorSensor color_sensor,
@@ -39,8 +39,9 @@ public class Autonomous_Code {
 
     public  void auto(String color) {
         grabber.Grab(true);
-        timer(1);
-        grabber.Grab(true);
+        motor2.setPower(.5);
+        timer(.1);
+        motor2.setPower(0);
         servo0.setPosition(servoDown);
         timer(1);
         boolean redVisible = color(color);
@@ -53,6 +54,23 @@ public class Autonomous_Code {
         servo0.setPosition(servoUp);
         timer(1);
 
+        driveTrain.moveAuto("back");
+        timer(1);
+        driveTrain.moveAuto("right");
+        timer(.4);
+        driveTrain.moveAuto("fwd");
+        timer(.4);
+        driveTrain.moveAuto("left");
+        timer(1.75);
+        driveTrain.moveAuto("fwd");
+        timer(.45);
+        timer(.5);
+        grabber.Grab(true);
+        timer(.5);
+        driveTrain.moveAuto("back");
+        timer(.3);
+
+
     }
 
     public static void timer(double time) {
@@ -63,19 +81,21 @@ public class Autonomous_Code {
         }
     }
 
-    public void driveGoFront() {
-           driveTrain.moveAuto("fwd");
-           timer(.1);
-           driveTrain.moveAuto("back");
-           timer(.12);
-           driveTrain.moveAuto("stop");
+    public void driveKnockBack(boolean redVisible) {
+        if (redVisible) {
+            driveTrain.moveAuto("fwd", .2);
+            timer(.2);
+            driveTrain.moveAuto("back");
+            timer(.22);
+            driveTrain.moveAuto("stop");
+        }
     }
 
-    public void driveGoBack() {
+    public void driveKnockFront() {
         driveTrain.moveAuto("back");
-        timer(.1);
+        timer(.2);
         driveTrain.moveAuto("fwd");
-        timer(.1);
+        timer(.2);
         driveTrain.moveAuto("stop");
     }
 

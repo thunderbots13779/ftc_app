@@ -28,8 +28,8 @@ public class Grabber {
         this.leftServo = left;
         this.rightServo = right;
 
-        leftServo.setPosition(LEFT_OPEN_POSITION);
-        rightServo.setPosition(RIGHT_OPEN_POSITION);
+        leftServo.setPosition(LEFT_CLOSED_POSITION);
+        rightServo.setPosition(RIGHT_CLOSED_POSITION);
 
     }
 

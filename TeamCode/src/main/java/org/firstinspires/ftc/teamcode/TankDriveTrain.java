@@ -77,17 +77,40 @@ public class TankDriveTrain {
         }
     }
 
-    public void moveAuto(String direction) {
+    public void moveAuto(String direction, double time) {
         if (direction.equals("back")) {
-            motorRight.setPower(-1);
-            motorLeft.setPower(.9);
-        } else if (direction.equals("fwd")){
-            motorRight.setPower(1);
-            motorLeft.setPower(-.9);
+            motorRight.setPower(-.5);
+            motorLeft.setPower(.4);
+            stop(time);
+        } else if (direction.equals("fwd")) {
+            motorRight.setPower(.5);
+            motorLeft.setPower(-.4);
+            stop(time);
+        } else if (direction.equals("right")){
+            motorRight.setPower(.5);
+            motorLeft.setPower(.4);
+            stop(time);
+        } else if (direction.equals("left")){
+            motorRight.setPower(-.5);
+            motorLeft.setPower(-.4);
+            stop(time);
+        } else if (direction.equals("pivotLeft")){
+            motorLeft.setPower(.4);
+            stop(time);
+        } else if (direction.equals("pivotRight")){
+            motorRight.setPower(-.5);
+            stop(time);
         } else {
             motorRight.setPower(0);
             motorLeft.setPower(0);
         }
+    }
+
+    public void stop(double time) {
+        timer(time);
+        motorLeft.setPower(0);
+        motorRight.setPower(0);
+        timer(.2);
     }
 
     private void timer(double time) {
