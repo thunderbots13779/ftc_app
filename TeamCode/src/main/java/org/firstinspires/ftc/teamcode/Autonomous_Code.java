@@ -18,6 +18,8 @@ public class Autonomous_Code {
     private TankDriveTrain driveTrain;
     private Grabber grabber;
     private VerticalLiftMotor liftMotor;
+    private double servoUp = (174.0/180.0);
+    private double servoDown = (77.0/180.0);
 
     public Autonomous_Code (DcMotor motor_0, DcMotor motor_1, DcMotor motor_2, DcMotor motor_3,
                        Servo servo_0, Servo servo_1, Servo servo_2, NormalizedColorSensor color_sensor,
@@ -35,19 +37,20 @@ public class Autonomous_Code {
         this.liftMotor = lift_Motor;
     }
 
-    public  void auto(String direction, String color) {
-        boolean redVisible = color(color);
+    public  void auto(String color) {
         grabber.Grab(true);
-//          liftMotor.autoLift(.5, .2);
-        servo0.setPosition(77.0/180.0);
         timer(1);
+        grabber.Grab(true);
+        servo0.setPosition(servoDown);
+        timer(1);
+        boolean redVisible = color(color);
         if (redVisible) {
-            driveTapnGo(direction);
+            driveGoFront();
         } else {
-            driveGo(direction);
+            driveGoBack();
         }
         timer(1);
-        servo0.setPosition(174.0/180.0);
+        servo0.setPosition(servoUp);
         timer(1);
 
     }
@@ -60,42 +63,20 @@ public class Autonomous_Code {
         }
     }
 
-    public void driveTapnGo(String direction) {
-       if(direction == "back") {
-           motor0.setPower(-1);
-           motor1.setPower(.9);
+    public void driveGoFront() {
+           driveTrain.moveAuto("fwd");
            timer(.1);
-           motor0.setPower(1);
-           motor1.setPower(-.9);
-           timer(.4);
-           motor0.setPower(0);
-           motor1.setPower(0);
-       } else {
-           motor0.setPower(1);
-           motor1.setPower(-.9);
-           timer(.1);
-           motor0.setPower(-1);
-           motor1.setPower(.9);
-           timer(.4);
-           motor0.setPower(0);
-           motor1.setPower(0);
-       }
+           driveTrain.moveAuto("back");
+           timer(.12);
+           driveTrain.moveAuto("stop");
     }
 
-    public void driveGo(String direction) {
-        if (direction == "back") {
-            motor0.setPower(1);
-            motor1.setPower(-.9);
-            timer(.4);
-            motor0.setPower(0);
-            motor1.setPower(0);
-        } else {
-            motor0.setPower(-1);
-            motor1.setPower(.9);
-            timer(.4);
-            motor0.setPower(0);
-            motor1.setPower(0);
-        }
+    public void driveGoBack() {
+        driveTrain.moveAuto("back");
+        timer(.1);
+        driveTrain.moveAuto("fwd");
+        timer(.1);
+        driveTrain.moveAuto("stop");
     }
 
     public boolean color(String color) {
@@ -117,16 +98,16 @@ public class Autonomous_Code {
 
         boolean redVisible;
 
-        if (color == "red") {
+        if (color.equals("red")) {
             if (maxRed > maxBlue)
                 redVisible = true;
             else
                 redVisible = false;
         } else {
             if (maxRed < maxBlue)
-                redVisible = true;
-            else
                 redVisible = false;
+            else
+                redVisible = true;
         }
 
         return redVisible;

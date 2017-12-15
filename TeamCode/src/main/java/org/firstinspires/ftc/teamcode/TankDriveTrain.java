@@ -77,13 +77,16 @@ public class TankDriveTrain {
         }
     }
 
-    public void moveSeconds(double time, int direction) {
-        if (direction == 1) {
-            motorLeft.setPower(1);
+    public void moveAuto(String direction) {
+        if (direction.equals("back")) {
             motorRight.setPower(-1);
-            timer(time);
-            motorLeft.setPower(0);
+            motorLeft.setPower(.9);
+        } else if (direction.equals("fwd")){
+            motorRight.setPower(1);
+            motorLeft.setPower(-.9);
+        } else {
             motorRight.setPower(0);
+            motorLeft.setPower(0);
         }
     }
 

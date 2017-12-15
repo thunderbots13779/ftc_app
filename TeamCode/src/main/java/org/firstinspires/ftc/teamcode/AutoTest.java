@@ -38,7 +38,7 @@ public class AutoTest extends LinearOpMode{
         //run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
 
-            Auto.auto("back", "red");
+            Auto.auto("red");
             stop();
 
         }
