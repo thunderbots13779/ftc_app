@@ -84,15 +84,11 @@ public class Autonomous_Code {
         if (colorVisible) {
             driveTrain.moveAuto("pivotRightFront", .185);
             servoPosUp();
-            driveTrain.moveAuto("pivotRightFront", .22);
-            back = .77;
-            turn = .55;
+            driveTrain.moveAuto("pivotLeftFront", .22);
         } else {
             driveTrain.moveAuto("pivotRightBack", .2);
             servoPosUp();
             driveTrain.moveAuto("pivotRightFront", .22);
-            back = .6;
-            turn = .7;
         }
 
     }
@@ -161,8 +157,8 @@ public class Autonomous_Code {
     }
 
     public void topFront () {
-        driveTrain.moveAuto("front", back);
-        driveTrain.moveAuto("left", turn);
+        driveTrain.moveAuto("fwd", .7);
+        driveTrain.moveAuto("left", 1.1);
         driveTrain.moveAuto("fwd", .45);
         ungrab();
         driveTrain.moveAuto("back", .3);
