@@ -128,7 +128,7 @@ public class Autonomous_Code {
     }
 
     /**CASES**/
-    public void topBack() {
+    public void topRed() {
         driveTrain.moveAuto("back", back);
         driveTrain.moveAuto("left", turn);
         driveTrain.moveAuto("fwd", .45);
@@ -140,7 +140,7 @@ public class Autonomous_Code {
         driveTrain.moveAuto("back", .15);
     }
 
-    public void botttomBack () {
+    public void bottomRed() {
         driveTrain.moveAuto("back", .2);
         driveTrain.moveAuto("right", .7);
         driveTrain.moveAuto("back", .2);
@@ -156,7 +156,7 @@ public class Autonomous_Code {
         driveTrain.moveAuto("back", .15);
     }
 
-    public void topFront () {
+    public void topBlue() {
         driveTrain.moveAuto("fwd", .7);
         driveTrain.moveAuto("left", 1.1);
         driveTrain.moveAuto("fwd", .45);
@@ -168,7 +168,7 @@ public class Autonomous_Code {
         driveTrain.moveAuto("back", .15);
     }
 
-    public void botttomFront () {
+    public void bottomBlue() {
         driveTrain.moveAuto("right", .5);
         driveTrain.moveAuto("fwd", .5);
         driveTrain.moveAuto("right", .65);

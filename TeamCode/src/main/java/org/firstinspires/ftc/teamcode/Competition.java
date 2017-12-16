@@ -42,9 +42,6 @@ public class Competition extends LinearOpMode {
 
         initialization();
 
-        SwitchableLight light = (SwitchableLight)colorSensor;
-        light.enableLight(false);
-
         //Wait for the game to start (driver presses PLAY)
         waitForStart();
 

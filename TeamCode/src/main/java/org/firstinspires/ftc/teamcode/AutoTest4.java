@@ -11,7 +11,7 @@ import com.qualcomm.robotcore.hardware.Servo;
  */
 
 @Autonomous
-public class AutoTest extends LinearOpMode{
+public class AutoTest4 extends LinearOpMode{
 
     private DcMotor motor0;
     private DcMotor motor1;
@@ -43,7 +43,7 @@ public class AutoTest extends LinearOpMode{
         while (opModeIsActive()) {
 
             Auto.auto("red", "back");
-            Auto.topFront();
+            Auto.bottomRed();
 //            telemetry.addData("column", column);
 //            telemetry.update();
             stop();
