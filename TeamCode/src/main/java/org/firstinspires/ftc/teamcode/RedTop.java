@@ -11,7 +11,7 @@ import com.qualcomm.robotcore.hardware.Servo;
  */
 
 @Autonomous
-public class AutoTest2 extends LinearOpMode{
+public class RedTop extends LinearOpMode{
 
     private DcMotor motor0;
     private DcMotor motor1;
@@ -37,17 +37,8 @@ public class AutoTest2 extends LinearOpMode{
         //Wait for the game to start (driver presses PLAY)
         waitForStart();
 
-//        column = vuMarkIdentification.identify();
-
-        //run until the end of the match (driver presses STOP)
-        while (opModeIsActive()) {
-
-            Auto.auto("red", "back");
-            Auto.topRed();
-//            telemetry.addData("column", column);
-//            telemetry.update();
-            stop();
-        }
+        Auto.auto("blue", "back");
+        Auto.topRed();
     }
 
     public void initialization() {

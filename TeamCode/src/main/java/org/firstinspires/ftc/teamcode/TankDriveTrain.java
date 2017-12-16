@@ -11,7 +11,7 @@ public class TankDriveTrain {
     private double x0;
     private double x1;
     private double x2;
-    private double powerScale = (1/1.1);
+    private double powerScale = (1/1.3);
     private int gear = 1;
     public boolean isPressed = false;
 
@@ -27,7 +27,7 @@ public class TankDriveTrain {
 
         switch(gear) {
             case 1:
-                powerScale = (0.5);
+                powerScale = (1/1.3);
                 break;
             case 2:
                 powerScale = (1/1.1);
@@ -36,7 +36,7 @@ public class TankDriveTrain {
                 powerScale = (1);
                 break;
             default:
-                powerScale = (1/1.1);
+                powerScale = (1/1.3);
                 break;
         }
     }

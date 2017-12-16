@@ -115,7 +115,7 @@ public class Autonomous_Code {
 
     public void liftUp() {
         motor2.setPower(1);
-        timer(.55);
+        timer(.35);
         motor2.setPower(0);
         timer(.5);
     }
@@ -172,7 +172,6 @@ public class Autonomous_Code {
         driveTrain.moveAuto("fwd", .4);
         driveTrain.moveAuto("right", .7);
         driveTrain.moveAuto("fwd", .2);
-        driveTrain.moveAuto("left",.6);
         driveTrain.moveAuto("fwd", .35);
         ungrab();
         driveTrain.moveAuto("back", .3);
