@@ -46,34 +46,15 @@ public class VuMarkIdentification {
         int relic = 0;
 
         RelicRecoveryVuMark vuMark = RelicRecoveryVuMark.from(relicTemplate);
-        if (vuMark != RelicRecoveryVuMark.UNKNOWN) {
 
-            telemetry.addData("VuMark", "%s visible", vuMark);
+        if (vuMark == RelicRecoveryVuMark.LEFT)
+            return 0;
+        else if (vuMark == RelicRecoveryVuMark.CENTER)
+            return 1;
+        else if (vuMark == RelicRecoveryVuMark.RIGHT)
+            return 2;
+        return 3;
 
-            OpenGLMatrix pose = ((VuforiaTrackableDefaultListener) relicTemplate.getListener()).getPose();
-            telemetry.addData("Pose", format(pose));
-
-            if (pose != null) {
-                VectorF trans = pose.getTranslation();
-                Orientation rot = Orientation.getOrientation(pose, AxesReference.EXTRINSIC, AxesOrder.XYZ, AngleUnit.DEGREES);
-
-                // Extract the X, Y, and Z components of the offset of the target relative to the robot
-                double tX = trans.get(0);
-                double tY = trans.get(1);
-                double tZ = trans.get(2);
-
-                // Extract the rotational components of the target relative to the robot
-                double rX = rot.firstAngle;
-                double rY = rot.secondAngle;
-                double rZ = rot.thirdAngle;
-            }
-        } else {
-            telemetry.addData("VuMark", "not visible");
-        }
-
-        telemetry.update();
-
-        return relic;
     }
 
     String format(OpenGLMatrix transformationMatrix) {

@@ -169,10 +169,11 @@ public class Autonomous_Code {
     }
 
     public void bottomBlue() {
-        driveTrain.moveAuto("right", .5);
-        driveTrain.moveAuto("fwd", .5);
-        driveTrain.moveAuto("right", .65);
-        driveTrain.moveAuto("fwd", .7);
+        driveTrain.moveAuto("fwd", .4);
+        driveTrain.moveAuto("right", .7);
+        driveTrain.moveAuto("fwd", .2);
+        driveTrain.moveAuto("left",.6);
+        driveTrain.moveAuto("fwd", .35);
         ungrab();
         driveTrain.moveAuto("back", .3);
         grab();
