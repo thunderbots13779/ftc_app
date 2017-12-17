@@ -127,17 +127,21 @@ public class Autonomous_Code {
         timer(.55);
     }
 
-    /**CASES**/
-    public void topRed() {
-        driveTrain.moveAuto("back", back);
-        driveTrain.moveAuto("left", turn);
-        driveTrain.moveAuto("fwd", .45);
+    public void end() {
         ungrab();
         driveTrain.moveAuto("back", .3);
         grab();
         liftDown();
         driveTrain.moveAuto("fwd", .3);
         driveTrain.moveAuto("back", .15);
+    }
+
+    /**CASES**/
+    public void topRed() {
+        driveTrain.moveAuto("back", back);
+        driveTrain.moveAuto("left", turn);
+        driveTrain.moveAuto("fwd", .45);
+        end();
     }
 
     public void bottomRed() {
@@ -148,24 +152,14 @@ public class Autonomous_Code {
         driveTrain.moveAuto("fwd", .5);
         driveTrain.moveAuto("right", 1.55);
         driveTrain.moveAuto("fwd", .35);
-        ungrab();
-        driveTrain.moveAuto("back", .3);
-        grab();
-        liftDown();
-        driveTrain.moveAuto("fwd", .3);
-        driveTrain.moveAuto("back", .15);
+        end();
     }
 
     public void topBlue() {
         driveTrain.moveAuto("fwd", .7);
         driveTrain.moveAuto("left", 1.1);
         driveTrain.moveAuto("fwd", .45);
-        ungrab();
-        driveTrain.moveAuto("back", .3);
-        grab();
-        liftDown();
-        driveTrain.moveAuto("fwd", .3);
-        driveTrain.moveAuto("back", .15);
+        end();
     }
 
     public void bottomBlue() {
@@ -174,12 +168,7 @@ public class Autonomous_Code {
         driveTrain.moveAuto("fwd", .2);
         driveTrain.moveAuto("left",.6);
         driveTrain.moveAuto("fwd", .35);
-        ungrab();
-        driveTrain.moveAuto("back", .3);
-        grab();
-        liftDown();
-        driveTrain.moveAuto("fwd", .3);
-        driveTrain.moveAuto("back", .15);
+        end();
     }
     /*********/
 
