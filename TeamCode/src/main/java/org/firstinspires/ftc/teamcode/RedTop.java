@@ -25,7 +25,7 @@ public class RedTop extends LinearOpMode{
     private Grabber grabber;
     private VerticalLiftMotor liftMotor;
     private Autonomous_Code Auto;
-    private VuMarkIdentification vuMarkIdentification;
+//    private VuMarkIdentification vuMarkIdentification;
     private int column = 0;
 
     @Override
@@ -37,8 +37,14 @@ public class RedTop extends LinearOpMode{
         //Wait for the game to start (driver presses PLAY)
         waitForStart();
 
-        Auto.auto("blue", "back");
-        Auto.topRed();
+//        column = vuMarkIdentification.identify();
+//        telemetry.addData("column", column);
+//        telemetry.update();
+
+        if (opModeIsActive()) {
+            Auto.auto("blue", "back");
+            Auto.topRed();
+        }
     }
 
     public void initialization() {
@@ -56,7 +62,7 @@ public class RedTop extends LinearOpMode{
         driveTrain = new TankDriveTrain(motor0, motor1);
         grabber = new Grabber(servo1, servo2);
         liftMotor = new VerticalLiftMotor(motor2);
-        vuMarkIdentification = new VuMarkIdentification(hardwareMap, telemetry);
+//        vuMarkIdentification = new VuMarkIdentification(hardwareMap, telemetry);
     }
 
 
