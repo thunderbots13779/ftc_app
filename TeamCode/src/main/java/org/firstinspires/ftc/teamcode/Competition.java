@@ -7,20 +7,6 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.NormalizedColorSensor;
 import com.qualcomm.robotcore.hardware.NormalizedRGBA;
 import com.qualcomm.robotcore.hardware.Servo;
-import com.qualcomm.robotcore.hardware.SwitchableLight;
-
-import org.firstinspires.ftc.robotcore.external.ClassFactory;
-import org.firstinspires.ftc.robotcore.external.matrices.OpenGLMatrix;
-import org.firstinspires.ftc.robotcore.external.matrices.VectorF;
-import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
-import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
-import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
-import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
-import org.firstinspires.ftc.robotcore.external.navigation.RelicRecoveryVuMark;
-import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
-import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackable;
-import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackableDefaultListener;
-import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
 
 @TeleOp
 public class Competition extends LinearOpMode {
@@ -52,7 +38,7 @@ public class Competition extends LinearOpMode {
 
             //DRIVE TRAIN
             move();
-
+            strafe();
             //GRABBER
             grab();
 
@@ -70,7 +56,7 @@ public class Competition extends LinearOpMode {
         motor0 = hardwareMap.get(DcMotor.class, "motor0");
         motor1 = hardwareMap.get(DcMotor.class, "motor1");
         motor2 = hardwareMap.get(DcMotor.class, "motor2");
-
+        motor3 = hardwareMap.get(DcMotor.class, "motor3");
         servo0 = hardwareMap.get(Servo.class, "servo0");
         servo1 = hardwareMap.get(Servo.class, "servo1");
         servo2 = hardwareMap.get(Servo.class, "servo2");
@@ -78,7 +64,7 @@ public class Competition extends LinearOpMode {
         colorSensor = hardwareMap.get(NormalizedColorSensor.class, "colorSensor");
 
         //INITIALIZATION
-        driveTrain = new TankDriveTrain(motor0, motor1);
+        driveTrain = new TankDriveTrain(motor0, motor1, motor3);
         grabber = new Grabber(servo1, servo2);
         liftMotor = new VerticalLiftMotor(motor2);
 
@@ -91,7 +77,8 @@ public class Competition extends LinearOpMode {
         if (gamepad1.left_stick_y != 0 || gamepad1.right_stick_y != 0) {
             driveTrain.move(this.gamepad1.right_stick_y, this.gamepad1.left_stick_y);
         } else {
-            driveTrain.move(this.gamepad2.right_stick_y, this.gamepad2.left_stick_y);}
+            driveTrain.move(this.gamepad2.right_stick_y, this.gamepad2.left_stick_y);
+        }
         if (gamepad1.dpad_down || gamepad1.dpad_up) {
             driveTrain.dpad(this.gamepad1.dpad_up, this.gamepad1.dpad_down);
         } else {
@@ -99,11 +86,19 @@ public class Competition extends LinearOpMode {
         }
     }
 
-    private void grab() {
-        if (gamepad1.right_bumper) {
-            grabber.Grab(this.gamepad1.right_bumper);
+    private void strafe() {
+        if (gamepad1.left_bumper || gamepad1.right_bumper) {
+            driveTrain.strafe(this.gamepad1.left_bumper, this.gamepad1.right_bumper);
         } else {
-            grabber.Grab(this.gamepad2.right_bumper);
+            driveTrain.strafe(this.gamepad2.left_bumper, this.gamepad2.right_bumper);
+        }
+    }
+
+    private void grab() {
+        if (gamepad1.a) {
+            grabber.Grab(this.gamepad1.a);
+        } else {
+            grabber.Grab(this.gamepad2.a);
         }
     }
 

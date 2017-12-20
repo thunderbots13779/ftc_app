@@ -26,6 +26,9 @@ public class Autonomous_Code {
     private final double RIGHT_CLOSED_POSITION = (118.0/180.0);
     double back = 0;
     double turn = 0;
+    double columnTime = 0;
+    double columnShift = .2;
+    String strafeDirection;
 
     public Autonomous_Code (DcMotor motor_0, DcMotor motor_1, DcMotor motor_2, DcMotor motor_3,
                        Servo servo_0, Servo servo_1, Servo servo_2, NormalizedColorSensor color_sensor,
@@ -129,6 +132,7 @@ public class Autonomous_Code {
 
     public void end() {
         ungrab();
+        driveTrain.moveAuto("fwd", .45);
         driveTrain.moveAuto("back", .3);
         grab();
         liftDown();
@@ -169,10 +173,30 @@ public class Autonomous_Code {
         driveTrain.moveAuto("fwd", .35);
         end();
     }
+
+    public void testMode(int column) {
+        test(column);
+        driveTrain.moveAuto("back", .4);
+        driveTrain.moveAuto("fwd", .6);
+        driveTrain.moveAuto("back", .4);
+        driveTrain.moveAuto("left", .55);
+        driveTrain.moveAuto(strafeDirection, columnTime);
+        end();
+    }
+
+    public void test(int column) {
+        if (column == 0) {
+            strafeDirection = "strafeLeft";
+            columnTime -= columnShift;
+        } else if (column == 2) {
+            strafeDirection = "strafeRight";
+            columnTime += columnShift;
+        }
+    }
     /*********/
 
     public boolean color(String color) {
-        int scale = 10000;
+        int scale = 100;
         double maxRed = 0;
         double maxBlue = 0;
 

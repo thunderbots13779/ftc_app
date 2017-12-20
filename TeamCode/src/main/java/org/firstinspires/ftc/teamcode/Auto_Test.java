@@ -11,7 +11,7 @@ import com.qualcomm.robotcore.hardware.Servo;
  */
 
 @Autonomous
-public class Front_Top extends LinearOpMode{
+public class Auto_Test extends LinearOpMode{
 
     private DcMotor motor0;
     private DcMotor motor1;
@@ -25,6 +25,8 @@ public class Front_Top extends LinearOpMode{
     private Grabber grabber;
     private VerticalLiftMotor liftMotor;
     private Autonomous_Code Auto;
+    private VuMarkIdentification vuMarkIdentification;
+    private int column = 0;
 
     @Override
     public void runOpMode() {
@@ -35,14 +37,9 @@ public class Front_Top extends LinearOpMode{
         //Wait for the game to start (driver presses PLAY)
         waitForStart();
 
-        //run until the end of the match (driver presses STOP)
-        while (opModeIsActive()) {
-
-            Auto.auto("blue", "back");
-            Auto.topRed();
-            stop();
-
-        }
+        column= vuMarkIdentification.identify();
+        Auto.auto("blue", "back");
+        Auto.testMode(column);
     }
 
     public void initialization() {
@@ -50,16 +47,18 @@ public class Front_Top extends LinearOpMode{
         motor0 = hardwareMap.get(DcMotor.class, "motor0");
         motor1 = hardwareMap.get(DcMotor.class, "motor1");
         motor2 = hardwareMap.get(DcMotor.class, "motor2");
-        // motor3 = hardwareMap.get(DcMotor.class, "motor3");
+        motor3 = hardwareMap.get(DcMotor.class, "motor3");
         servo0 = hardwareMap.get(Servo.class, "servo0");
         servo1 = hardwareMap.get(Servo.class, "servo1");
         servo2 = hardwareMap.get(Servo.class, "servo2");
         colorSensor = hardwareMap.get(NormalizedColorSensor.class, "colorSensor");
 
         //INITIALIZATION
-        driveTrain = new TankDriveTrain(motor0, motor1);
+        driveTrain = new TankDriveTrain(motor0, motor1, motor3);
         grabber = new Grabber(servo1, servo2);
         liftMotor = new VerticalLiftMotor(motor2);
+        vuMarkIdentification = new VuMarkIdentification(hardwareMap, telemetry);
     }
+
 
 }

@@ -37,6 +37,7 @@ public class RedTop extends LinearOpMode{
         //Wait for the game to start (driver presses PLAY)
         waitForStart();
 
+        column= vuMarkIdentification.identify();
         Auto.auto("blue", "back");
         Auto.topRed();
     }
@@ -46,14 +47,14 @@ public class RedTop extends LinearOpMode{
         motor0 = hardwareMap.get(DcMotor.class, "motor0");
         motor1 = hardwareMap.get(DcMotor.class, "motor1");
         motor2 = hardwareMap.get(DcMotor.class, "motor2");
-        // motor3 = hardwareMap.get(DcMotor.class, "motor3");
+        motor3 = hardwareMap.get(DcMotor.class, "motor3");
         servo0 = hardwareMap.get(Servo.class, "servo0");
         servo1 = hardwareMap.get(Servo.class, "servo1");
         servo2 = hardwareMap.get(Servo.class, "servo2");
         colorSensor = hardwareMap.get(NormalizedColorSensor.class, "colorSensor");
 
         //INITIALIZATION
-        driveTrain = new TankDriveTrain(motor0, motor1);
+        driveTrain = new TankDriveTrain(motor0, motor1, motor3);
         grabber = new Grabber(servo1, servo2);
         liftMotor = new VerticalLiftMotor(motor2);
         vuMarkIdentification = new VuMarkIdentification(hardwareMap, telemetry);

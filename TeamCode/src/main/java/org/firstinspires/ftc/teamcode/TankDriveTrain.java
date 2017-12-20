@@ -4,21 +4,22 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 
 public class TankDriveTrain {
 
-    private DcMotor motorLeft, motorRight, motorStrafe;
+    private DcMotor motorLeft, motorRight, motorMiddle;
 
     private final int MOTOR_0_DIRECTION = 1;
     private final int MOTOR_1_DIRECTION = -1;
     private double x0;
     private double x1;
     private double x2;
-    private double powerScale = (1/1.3);
+    private double powerScale = (1/1.2);
     private int gear = 1;
     public boolean isPressed = false;
 
-    public TankDriveTrain(DcMotor motor0, DcMotor motor1/*, DcMotor motor3*/) {
+    public TankDriveTrain(DcMotor motor0, DcMotor motor1, DcMotor motor3) {
 
         this.motorLeft = motor0;
         this.motorRight = motor1;
+        this.motorMiddle = motor3;
 
     }
 
@@ -30,13 +31,13 @@ public class TankDriveTrain {
                 powerScale = (1/1.3);
                 break;
             case 2:
-                powerScale = (1/1.1);
+                powerScale = (1/1.2);
                 break;
             case 3:
-                powerScale = (1);
+                powerScale = (1/1.1);
                 break;
             default:
-                powerScale = (1/1.3);
+                powerScale = (1/1.2);
                 break;
         }
     }
@@ -94,6 +95,12 @@ public class TankDriveTrain {
             motorRight.setPower(-.5);
             motorLeft.setPower(-.4);
             stop(time);
+        } else if (direction.equals("strafeLeft")){
+            motorMiddle.setPower(-.5);
+            stop(time);
+        } else if (direction.equals("strafeRight")){
+            motorMiddle.setPower(.5);
+            stop(time);
         } else if (direction.equals("pivotLeftBack")){
             motorLeft.setPower(.4);
             stop(time);
@@ -128,14 +135,15 @@ public class TankDriveTrain {
     }
 
     //STRAFE
-//    public void strafe(double motor3Power) {
-//        x2 = powerScale*(Math.pow(motor3Power, 2));
-//        if (motor3Power >= 0) {
-//            motorLeft.setPower(MOTOR_0_DIRECTION * x0);
-//        } else if (motor3Power < 0) {
-//            motorLeft.setPower(MOTOR_0_DIRECTION * -x0);
-//        }
-//    }
+    public void strafe(boolean motor3PowerLeft, boolean motor3PowerRight) {
+        if (motor3PowerLeft) {
+            motorMiddle.setPower(1);
+        } else if (motor3PowerRight) {
+            motorMiddle.setPower(-1);
+        } else {
+            motorMiddle.setPower(0);
+        }
+    }
 
     public double getPowerScale() { return powerScale; }
     public double getGear() { return gear; }
