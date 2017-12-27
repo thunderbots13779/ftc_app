@@ -37,8 +37,10 @@ public class BlueBottom extends LinearOpMode{
         //Wait for the game to start (driver presses PLAY)
         waitForStart();
 
-        Auto.auto("red", "back");
-        Auto.bottomBlue();
+        if (opModeIsActive()) {
+            Auto.auto("red", "back");
+            Auto.bottomBlue();
+        }
 
     }
 

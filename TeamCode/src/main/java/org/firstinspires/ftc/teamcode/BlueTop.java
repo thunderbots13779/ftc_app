@@ -37,8 +37,10 @@ public class BlueTop extends LinearOpMode{
         //Wait for the game to start (driver presses PLAY)
         waitForStart();
 
-        Auto.auto("red", "back");
-        Auto.topBlue();
+        if (opModeIsActive()) {
+            Auto.auto("red", "back");
+            Auto.topBlue();
+        }
     }
 
     public void initialization() {

@@ -29,7 +29,7 @@ public class TankDriveTrain {
 
         switch(gear) {
             case 1:
-                powerScale = (1/1.3);
+                powerScale = (1/1.5);
                 break;
             case 2:
                 powerScale = (1/1.2);

@@ -69,7 +69,7 @@ public class Autonomous_Code {
 
     public void driveKnockBack(boolean colorVisible) {
         if (colorVisible) {
-            driveTrain.moveAuto("pivotRightFront", .185);
+            driveTrain.moveAuto("pivotRightFront", .155);
             servoPosUp();
             driveTrain.moveAuto("pivotRightBack", .22);
             back = .77;
@@ -77,7 +77,7 @@ public class Autonomous_Code {
         } else {
             driveTrain.moveAuto("pivotRightBack", .2);
             servoPosUp();
-            driveTrain.moveAuto("pivotLeftBack", .22);
+            driveTrain.moveAuto("pivotRightFront", .19);
             back = .5;
             turn = .65;
         }
@@ -114,6 +114,7 @@ public class Autonomous_Code {
         servo2.setPosition(LEFT_OPEN_POSITION);
         servo1 .setPosition(RIGHT_OPEN_POSITION);
         timer(.5);
+
     }
 
     public void liftUp() {
@@ -125,9 +126,26 @@ public class Autonomous_Code {
 
     public void liftDown() {
         motor2.setPower(-1);
-        timer(.55);
+        timer(.2);
         motor2.setPower(0);
-        timer(.55);
+        timer(.45);
+    }
+
+//    public double changeBox(int column) {
+//        if (column == 0) {
+//            return back -= 0.2;
+//        } else if (column == 1) {
+//            return back;
+//        } else if (column == 2) {
+//            return back += 0.2;
+//        } else {
+//            return back;
+//        }
+//    }
+
+    public void align() {
+        driveTrain.moveAuto("back", back);
+        driveTrain.moveAuto("fwd", back/2);
     }
 
     public void end() {
@@ -136,7 +154,7 @@ public class Autonomous_Code {
         driveTrain.moveAuto("back", .3);
         grab();
         liftDown();
-        driveTrain.moveAuto("fwd", .3);
+        driveTrain.moveAuto("fwd", .4);
         driveTrain.moveAuto("back", .15);
     }
 

@@ -36,12 +36,13 @@ public class RedBottom extends LinearOpMode{
         //Wait for the game to start (driver presses PLAY)
         waitForStart();
 
-
-        //run until the end of the match (driver presses STOP)
-        Auto.auto("blue", "back");
-        telemetry.addData("column", vuMarkIdentification.identify());
-        telemetry.update();
-        Auto.bottomRed();
+        if (opModeIsActive()) {
+            //run until the end of the match (driver presses STOP)
+            Auto.auto("blue", "back");
+            telemetry.addData("column", vuMarkIdentification.identify());
+            telemetry.update();
+            Auto.bottomRed();
+        }
     }
 
     public void initialization() {
