@@ -18,14 +18,12 @@ public class VerticalLiftMotor {
         this.liftMotor = motor;
     }
 
-    public void Lift(double Left, double Right, boolean lb) {
-        x0 = (0.5) * (Math.pow(Left, 2));
-        x1 = (1 / 1.3) * (Math.pow(Right, 2));
-            if (Left != 0) {
-                liftMotor.setPower(-x0);
-            } else if (Right != 0) {
-                liftMotor.setPower(x1);
-            } else if (Left == 0 || Right == 0) {
+    public void Lift(boolean Left, boolean Right) {
+            if (Left) {
+                liftMotor.setPower(-1);
+            } else if (Right) {
+                liftMotor.setPower(1);
+            } else {
                 liftMotor.setPower(0);
             }
     }

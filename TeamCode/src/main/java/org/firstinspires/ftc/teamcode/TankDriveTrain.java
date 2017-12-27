@@ -10,7 +10,8 @@ public class TankDriveTrain {
     private final int MOTOR_1_DIRECTION = -1;
     private double x0;
     private double x1;
-    private double x2;
+    private double ssr;
+    private double ssl;
     private double powerScale = (1/1.2);
     private int gear = 1;
     public boolean isPressed = false;
@@ -66,15 +67,19 @@ public class TankDriveTrain {
     public void move(double motor0Power, double motor1Power) {
         x0 = powerScale*(Math.pow(motor0Power, 2));
         x1 = powerScale*(Math.pow(motor1Power, 2));
-        if (motor0Power >= 0) {
+        if (motor0Power > 0) {
             motorLeft.setPower(MOTOR_0_DIRECTION * x0);
         } else if (motor0Power < 0) {
             motorLeft.setPower(MOTOR_0_DIRECTION * -x0);
+        } else {
+            motorLeft.setPower(0);
         }
-        if (motor1Power >= 0) {
+        if (motor1Power > 0) {
             motorRight.setPower(MOTOR_1_DIRECTION * x1);
         } else if (motor1Power < 0) {
             motorRight.setPower(MOTOR_1_DIRECTION * -x1);
+        } else {
+            motorRight.setPower(0);
         }
     }
 
@@ -135,11 +140,13 @@ public class TankDriveTrain {
     }
 
     //STRAFE
-    public void strafe(boolean motor3PowerLeft, boolean motor3PowerRight) {
-        if (motor3PowerLeft) {
-            motorMiddle.setPower(1);
-        } else if (motor3PowerRight) {
-            motorMiddle.setPower(-1);
+    public void strafe(double motor3PowerLeft, double motor3PowerRight) {
+        ssl = Math.pow(motor3PowerLeft, 2);
+        ssr = Math.pow(motor3PowerRight, 2);
+        if (motor3PowerLeft != 0) {
+            motorMiddle.setPower(ssl);
+        } else if (motor3PowerRight != 0) {
+            motorMiddle.setPower(-ssr);
         } else {
             motorMiddle.setPower(0);
         }

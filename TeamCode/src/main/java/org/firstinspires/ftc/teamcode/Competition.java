@@ -86,11 +86,11 @@ public class Competition extends LinearOpMode {
         }
     }
 
-    private void strafe() {
+    private void lift() {
         if (gamepad1.left_bumper || gamepad1.right_bumper) {
-            driveTrain.strafe(this.gamepad1.left_bumper, this.gamepad1.right_bumper);
+            liftMotor.Lift(this.gamepad1.left_bumper, this.gamepad1.right_bumper);
         } else {
-            driveTrain.strafe(this.gamepad2.left_bumper, this.gamepad2.right_bumper);
+            liftMotor.Lift(this.gamepad2.left_bumper, this.gamepad2.right_bumper);
         }
     }
 
@@ -102,11 +102,11 @@ public class Competition extends LinearOpMode {
         }
     }
 
-    private void lift() {
+    private void strafe() {
         if (gamepad1.left_trigger != 0|| gamepad1.right_trigger != 0) {
-            liftMotor.Lift(this.gamepad1.left_trigger, this.gamepad1.right_trigger, this.gamepad1.left_bumper);
+            driveTrain.strafe(this.gamepad1.left_trigger, this.gamepad1.right_trigger);
         } else {
-            liftMotor.Lift(this.gamepad2.left_trigger, this.gamepad2.right_trigger, this.gamepad2.left_bumper);
+            driveTrain.strafe(this.gamepad2.left_trigger, this.gamepad2.right_trigger);
         }
     }
 
