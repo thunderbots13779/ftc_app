@@ -13,7 +13,7 @@ public class TankDriveTrain {
     private double ssr;
     private double ssl;
     private double powerScale = (1/1.2);
-    private int gear = 1;
+    private int gear = 2;
     public boolean isPressed = false;
 
     public TankDriveTrain(DcMotor motor0, DcMotor motor1, DcMotor motor3) {
