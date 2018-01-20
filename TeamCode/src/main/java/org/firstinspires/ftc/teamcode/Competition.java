@@ -5,7 +5,6 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.NormalizedColorSensor;
-import com.qualcomm.robotcore.hardware.NormalizedRGBA;
 import com.qualcomm.robotcore.hardware.Servo;
 
 @TeleOp
@@ -19,7 +18,7 @@ public class Competition extends LinearOpMode {
     private Servo servo1;
     private Servo servo2;
     private NormalizedColorSensor colorSensor;
-    private TankDriveTrain driveTrain;
+    private TeleDriveTrain driveTrain;
     private Grabber grabber;
     private VerticalLiftMotor liftMotor;
 
@@ -64,7 +63,7 @@ public class Competition extends LinearOpMode {
         colorSensor = hardwareMap.get(NormalizedColorSensor.class, "colorSensor");
 
         //INITIALIZATION
-        driveTrain = new TankDriveTrain(motor0, motor1, motor3);
+        driveTrain = new TeleDriveTrain(motor0, motor1, motor3);
         grabber = new Grabber(servo1, servo2);
         liftMotor = new VerticalLiftMotor(motor2);
 
@@ -138,31 +137,5 @@ public class Competition extends LinearOpMode {
 
         telemetry.update();
 
-    }
-
-    private boolean color() {
-        int scale = 10000;
-        double maxRed = 0;
-        double maxBlue = 0;
-
-        for (int i = 0; i < 10; i++) {
-            NormalizedRGBA colors = colorSensor.getNormalizedColors();
-
-            double red = scale * colors.red;
-            double blue = scale * colors.blue;
-            if (red > maxRed)
-                maxRed = red;
-            if (blue > maxBlue)
-                maxBlue = blue;
-            try {
-                Thread.sleep((long).1);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-
-        boolean redVisible = maxRed > maxBlue;
-
-        return redVisible;
     }
 }

@@ -21,7 +21,7 @@ public class Auto_Test extends LinearOpMode{
     private Servo servo1;
     private Servo servo2;
     private NormalizedColorSensor colorSensor;
-    private TankDriveTrain driveTrain;
+    private AutoDriveTrain driveTrain;
     private Grabber grabber;
     private VerticalLiftMotor liftMotor;
     private Autonomous_Code Auto;
@@ -54,7 +54,7 @@ public class Auto_Test extends LinearOpMode{
         colorSensor = hardwareMap.get(NormalizedColorSensor.class, "colorSensor");
 
         //INITIALIZATION
-        driveTrain = new TankDriveTrain(motor0, motor1, motor3);
+        driveTrain = new AutoDriveTrain(motor0, motor1, motor3);
         grabber = new Grabber(servo1, servo2);
         liftMotor = new VerticalLiftMotor(motor2);
         vuMarkIdentification = new VuMarkIdentification(hardwareMap, telemetry);

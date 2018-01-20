@@ -2,7 +2,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-public class TankDriveTrain {
+public class TeleDriveTrain {
 
     private DcMotor motorLeft, motorRight, motorMiddle;
 
@@ -16,7 +16,7 @@ public class TankDriveTrain {
     private int gear = 1;
     public boolean isPressed = false;
 
-    public TankDriveTrain(DcMotor motor0, DcMotor motor1, DcMotor motor3) {
+    public TeleDriveTrain(DcMotor motor0, DcMotor motor1, DcMotor motor3) {
 
         this.motorLeft = motor0;
         this.motorRight = motor1;
@@ -83,62 +83,6 @@ public class TankDriveTrain {
         }
     }
 
-    public void moveAuto(String direction, double time) {
-        if (direction.equals("back")) {
-            motorRight.setPower(-.5);
-            motorLeft.setPower(.4);
-            stop(time);
-        } else if (direction.equals("fwd")) {
-            motorRight.setPower(.5);
-            motorLeft.setPower(-.4);
-            stop(time);
-        } else if (direction.equals("right")){
-            motorRight.setPower(.5);
-            motorLeft.setPower(.4);
-            stop(time);
-        } else if (direction.equals("left")){
-            motorRight.setPower(-.5);
-            motorLeft.setPower(-.4);
-            stop(time);
-        } else if (direction.equals("strafeLeft")){
-            motorMiddle.setPower(-.5);
-            stop(time);
-        } else if (direction.equals("strafeRight")){
-            motorMiddle.setPower(.5);
-            stop(time);
-        } else if (direction.equals("pivotLeftBack")){
-            motorLeft.setPower(.4);
-            stop(time);
-        } else if (direction.equals("pivotRightBack")){
-            motorRight.setPower(-.5);
-            stop(time);
-        } else if (direction.equals("pivotLeftFront")){
-            motorLeft.setPower(-.4);
-            stop(time);
-        } else if (direction.equals("pivotRightFront")){
-            motorRight.setPower(.5);
-            stop(time);
-        } else {
-            motorRight.setPower(0);
-            motorLeft.setPower(0);
-        }
-    }
-
-    public void stop(double time) {
-        timer(time);
-        motorLeft.setPower(0);
-        motorRight.setPower(0);
-        timer(.2);
-    }
-
-    private void timer(double time) {
-        try {
-            Thread.sleep((long)(time*1000));
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
-
     //STRAFE
     public void strafe(double motor3PowerLeft, double motor3PowerRight) {
         ssl = Math.pow(motor3PowerLeft, 2);
@@ -152,7 +96,7 @@ public class TankDriveTrain {
         }
     }
 
-    public double getPowerScale() { return powerScale; }
-    public double getGear() { return gear; }
-
+    public int getGear() {
+        return gear;
+    }
 }

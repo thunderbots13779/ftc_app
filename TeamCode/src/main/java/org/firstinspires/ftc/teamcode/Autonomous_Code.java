@@ -15,7 +15,7 @@ public class Autonomous_Code {
     private Servo servo1;
     private Servo servo2;
     private NormalizedColorSensor colorSensor;
-    private TankDriveTrain driveTrain;
+    private AutoDriveTrain driveTrain;
     private Grabber grabber;
     private VerticalLiftMotor liftMotor;
     private double servoUp = (174.0/180.0);
@@ -31,8 +31,8 @@ public class Autonomous_Code {
     String strafeDirection;
 
     public Autonomous_Code (DcMotor motor_0, DcMotor motor_1, DcMotor motor_2, DcMotor motor_3,
-                       Servo servo_0, Servo servo_1, Servo servo_2, NormalizedColorSensor color_sensor,
-                       TankDriveTrain drive_Train, Grabber grabber_, VerticalLiftMotor lift_Motor) {
+                            Servo servo_0, Servo servo_1, Servo servo_2, NormalizedColorSensor color_sensor,
+                            AutoDriveTrain drive_Train, Grabber grabber_, VerticalLiftMotor lift_Motor) {
         this.motor0 = motor_0;
         this.motor1 = motor_1;
         this.motor2 = motor_2;
@@ -69,15 +69,15 @@ public class Autonomous_Code {
 
     public void driveKnockBack(boolean colorVisible) {
         if (colorVisible) {
-            driveTrain.moveAuto("pivotRightFront", .155);
+            driveTrain.moveTime("pivotRightFront", .155);
             servoPosUp();
-            driveTrain.moveAuto("pivotRightBack", .22);
+            driveTrain.moveTime("pivotRightBack", .22);
             back = .77;
             turn = .55;
         } else {
-            driveTrain.moveAuto("pivotRightBack", .2);
+            driveTrain.moveTime("pivotRightBack", .2);
             servoPosUp();
-            driveTrain.moveAuto("pivotRightFront", .19);
+            driveTrain.moveTime("pivotRightFront", .19);
             back = .5;
             turn = .65;
         }
@@ -85,16 +85,83 @@ public class Autonomous_Code {
 
     public void driveKnockFront(boolean colorVisible) {
         if (colorVisible) {
-            driveTrain.moveAuto("pivotRightFront", .185);
+            driveTrain.moveTime("pivotRightFront", .185);
             servoPosUp();
-            driveTrain.moveAuto("pivotLeftFront", .22);
+            driveTrain.moveTime("pivotLeftFront", .22);
         } else {
-            driveTrain.moveAuto("pivotRightBack", .2);
+            driveTrain.moveTime("pivotRightBack", .2);
             servoPosUp();
-            driveTrain.moveAuto("pivotRightFront", .22);
+            driveTrain.moveTime("pivotRightFront", .22);
         }
 
     }
+
+    public void end() {
+        ungrab();
+        driveTrain.moveTime("fwd", .45);
+        driveTrain.moveTime("back", .3);
+        grab();
+        liftDown();
+        driveTrain.moveTime("fwd", .4);
+        driveTrain.moveTime("back", .15);
+    }
+
+    /** ---------- CASES ------------------------------------------------------------------------**/
+    public void topRed() {
+        driveTrain.moveTime("back", back);
+        driveTrain.moveTime("left", turn);
+        driveTrain.moveTime("fwd", .45);
+        end();
+    }
+
+    public void bottomRed() {
+        driveTrain.moveTime("back", .2);
+        driveTrain.moveTime("right", .7);
+        driveTrain.moveTime("back", .2);
+        driveTrain.moveTime("left", .2);
+        driveTrain.moveTime("fwd", .5);
+        driveTrain.moveTime("right", 1.55);
+        driveTrain.moveTime("fwd", .35);
+        end();
+    }
+
+    public void topBlue() {
+        driveTrain.moveTime("fwd", .7);
+        driveTrain.moveTime("left", 1.1);
+        driveTrain.moveTime("fwd", .45);
+        end();
+    }
+
+    public void bottomBlue() {
+        driveTrain.moveTime("fwd", .4);
+        driveTrain.moveTime("right", .7);
+        driveTrain.moveTime("fwd", .2);
+        driveTrain.moveTime("fwd", .35);
+        end();
+    }
+
+    public void testMode(int column) {
+        test(column);
+        driveTrain.moveTime("back", .4);
+        driveTrain.moveTime("fwd", .6);
+        driveTrain.moveTime("back", .4);
+        driveTrain.moveTime("left", .55);
+        driveTrain.moveTime(strafeDirection, columnTime);
+        end();
+    }
+
+    public void test(int column) {
+        if (column == 0) {
+            strafeDirection = "strafeLeft";
+            columnTime -= columnShift;
+        } else if (column == 2) {
+            strafeDirection = "strafeRight";
+            columnTime += columnShift;
+        }
+    }
+    /**------------------------------------------------------------------------------------------**/
+
+    /** ---------- SERVOS AND MOTORS ------------------------------------------------------------**/
 
     public void servoPosUp() {
         timer(1);
@@ -131,88 +198,9 @@ public class Autonomous_Code {
         timer(.45);
     }
 
-//    public double changeBox(int column) {
-//        if (column == 0) {
-//            return back -= 0.2;
-//        } else if (column == 1) {
-//            return back;
-//        } else if (column == 2) {
-//            return back += 0.2;
-//        } else {
-//            return back;
-//        }
-//    }
+    /**------------------------------------------------------------------------------------------**/
 
-    public void align() {
-        driveTrain.moveAuto("back", back);
-        driveTrain.moveAuto("fwd", back/2);
-    }
-
-    public void end() {
-        ungrab();
-        driveTrain.moveAuto("fwd", .45);
-        driveTrain.moveAuto("back", .3);
-        grab();
-        liftDown();
-        driveTrain.moveAuto("fwd", .4);
-        driveTrain.moveAuto("back", .15);
-    }
-
-    /**CASES**/
-    public void topRed() {
-        driveTrain.moveAuto("back", back);
-        driveTrain.moveAuto("left", turn);
-        driveTrain.moveAuto("fwd", .45);
-        end();
-    }
-
-    public void bottomRed() {
-        driveTrain.moveAuto("back", .2);
-        driveTrain.moveAuto("right", .7);
-        driveTrain.moveAuto("back", .2);
-        driveTrain.moveAuto("left", .2);
-        driveTrain.moveAuto("fwd", .5);
-        driveTrain.moveAuto("right", 1.55);
-        driveTrain.moveAuto("fwd", .35);
-        end();
-    }
-
-    public void topBlue() {
-        driveTrain.moveAuto("fwd", .7);
-        driveTrain.moveAuto("left", 1.1);
-        driveTrain.moveAuto("fwd", .45);
-        end();
-    }
-
-    public void bottomBlue() {
-        driveTrain.moveAuto("fwd", .4);
-        driveTrain.moveAuto("right", .7);
-        driveTrain.moveAuto("fwd", .2);
-        driveTrain.moveAuto("fwd", .35);
-        end();
-    }
-
-    public void testMode(int column) {
-        test(column);
-        driveTrain.moveAuto("back", .4);
-        driveTrain.moveAuto("fwd", .6);
-        driveTrain.moveAuto("back", .4);
-        driveTrain.moveAuto("left", .55);
-        driveTrain.moveAuto(strafeDirection, columnTime);
-        end();
-    }
-
-    public void test(int column) {
-        if (column == 0) {
-            strafeDirection = "strafeLeft";
-            columnTime -= columnShift;
-        } else if (column == 2) {
-            strafeDirection = "strafeRight";
-            columnTime += columnShift;
-        }
-    }
-    /*********/
-
+    /** ---------- MISCELLANIOUS ----------------------------------------------------------------**/
     public boolean color(String color) {
         int scale = 100;
         double maxRed = 0;
@@ -247,4 +235,33 @@ public class Autonomous_Code {
             return blueVisible;
         }
     }
+    /**------------------------------------------------------------------------------------------**/
+
+    /** ---------- DEVELOPEMENT ---------------------------------------------------------------**//*
+
+    private void knockBall() {
+        if (colorVisible) {
+            knockRight();
+            servoPosUp();
+        } else {
+            knockLeft();
+            servoPosUp();
+            driveTrain.moveTime("pivotRightFront", .19);
+        }
+    }
+
+    private void knockRight() {
+        servo3.setPosition(1);
+        timer(.5);
+        servo3.setPosition(.5);
+    }
+
+    private void knockLeft() {
+        servo3.setPostition(-1);
+        timer(.5);
+        servo3.setPosition(.5);
+    }
+
+    *//**----------------------------------------------------------------------------------------**/
+
 }
