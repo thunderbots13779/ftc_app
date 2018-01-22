@@ -1,6 +1,17 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.hardware.bosch.BNO055IMU;
+import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.HardwareMap;
+
+import org.firstinspires.ftc.robotcore.external.navigation.Acceleration;
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
+import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
+import org.firstinspires.ftc.robotcore.external.navigation.Position;
+import org.firstinspires.ftc.robotcore.external.navigation.Velocity;
 
 /**
  * Created by pramo on 1/20/2018.
@@ -8,81 +19,92 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 
 public class AutoDriveTrain {
 
+    // The IMU sensor object
+    BNO055IMU imu;
+
+    // State used for updating telemetry
+    Orientation angles;
+    Acceleration gravity;
+
     private DcMotor motorLeft, motorRight, motorMiddle;
     private double posOffset = .05;
     private double angleOffset = 1;
 
-    public AutoDriveTrain(DcMotor motor0, DcMotor motor1, DcMotor motor3) {
+    public AutoDriveTrain(DcMotor motor0, DcMotor motor1, DcMotor motor3, HardwareMap hardwareMap) {
 
         this.motorLeft = motor0;
         this.motorRight = motor1;
         this.motorMiddle = motor3;
 
+        BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
+        parameters.angleUnit           = BNO055IMU.AngleUnit.DEGREES;
+        parameters.accelUnit           = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
+        parameters.calibrationDataFile = "BNO055IMUCalibration.json"; // see the calibration sample opmode
+        parameters.loggingEnabled      = true;
+        parameters.loggingTag          = "IMU";
+        parameters.accelerationIntegrationAlgorithm = new JustLoggingAccelerationIntegrator();
+
+        imu = hardwareMap.get(BNO055IMU.class, "imu");
+        imu.initialize(parameters);
+
+        imu.startAccelerationIntegration(new Position(), new Velocity(), 1000);
+
     }
 
-    public void moveAuto(String direction) {
-        if (direction.equals("back")) {
-            motorRight.setPower(-.5);
-            motorLeft.setPower(.4);
-        } else if (direction.equals("fwd")) {
-            motorRight.setPower(.5);
-            motorLeft.setPower(-.4);
-        } else if (direction.equals("right")){
-            motorRight.setPower(.5);
-            motorLeft.setPower(.4);
-        } else if (direction.equals("left")){
-            motorRight.setPower(-.5);
-            motorLeft.setPower(-.4);
-        } else if (direction.equals("strafeLeft")){
-            motorMiddle.setPower(-.5);
-        } else if (direction.equals("strafeRight")){
+    public void update() {
+        angles   = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+        gravity  = imu.getGravity();
+    }
+
+    public void moveAuto(float x, float y) {
+        if (x > 0) {
             motorMiddle.setPower(.5);
-        } else if (direction.equals("pivotLeftBack")){
-            motorLeft.setPower(.4);
-        } else if (direction.equals("pivotRightBack")){
-            motorRight.setPower(-.5);
-        } else if (direction.equals("pivotLeftFront")){
-            motorLeft.setPower(-.4);
-        } else if (direction.equals("pivotRightFront")){
+        } else if(x < 0) {
+            motorMiddle.setPower(-.5);
+        } else {
+            motorMiddle.setPower(0);
+        }
+        if (y > 0) {
             motorRight.setPower(.5);
+            motorLeft.setPower(-.4);
+        } else if (y < 0) {
+            motorRight.setPower(-.5);
+            motorLeft.setPower(.4);
         } else {
             motorRight.setPower(0);
             motorLeft.setPower(0);
         }
     }
 
-    public void moveTime(String direction, double time) {
-        moveAuto(direction);
-        stop(time);
-    }
-
-    public void stop(double time) {
-        timer(time);
-        motorLeft.setPower(0);
-        motorRight.setPower(0);
-        timer(.2);
-    }
-
-    private void timer(double time) {
-        try {
-            Thread.sleep((long)(time*1000));
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+    public void turnAuto(float angle) {
+        if (angle > 0) {
+            motorMiddle.setPower(.5);
+            motorLeft.setPower(-.4);
+        } else if (angle < 0) {
+            motorMiddle.setPower(-.5);
+            motorRight.setPower(.5);
+        } else {
+            motorMiddle.setPower(0);
+            motorRight.setPower(0);
+            motorLeft.setPower(0);
         }
     }
 
-    public void movePos(float endPos, float currPos, String direction) {
+    public void movePos(float x, float y, float currX, float currY) {
         while (currPos > (endPos+ posOffset) && currPos < (endPos- posOffset)) {
-            moveAuto(direction);
+            moveAuto(x, y);
         }
-        stop(0);
     }
 
-    public void turnAngle(float endAngle, float currentAngle, String direction) {
-        while (currentAngle > (endAngle+ posOffset) && currentAngle < (endAngle- posOffset)) {
-            moveAuto(direction);
+    public void absoluteAngle(float endAngle, float currentAngle) {
+        while () {
+            turnAuto(endAngle, y);
         }
-        stop(0);
     }
+
+    public void relativeAngle(float angle) {
+
+    }
+
 
 }
