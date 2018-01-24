@@ -67,38 +67,9 @@ public class Autonomous_Code {
         }
     }
 
-    public void driveKnockBack(boolean colorVisible) {
-        if (colorVisible) {
-            driveTrain.moveTime("pivotRightFront", .155);
-            servoPosUp();
-            driveTrain.moveTime("pivotRightBack", .22);
-            back = .77;
-            turn = .55;
-        } else {
-            driveTrain.moveTime("pivotRightBack", .2);
-            servoPosUp();
-            driveTrain.moveTime("pivotRightFront", .19);
-            back = .5;
-            turn = .65;
-        }
-    }
-
-    public void driveKnockFront(boolean colorVisible) {
-        if (colorVisible) {
-            driveTrain.moveTime("pivotRightFront", .185);
-            servoPosUp();
-            driveTrain.moveTime("pivotLeftFront", .22);
-        } else {
-            driveTrain.moveTime("pivotRightBack", .2);
-            servoPosUp();
-            driveTrain.moveTime("pivotRightFront", .22);
-        }
-
-    }
-
     public void end() {
         ungrab();
-        driveTrain.moveTime("fwd", .45);
+        driveTrain.movePos(0, 45);
         driveTrain.moveTime("back", .3);
         grab();
         liftDown();
