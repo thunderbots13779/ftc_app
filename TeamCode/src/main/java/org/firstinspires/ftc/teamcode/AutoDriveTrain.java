@@ -29,6 +29,9 @@ public class AutoDriveTrain {
     private DcMotor motorLeft, motorRight, motorMiddle;
     private double posOffset = .05;
     private double angleOffset = 1;
+    private double X = 0;
+    private double Y = 0;
+    private double degree = 0;
 
     public AutoDriveTrain(DcMotor motor0, DcMotor motor1, DcMotor motor3, HardwareMap hardwareMap) {
 
@@ -57,54 +60,39 @@ public class AutoDriveTrain {
     }
 
     public void moveAuto(float x, float y) {
-        if (x > 0) {
-            motorMiddle.setPower(.5);
-        } else if(x < 0) {
-            motorMiddle.setPower(-.5);
-        } else {
-            motorMiddle.setPower(0);
+        while (X > (x + posOffset) && X < (x - posOffset)) {
+            if (x > 0) {
+                motorMiddle.setPower(.5);
+            } else if(x < 0) {
+                motorMiddle.setPower(-.5);
+            }
         }
-        if (y > 0) {
-            motorRight.setPower(.5);
-            motorLeft.setPower(-.4);
-        } else if (y < 0) {
-            motorRight.setPower(-.5);
-            motorLeft.setPower(.4);
-        } else {
-            motorRight.setPower(0);
-            motorLeft.setPower(0);
+        motorMiddle.setPower(0);
+        while (Y > (y + posOffset) && Y < (y - posOffset)) {
+            if (y > 0) {
+                motorRight.setPower(.5);
+                motorLeft.setPower(-.4);
+            } else if (y < 0) {
+                motorRight.setPower(-.5);
+                motorLeft.setPower(.4);
+            }
         }
+        motorRight.setPower(0);
+        motorLeft.setPower(0);
     }
 
     public void turnAuto(float angle) {
-        if (angle > 0) {
-            motorMiddle.setPower(.5);
-            motorLeft.setPower(-.4);
-        } else if (angle < 0) {
-            motorMiddle.setPower(-.5);
-            motorRight.setPower(.5);
-        } else {
-            motorMiddle.setPower(0);
-            motorRight.setPower(0);
-            motorLeft.setPower(0);
+        while (degree > (angle + angleOffset) && degree < (angle - angleOffset)) {
+            if (angle > 0) {
+                motorMiddle.setPower(.5);
+                motorLeft.setPower(-.4);
+            } else if (angle < 0) {
+                motorMiddle.setPower(-.5);
+                motorRight.setPower(.5);
+            }
         }
+        motorMiddle.setPower(0);
+        motorRight.setPower(0);
+        motorLeft.setPower(0);
     }
-
-    public void movePos(float x, float y, float currX, float currY) {
-        while (currPos > (endPos+ posOffset) && currPos < (endPos- posOffset)) {
-            moveAuto(x, y);
-        }
-    }
-
-    public void absoluteAngle(float endAngle, float currentAngle) {
-        while () {
-            turnAuto(endAngle, y);
-        }
-    }
-
-    public void relativeAngle(float angle) {
-
-    }
-
-
 }
