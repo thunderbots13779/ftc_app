@@ -14,6 +14,7 @@ public class Autonomous_Code {
     private Servo servo0;
     private Servo servo1;
     private Servo servo2;
+    private Servo servo3;
     private NormalizedColorSensor colorSensor;
     private AutoDriveTrain driveTrain;
     private Grabber grabber;
@@ -31,7 +32,7 @@ public class Autonomous_Code {
     String strafeDirection;
 
     public Autonomous_Code (DcMotor motor_0, DcMotor motor_1, DcMotor motor_2, DcMotor motor_3,
-                            Servo servo_0, Servo servo_1, Servo servo_2, NormalizedColorSensor color_sensor,
+                            Servo servo_0, Servo servo_1, Servo servo_2, Servo servo_3, NormalizedColorSensor color_sensor,
                             AutoDriveTrain drive_Train, Grabber grabber_, VerticalLiftMotor lift_Motor) {
         this.motor0 = motor_0;
         this.motor1 = motor_1;
@@ -40,6 +41,7 @@ public class Autonomous_Code {
         this.servo0 = servo_0;
         this.servo1 = servo_1;
         this.servo2 = servo_2;
+        this.servo3 = servo_3;
         this.colorSensor = color_sensor;
         this.driveTrain = drive_Train;
         this.grabber = grabber_;
@@ -52,11 +54,7 @@ public class Autonomous_Code {
         servo0.setPosition(servoDown);
         timer(1);
         boolean colorCheck = color(color);
-        if (direction.equals("back")) {
-            driveKnockBack(colorCheck);
-        } else {
-            driveKnockFront(colorCheck);
-        }
+        knockBall(colorCheck);
     }
 
     public static void timer(double time) {
@@ -68,6 +66,7 @@ public class Autonomous_Code {
     }
 
     public void end() {
+        driveTrain.posColumn();
         ungrab();
         driveTrain.movePos(0, 45);
         driveTrain.moveTime("back", .3);
@@ -133,6 +132,28 @@ public class Autonomous_Code {
     /**------------------------------------------------------------------------------------------**/
 
     /** ---------- SERVOS AND MOTORS ------------------------------------------------------------**/
+
+    private void knockBall(boolean colorVisible) {
+        if (colorVisible) {
+            knockRight();
+            servoPosUp();
+        } else {
+            knockLeft();
+            servoPosUp();
+        }
+    }
+
+    private void knockRight() {
+        servo3.setPosition(1);
+        timer(.5);
+        servo3.setPosition(.5);
+    }
+
+    private void knockLeft() {
+        servo3.setPosition(-1);
+        timer(.5);
+        servo3.setPosition(.5);
+    }
 
     public void servoPosUp() {
         timer(1);
@@ -210,28 +231,7 @@ public class Autonomous_Code {
 
     /** ---------- DEVELOPEMENT ---------------------------------------------------------------**//*
 
-    private void knockBall() {
-        if (colorVisible) {
-            knockRight();
-            servoPosUp();
-        } else {
-            knockLeft();
-            servoPosUp();
-            driveTrain.moveTime("pivotRightFront", .19);
-        }
-    }
 
-    private void knockRight() {
-        servo3.setPosition(1);
-        timer(.5);
-        servo3.setPosition(.5);
-    }
-
-    private void knockLeft() {
-        servo3.setPostition(-1);
-        timer(.5);
-        servo3.setPosition(.5);
-    }
 
     *//**----------------------------------------------------------------------------------------**/
 
