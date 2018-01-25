@@ -54,11 +54,7 @@ public class Autonomous_Code {
         servo0.setPosition(servoDown);
         timer(1);
         boolean colorCheck = color(color);
-        if (colorCheck) {
-            knockRight();
-        } else {
-            knockLeft();
-        }
+        knockBall(colorCheck);
     }
 
     public static void timer(double time) {
@@ -97,6 +93,16 @@ public class Autonomous_Code {
 //        }
 //
 //    }
+
+    private void knockBall(boolean colorVisible) {
+        if (colorVisible) {
+            knockRight();
+            servoPosUp();
+        } else {
+            knockLeft();
+            servoPosUp();
+        }
+    }
 
     private void knockRight() {
         servo3.setPosition(1);
