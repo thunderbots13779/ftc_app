@@ -24,7 +24,7 @@ public class TeleDriveTrain {
 
     }
 
-    public void gearSwitch(int gear)
+    private void gearSwitch(int gear)
     {
 
         switch(gear) {
