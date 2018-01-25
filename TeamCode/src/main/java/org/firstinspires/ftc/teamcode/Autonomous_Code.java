@@ -48,7 +48,7 @@ public class Autonomous_Code {
         this.liftMotor = lift_Motor;
     }
 
-    public  void auto(String color, String direction) {
+    public  void auto(String color) {
         grab();
         liftUp();
         servo0.setPosition(servoDown);
@@ -105,14 +105,18 @@ public class Autonomous_Code {
     }
 
     private void knockRight() {
+        servo3.setPosition(-1);
+        timer(.3);
         servo3.setPosition(1);
-        timer(.5);
+        timer(.3);
         servo3.setPosition(.5);
     }
 
     private void knockLeft() {
+        servo3.setPosition(1);
+        timer(.3);
         servo3.setPosition(-1);
-        timer(.5);
+        timer(.3);
         servo3.setPosition(.5);
     }
 

@@ -79,11 +79,11 @@ public class Competition extends LinearOpMode {
         } else {
             driveTrain.move(this.gamepad2.right_stick_y, this.gamepad2.left_stick_y);
         }
-//        if (gamepad1.dpad_down || gamepad1.dpad_up) {
-//            driveTrain.dpad(this.gamepad1.dpad_up, this.gamepad1.dpad_down);
-//        } else {
-//            driveTrain.dpad(this.gamepad2.dpad_up, this.gamepad1.dpad_down);
-//        }
+        if (gamepad1.dpad_down || gamepad1.dpad_up) {
+            driveTrain.dpad(this.gamepad1.dpad_up, this.gamepad1.dpad_down);
+        } else {
+            driveTrain.dpad(this.gamepad2.dpad_up, this.gamepad1.dpad_down);
+        }
     }
 
     private void lift() {

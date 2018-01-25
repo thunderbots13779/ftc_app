@@ -20,6 +20,7 @@ public class Auto_Test extends LinearOpMode{
     private Servo servo0;
     private Servo servo1;
     private Servo servo2;
+    private Servo servo3;
     private NormalizedColorSensor colorSensor;
     private TankDriveTrain driveTrain;
     private Grabber grabber;
@@ -32,14 +33,14 @@ public class Auto_Test extends LinearOpMode{
     public void runOpMode() {
 
         initialization();
-        Auto = new Autonomous_Code(motor0, motor1, motor2, motor3, servo0, servo1, servo2, colorSensor, driveTrain, grabber, liftMotor);
+        Auto = new Autonomous_Code(motor0, motor1, motor2, motor3, servo0, servo1, servo2, servo3, colorSensor, driveTrain, grabber, liftMotor);
 
         //Wait for the game to start (driver presses PLAY)
         waitForStart();
 
         column= vuMarkIdentification.identify();
-        Auto.auto("blue", "back");
-        Auto.testMode(column);
+        Auto.auto("blue");
+//        Auto.testMode(column);
     }
 
     public void initialization() {
@@ -51,6 +52,7 @@ public class Auto_Test extends LinearOpMode{
         servo0 = hardwareMap.get(Servo.class, "servo0");
         servo1 = hardwareMap.get(Servo.class, "servo1");
         servo2 = hardwareMap.get(Servo.class, "servo2");
+        servo3 = hardwareMap.get(Servo.class, "servo3");
         colorSensor = hardwareMap.get(NormalizedColorSensor.class, "colorSensor");
 
         //INITIALIZATION

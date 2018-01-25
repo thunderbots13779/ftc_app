@@ -12,7 +12,7 @@ public class TankDriveTrain {
     private double x1;
     private double ssr;
     private double ssl;
-    private double powerScale = /*(1/1.2)*/0.5;
+    private double powerScale = (1/1.2);
     private int gear = 2;
     public boolean isPressed = false;
 
