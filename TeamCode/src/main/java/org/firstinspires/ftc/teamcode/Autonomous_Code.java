@@ -48,7 +48,7 @@ public class Autonomous_Code {
         this.liftMotor = lift_Motor;
     }
 
-    public  void auto(String color, String direction) {
+    public  void auto(String color) {
         grab();
         liftUp();
         servo0.setPosition(servoDown);
@@ -225,6 +225,16 @@ public class Autonomous_Code {
             else
                 blueVisible = false;
             return blueVisible;
+        }
+    }
+
+    public void posColumn(int column) {
+        while (column != 3) {
+            if (column == 2) {
+                driveTrain.moveAuto(1, 0);
+            } else if (column == 0) {
+                driveTrain.moveAuto(-1, 0);
+            }
         }
     }
     /**------------------------------------------------------------------------------------------**/

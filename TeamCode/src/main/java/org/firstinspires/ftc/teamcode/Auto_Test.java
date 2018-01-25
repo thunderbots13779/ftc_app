@@ -39,7 +39,7 @@ public class Auto_Test extends LinearOpMode{
 
         column= vuMarkIdentification.identify();
         Auto.auto("blue", "back");
-        Auto.testMode(column);
+        Auto.posColumn(column);
     }
 
     public void initialization() {

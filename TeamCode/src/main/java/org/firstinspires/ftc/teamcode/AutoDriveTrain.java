@@ -32,7 +32,6 @@ public class AutoDriveTrain {
     private double X = 0;
     private double Y = 0;
     private double degree = 0;
-    private int column = 2;
 
     public AutoDriveTrain(DcMotor motor0, DcMotor motor1, DcMotor motor3, HardwareMap hardwareMap) {
 
@@ -80,14 +79,6 @@ public class AutoDriveTrain {
         }
         motorRight.setPower(0);
         motorLeft.setPower(0);
-    }
-
-    public void posColumn() {
-        if (column == 3) {
-            moveAuto(1, 0);
-        } else if (column == 1) {
-            moveAuto(-1, 0);
-        }
     }
 
     public void turnAuto(float angle) {
