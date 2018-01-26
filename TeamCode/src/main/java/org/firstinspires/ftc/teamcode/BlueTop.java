@@ -33,7 +33,7 @@ public class BlueTop extends LinearOpMode{
     public void runOpMode() {
 
         initialization();
-        Auto = new Autonomous_Code(motor0, motor1, motor2, motor3, servo0, servo1, servo2, servo3, colorSensor, driveTrain, grabber, liftMotor);
+        Auto = new Autonomous_Code(motor0, motor1, motor2, motor3, servo0, servo1, servo2, servo3, colorSensor, driveTrain, grabber, liftMotor, vuMarkIdentification);
 
         //Wait for the game to start (driver presses PLAY)
         waitForStart();

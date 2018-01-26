@@ -19,6 +19,7 @@ public class Autonomous_Code {
     private TankDriveTrain driveTrain;
     private Grabber grabber;
     private VerticalLiftMotor liftMotor;
+    private VuMarkIdentification vuMarkIdentification;
     private double servoUp = (174.0/180.0);
     private double servoDown = (67.0/180.0);
     private final double LEFT_OPEN_POSITION = (129.0/180.0);
@@ -30,10 +31,11 @@ public class Autonomous_Code {
     double columnTime = 0;
     double columnShift = .2;
     String strafeDirection;
+    int column = 3;
 
     public Autonomous_Code (DcMotor motor_0, DcMotor motor_1, DcMotor motor_2, DcMotor motor_3,
                        Servo servo_0, Servo servo_1, Servo servo_2, Servo servo_3, NormalizedColorSensor color_sensor,
-                       TankDriveTrain drive_Train, Grabber grabber_, VerticalLiftMotor lift_Motor) {
+                       TankDriveTrain drive_Train, Grabber grabber_, VerticalLiftMotor lift_Motor, VuMarkIdentification vuMark) {
         this.motor0 = motor_0;
         this.motor1 = motor_1;
         this.motor2 = motor_2;
@@ -46,9 +48,11 @@ public class Autonomous_Code {
         this.driveTrain = drive_Train;
         this.grabber = grabber_;
         this.liftMotor = lift_Motor;
+        this.vuMarkIdentification = vuMark;
     }
 
     public  void auto(String color) {
+        pickColumn();
         grab();
         liftUp();
         servo0.setPosition(servoDown);
@@ -173,6 +177,7 @@ public class Autonomous_Code {
     }
 
     public void end() {
+        columnShift();
         ungrab();
         driveTrain.moveAuto("fwd", .45);
         driveTrain.moveAuto("back", .3);
@@ -216,17 +221,13 @@ public class Autonomous_Code {
         end();
     }
 
-    public void testMode(int column) {
-        test(column);
-        driveTrain.moveAuto("back", .4);
-        driveTrain.moveAuto("fwd", .6);
-        driveTrain.moveAuto("back", .4);
-        driveTrain.moveAuto("left", .55);
-        driveTrain.moveAuto(strafeDirection, columnTime);
-        end();
+    public void pickColumn() {
+        while (column == 3) {
+            column= vuMarkIdentification.identify();
+        }
     }
 
-    public void test(int column) {
+    public void columnShift() {
         if (column == 0) {
             strafeDirection = "strafeLeft";
             columnTime -= columnShift;

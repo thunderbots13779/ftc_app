@@ -32,7 +32,7 @@ public class RedBottom extends LinearOpMode{
     public void runOpMode() {
 
         initialization();
-        Auto = new Autonomous_Code(motor0, motor1, motor2, motor3, servo0, servo1, servo2, servo3, colorSensor, driveTrain, grabber, liftMotor);
+        Auto = new Autonomous_Code(motor0, motor1, motor2, motor3, servo0, servo1, servo2, servo3, colorSensor, driveTrain, grabber, liftMotor, vuMarkIdentification);
 
         //Wait for the game to start (driver presses PLAY)
         waitForStart();
@@ -55,6 +55,7 @@ public class RedBottom extends LinearOpMode{
         servo0 = hardwareMap.get(Servo.class, "servo0");
         servo1 = hardwareMap.get(Servo.class, "servo1");
         servo2 = hardwareMap.get(Servo.class, "servo2");
+        servo3 = hardwareMap.get(Servo.class, "servo3");
         colorSensor = hardwareMap.get(NormalizedColorSensor.class, "colorSensor");
 
         //INITIALIZATION
