@@ -27,7 +27,6 @@ public class Auto_Test extends LinearOpMode{
     private VerticalLiftMotor liftMotor;
     private Autonomous_Code Auto;
     private VuMarkIdentification vuMarkIdentification;
-    private int column = 0;
 
     @Override
     public void runOpMode() {
@@ -37,8 +36,14 @@ public class Auto_Test extends LinearOpMode{
 
         //Wait for the game to start (driver presses PLAY)
         waitForStart();
-        Auto.auto("blue");
-//        Auto.testMode(column);
+
+        if (opModeIsActive()) {
+            //run until the end of the match (driver presses STOP)
+            Auto.auto("blue");
+            telemetry.addData("column", Auto.getColumn());
+            telemetry.update();
+            Auto.bottomRed();
+        }
     }
 
     public void initialization() {

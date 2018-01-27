@@ -178,6 +178,7 @@ public class Autonomous_Code {
 
     public void end() {
         columnShift();
+        driveTrain.moveAuto(strafeDirection, columnTime);
         ungrab();
         driveTrain.moveAuto("fwd", .45);
         driveTrain.moveAuto("back", .3);
@@ -196,13 +197,10 @@ public class Autonomous_Code {
     }
 
     public void bottomRed() {
-        driveTrain.moveAuto("back", .2);
-        driveTrain.moveAuto("right", .7);
-        driveTrain.moveAuto("back", .2);
-        driveTrain.moveAuto("left", .2);
-        driveTrain.moveAuto("fwd", .5);
-        driveTrain.moveAuto("right", 1.55);
-        driveTrain.moveAuto("fwd", .35);
+        driveTrain.moveAuto("back", .8);
+        driveTrain.moveAuto("right", 1.5);
+        driveTrain.moveAuto("strafeLeft", .5);
+        driveTrain.moveAuto("pivotLeftBack", .3);
         end();
     }
 
@@ -235,6 +233,10 @@ public class Autonomous_Code {
             strafeDirection = "strafeRight";
             columnTime += columnShift;
         }
+    }
+
+    public int getColumn (){
+        return column;
     }
     /*********/
 

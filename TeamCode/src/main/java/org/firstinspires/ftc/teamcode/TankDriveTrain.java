@@ -101,10 +101,10 @@ public class TankDriveTrain {
             motorLeft.setPower(-.4);
             stop(time);
         } else if (direction.equals("strafeLeft")){
-            motorMiddle.setPower(-.5);
+            motorMiddle.setPower(.5);
             stop(time);
         } else if (direction.equals("strafeRight")){
-            motorMiddle.setPower(.5);
+            motorMiddle.setPower(-.5);
             stop(time);
         } else if (direction.equals("pivotLeftBack")){
             motorLeft.setPower(.4);
