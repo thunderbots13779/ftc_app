@@ -55,8 +55,7 @@ public class Autonomous_Code extends LinearOpMode{
 
     @Override
     public void runOpMode() throws InterruptedException {
-        initialization();
-        startSequence();
+
     }
 
     public void startSequence() {

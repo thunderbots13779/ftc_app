@@ -21,6 +21,8 @@ public class Auto_Test extends Autonomous_Code{
 
         if (opModeIsActive()) {
             //run until the end of the match (driver presses STOP)
+            initialization();
+            startSequence();
             auto("blue");
             telemetry.addData("column", getColumn());
             telemetry.update();
