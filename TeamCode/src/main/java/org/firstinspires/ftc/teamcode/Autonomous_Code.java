@@ -1,11 +1,14 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.NormalizedColorSensor;
 import com.qualcomm.robotcore.hardware.NormalizedRGBA;
 import com.qualcomm.robotcore.hardware.Servo;
 
-public class Autonomous_Code {
+@Autonomous
+public class Autonomous_Code extends LinearOpMode{
 
     private DcMotor motor0;
     private DcMotor motor1;
@@ -20,6 +23,7 @@ public class Autonomous_Code {
     private Grabber grabber;
     private VerticalLiftMotor liftMotor;
     private VuMarkIdentification vuMarkIdentification;
+
     private double servoUp = (174.0/180.0);
     private double servoDown = (67.0/180.0);
     private final double LEFT_OPEN_POSITION = (129.0/180.0);
@@ -33,30 +37,37 @@ public class Autonomous_Code {
     String strafeDirection;
     int column = 3;
 
-    public Autonomous_Code (DcMotor motor_0, DcMotor motor_1, DcMotor motor_2, DcMotor motor_3,
-                       Servo servo_0, Servo servo_1, Servo servo_2, Servo servo_3, NormalizedColorSensor color_sensor,
-                       TankDriveTrain drive_Train, Grabber grabber_, VerticalLiftMotor lift_Motor, VuMarkIdentification vuMark) {
-        this.motor0 = motor_0;
-        this.motor1 = motor_1;
-        this.motor2 = motor_2;
-        this.motor3 = motor_3;
-        this.servo0 = servo_0;
-        this.servo1 = servo_1;
-        this.servo2 = servo_2;
-        this.servo3 = servo_3;
-        this.colorSensor = color_sensor;
-        this.driveTrain = drive_Train;
-        this.grabber = grabber_;
-        this.liftMotor = lift_Motor;
-        this.vuMarkIdentification = vuMark;
+    public Autonomous_Code () {
+        this.motor0 = motor0;
+        this.motor1 = motor1;
+        this.motor2 = motor2;
+        this.motor3 = motor3;
+        this.servo0 = servo0;
+        this.servo1 = servo1;
+        this.servo2 = servo2;
+        this.servo3 = servo3;
+        this.colorSensor = colorSensor;
+        this.driveTrain = driveTrain;
+        this.grabber = grabber;
+        this.liftMotor = liftMotor;
+        this.vuMarkIdentification = vuMarkIdentification;
     }
 
-    public  void auto(String color) {
+    @Override
+    public void runOpMode() throws InterruptedException {
+        initialization();
+        startSequence();
+    }
+
+    public void startSequence() {
         pickColumn();
         grab();
         liftUp();
         servo0.setPosition(servoDown);
         timer(1);
+    }
+
+    public  void auto(String color) {
         boolean colorCheck = color(color);
         knockBall(colorCheck);
     }
@@ -274,4 +285,23 @@ public class Autonomous_Code {
             return blueVisible;
         }
     }
+
+    public void initialization() {
+        //HARDWARE MAPS
+        motor0 = hardwareMap.get(DcMotor.class, "motor0");
+        motor1 = hardwareMap.get(DcMotor.class, "motor1");
+        motor2 = hardwareMap.get(DcMotor.class, "motor2");
+        motor3 = hardwareMap.get(DcMotor.class, "motor3");
+        servo0 = hardwareMap.get(Servo.class, "servo0");
+        servo1 = hardwareMap.get(Servo.class, "servo1");
+        servo2 = hardwareMap.get(Servo.class, "servo2");
+        colorSensor = hardwareMap.get(NormalizedColorSensor.class, "colorSensor");
+
+        //INITIALIZATION
+        driveTrain = new TankDriveTrain(motor0, motor1, motor3);
+        grabber = new Grabber(servo1, servo2);
+        liftMotor = new VerticalLiftMotor(motor2);
+        vuMarkIdentification = new VuMarkIdentification(hardwareMap, telemetry);
+    }
+
 }
