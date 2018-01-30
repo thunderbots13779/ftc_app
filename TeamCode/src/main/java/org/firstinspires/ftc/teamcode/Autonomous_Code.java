@@ -6,6 +6,8 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.NormalizedColorSensor;
 import com.qualcomm.robotcore.hardware.NormalizedRGBA;
 import com.qualcomm.robotcore.hardware.Servo;
+import java.util.Timer;
+import java.util.TimerTask;
 
 @Autonomous
 public class Autonomous_Code extends LinearOpMode{
@@ -24,6 +26,8 @@ public class Autonomous_Code extends LinearOpMode{
     private Grabber grabber;
     private VerticalLiftMotor liftMotor;
     private VuMarkIdentification vuMarkIdentification;
+    private Timer timer;
+    private TimerTask task;
 
     /** VARS **/
     private double servoUp = (174.0/180.0);
@@ -37,6 +41,8 @@ public class Autonomous_Code extends LinearOpMode{
     double columnTime = 0;
     double columnShift = .2;
     String strafeDirection;
+    double period;
+    double timePassed;
     int column = 3;
 
     /** CONSTRUCTOR**/
@@ -59,6 +65,28 @@ public class Autonomous_Code extends LinearOpMode{
     /** OP MODE **/
     @Override
     public void runOpMode() throws InterruptedException {
+
+    }
+
+    @Override
+    public void start() {
+
+        timer.scheduleAtFixedRate(task, 0, (long) period);
+
+    }
+
+    @Override
+    public void loop() {
+
+        telemetry.addData("Seconds Passes", timePassed / period);
+        telemetry.update();
+
+    }
+
+    @Override
+    public void stop() {
+
+        timer.cancel();
 
     }
 
@@ -263,12 +291,20 @@ public class Autonomous_Code extends LinearOpMode{
     }
 
     /** TIMER **/ //NEEDS MODDING
-    public static void timer(double time) {
-        try {
-            Thread.sleep((long)(time*1000));
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+    public void timer(final double time) {
+        timePassed = 0;
+        period = 1000;
+
+        timer = new Timer();
+        task = new TimerTask() {
+            @Override
+            public void run() {
+                timePassed += period;
+                if ((timePassed / period) <= time) {
+                    timer.cancel();
+                }
+            }
+        };
     }
 
 }
