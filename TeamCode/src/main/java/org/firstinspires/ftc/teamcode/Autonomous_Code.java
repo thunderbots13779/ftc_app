@@ -67,6 +67,7 @@ public class Autonomous_Code extends LinearOpMode{
     }
 
     public  void auto(String color) {
+        startSequence();
         boolean colorCheck = color(color);
         knockBall(colorCheck);
     }
@@ -232,6 +233,8 @@ public class Autonomous_Code extends LinearOpMode{
     public void pickColumn() {
         while (column == 3) {
             column= vuMarkIdentification.identify();
+            telemetry.addData("column: ", column;
+            telemetry.update();
         }
     }
 
@@ -294,6 +297,7 @@ public class Autonomous_Code extends LinearOpMode{
         servo0 = hardwareMap.get(Servo.class, "servo0");
         servo1 = hardwareMap.get(Servo.class, "servo1");
         servo2 = hardwareMap.get(Servo.class, "servo2");
+        servo3 = hardwareMap.get(Servo.class, "servo3");
         colorSensor = hardwareMap.get(NormalizedColorSensor.class, "colorSensor");
 
         //INITIALIZATION
