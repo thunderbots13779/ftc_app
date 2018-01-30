@@ -1,10 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.NormalizedColorSensor;
-import com.qualcomm.robotcore.hardware.Servo;
 
 /**
  * Created by pramo on 12/14/2017.
@@ -19,7 +15,7 @@ public class Auto_Test extends Autonomous_Code{
         if (opModeIsActive()) {
             initialization();
             auto("blue");
-            bottomRed();
+            redBottom();
         }
     }
 
