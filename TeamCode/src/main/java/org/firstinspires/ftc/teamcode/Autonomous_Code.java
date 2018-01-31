@@ -268,6 +268,9 @@ public class Autonomous_Code extends BasicOpMode_Iterative{
         timer(.45);
     }
 
+    /** CORRECTION **/
+    public void turn()
+
     /** COLUMN **/
     public void pickColumn() {
         while (column == 3) {
