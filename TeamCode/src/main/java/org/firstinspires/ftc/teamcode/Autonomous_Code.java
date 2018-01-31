@@ -45,7 +45,7 @@ public class Autonomous_Code extends LinearOpMode{
     double timePassed;
     int column = 3;
 
-    /** CONSTRUCTOR**/
+    /** CONSTRUCTOR **/
     public Autonomous_Code () {
         this.motor0 = motor0;
         this.motor1 = motor1;
