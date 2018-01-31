@@ -1,16 +1,17 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.NormalizedColorSensor;
 import com.qualcomm.robotcore.hardware.NormalizedRGBA;
 import com.qualcomm.robotcore.hardware.Servo;
+import org.firstinspires.ftc.robotcontroller.external.samples.BasicOpMode_Iterative;
+
 import java.util.Timer;
 import java.util.TimerTask;
 
 @Autonomous
-public class Autonomous_Code extends LinearOpMode{
+public class Autonomous_Code extends BasicOpMode_Iterative{
 
     /** INITS **/
     private DcMotor motor0;
@@ -63,10 +64,6 @@ public class Autonomous_Code extends LinearOpMode{
     }
 
     /** OP MODE **/
-    @Override
-    public void runOpMode() throws InterruptedException {
-
-    }
 
     @Override
     public void start() {
