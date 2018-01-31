@@ -61,9 +61,18 @@ public class NewAutonomous extends OpMode
 {
     DriveTrain driveTrain;
 
+    DcMotor motorLeft;
+    DcMotor motorRight;
+    DcMotor motorCenter;
+
     @Override
     public void init() {
-        driveTrain = new DriveTrain(hardwareMap.get(DcMotor.class, "motor0"),hardwareMap.get(DcMotor.class, "motor0"),hardwareMap.get(DcMotor.class, "motor0"), hardwareMap);
+
+        motorLeft = hardwareMap.get(DcMotor.class, "motor0");
+        motorRight = hardwareMap.get(DcMotor.class, "motor1");
+        motorCenter = hardwareMap.get(DcMotor.class, "motor3");
+
+        driveTrain = new DriveTrain(motorLeft, motorRight, motorCenter, hardwareMap);
     }
 
     @Override
@@ -78,23 +87,29 @@ public class NewAutonomous extends OpMode
 
     @Override
     public void loop() {
-        telemetry.addLine()
-                .addData("z", new Func<String>() {
-                    @Override public String value() {
-                        return formatAngle(driveTrain.angles.angleUnit, driveTrain.angles.firstAngle);
-                    }
-                })
-                .addData("y", new Func<String>() {
-                    @Override public String value() {
-                        return formatAngle(driveTrain.angles.angleUnit, driveTrain.angles.secondAngle);
-                    }
-                })
-                .addData("x", new Func<String>() {
-                    @Override public String value() {
-                        return formatAngle(driveTrain.angles.angleUnit, driveTrain.angles.thirdAngle);
-                    }
-                });
-        telemetry.update();
+        if(driveTrain.angles != null) {
+            telemetry.addLine()
+                    .addData("hello: ", 1);
+//                    .addData("z", new Func<String>() {
+//                        @Override
+//                        public String value() {
+//                            return formatAngle(driveTrain.angles.angleUnit, driveTrain.angles.firstAngle);
+//                        }
+//                    });
+//                    .addData("y", new Func<String>() {
+//                        @Override
+//                        public String value() {
+//                            return formatAngle(driveTrain.angles.angleUnit, driveTrain.angles.secondAngle);
+//                        }
+//                    })
+//                    .addData("x", new Func<String>() {
+//                        @Override
+//                        public String value() {
+//                            return formatAngle(driveTrain.angles.angleUnit, driveTrain.angles.thirdAngle);
+//                        }
+//                    });
+            telemetry.update();
+        }
     }
 
     @Override
