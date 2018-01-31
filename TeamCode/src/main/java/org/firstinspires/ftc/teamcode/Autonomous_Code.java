@@ -275,7 +275,7 @@ public class Autonomous_Code extends LinearOpMode{
     public void pickColumn() {
         while (column == 3) {
             column= vuMarkIdentification.identify();
-            telemetry.addData("column: ", column;
+            telemetry.addData("column: ", column);
             telemetry.update();
         }
     }
