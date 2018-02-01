@@ -51,26 +51,40 @@ public class DriveTrain {
 
         imu.startAccelerationIntegration(new Position(), new Velocity(), 1000);
 
+        motorLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        motorRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+
+        startUpdates();
+
     }
 
-    public void turnAbsolute(float angleEnd) {
+    public void turnAbsolute(float angle) {
+
+        float marginOfError = 12;
+
+        float right = angle - marginOfError;
+        float left = angle + marginOfError;
 
         while (angles == null) {
 
         }
 
-        float initial = angles.firstAngle;
-        while (angles.firstAngle < angleEnd) {
-            float percent = 1 - ((angles.firstAngle - initial) / (angleEnd - initial));
+        float multiplier = angle / Math.abs(angle);
 
-            float power = -1 * (percent * 0.6f + 0.1f);
+        while (!(angles.firstAngle < left && angles.firstAngle > right)) {
 
-            motorLeft.setPower(power);
-            motorRight.setPower(power);
+            motorLeft.setPower(-0.35f * multiplier);
+            motorRight.setPower(-0.35f * multiplier);
         }
 
         motorLeft.setPower(0);
         motorRight.setPower(0);
+
+    }
+
+    public void turnRelative(float angle) {
+        float initialAngle = angles.firstAngle;
 
     }
 

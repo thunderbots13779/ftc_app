@@ -82,8 +82,7 @@ public class NewAutonomous extends OpMode
 
     @Override
     public void start() {
-        driveTrain.startUpdates();
-        driveTrain.turnAbsolute(90);
+        driveTrain.turnAbsolute(180);
     }
 
     @Override
