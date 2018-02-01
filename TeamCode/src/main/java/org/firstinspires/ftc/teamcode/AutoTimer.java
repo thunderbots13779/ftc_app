@@ -7,12 +7,22 @@ import java.util.Date;
  * Created by Pramodh on 1/31/18.
  */
 
-public class AutoTimer extends Autonomous_Code{
+public class AutoTimer{
 
-    public String getTime() {
-        String currentDateTimeString = DateFormat.getDateTimeInstance().format(new Date());
+    long initialTime;
+    long endTime;
 
-        return currentDateTimeString;
+    public AutoTimer(long duration) {
+        initialTime = System.currentTimeMillis();
+        this.endTime = initialTime + duration;
+    }
+
+    public boolean checkTime() {
+        long currentTime = System.currentTimeMillis();
+        if (currentTime > endTime) {
+            return true;
+        }
+        return false;
     }
 
 }

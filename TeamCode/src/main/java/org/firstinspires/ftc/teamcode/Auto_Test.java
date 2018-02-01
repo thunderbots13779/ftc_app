@@ -12,7 +12,7 @@ public class Auto_Test extends AutoTimer{
     @Override
     public void runOpMode() {
 
-        if (opModeIsActive()) {
+        while (opModeIsActive()) {
             telemetry.addData("Time: ", getTime());
             telemetry.update();
         }

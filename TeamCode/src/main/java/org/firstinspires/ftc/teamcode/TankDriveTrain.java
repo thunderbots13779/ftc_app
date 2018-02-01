@@ -6,6 +6,7 @@ public class TankDriveTrain {
 
     private DcMotor motorLeft, motorRight, motorMiddle;
 
+    private AutoTimer aTimer;
     private final int MOTOR_0_DIRECTION = 1;
     private final int MOTOR_1_DIRECTION = -1;
     private double x0;
@@ -15,6 +16,8 @@ public class TankDriveTrain {
     private double powerScale = (1/1.2);
     private int gear = 2;
     public boolean isPressed = false;
+    double revAngle = 0;
+    double currAngle = revAngle;
 
     public TankDriveTrain(DcMotor motor0, DcMotor motor1, DcMotor motor3) {
 
@@ -80,81 +83,6 @@ public class TankDriveTrain {
             motorRight.setPower(MOTOR_1_DIRECTION * -x1);
         } else {
             motorRight.setPower(0);
-        }
-    }
-
-    public void turnAuto(String direction) {
-        if (direction.equals("strafeLeft")){
-            motorMiddle.setPower(.5);
-        } else if (direction.equals("strafeRight")){
-            motorMiddle.setPower(-.5);
-        } else if (direction.equals("pivotLeftBack")){
-            motorLeft.setPower(.4);
-        } else if (direction.equals("pivotRightBack")){
-            motorRight.setPower(-.5);
-        } else if (direction.equals("pivotLeftFront")){
-            motorLeft.setPower(-.4);
-        } else if (direction.equals("pivotRightFront")){
-            motorRight.setPower(.5);
-        } else {
-            motorRight.setPower(0);
-            motorLeft.setPower(0);
-        }
-    }
-
-    public void moveAuto(String direction, double time) {
-        if (direction.equals("back")) {
-            motorRight.setPower(-.5);
-            motorLeft.setPower(.4);
-            stop(time);
-        } else if (direction.equals("fwd")) {
-            motorRight.setPower(.5);
-            motorLeft.setPower(-.4);
-            stop(time);
-        } else if (direction.equals("right")){
-            motorRight.setPower(.5);
-            motorLeft.setPower(.4);
-            stop(time);
-        } else if (direction.equals("left")){
-            motorRight.setPower(-.5);
-            motorLeft.setPower(-.4);
-            stop(time);
-        } else if (direction.equals("strafeLeft")){
-            motorMiddle.setPower(.5);
-            stop(time);
-        } else if (direction.equals("strafeRight")){
-            motorMiddle.setPower(-.5);
-            stop(time);
-        } else if (direction.equals("pivotLeftBack")){
-            motorLeft.setPower(.4);
-            stop(time);
-        } else if (direction.equals("pivotRightBack")){
-            motorRight.setPower(-.5);
-            stop(time);
-        } else if (direction.equals("pivotLeftFront")){
-            motorLeft.setPower(-.4);
-            stop(time);
-        } else if (direction.equals("pivotRightFront")){
-            motorRight.setPower(.5);
-            stop(time);
-        } else {
-            motorRight.setPower(0);
-            motorLeft.setPower(0);
-        }
-    }
-
-    public void stop(double time) {
-        timer(time);
-        motorLeft.setPower(0);
-        motorRight.setPower(0);
-        timer(.2);
-    }
-
-    private void timer(double time) {
-        try {
-            Thread.sleep((long)(time*1000));
-        } catch (InterruptedException e) {
-            e.printStackTrace();
         }
     }
 

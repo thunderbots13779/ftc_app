@@ -28,8 +28,9 @@ public class Autonomous_Code extends LinearOpMode{
     private Grabber grabber;
     private VerticalLiftMotor liftMotor;
     private VuMarkIdentification vuMarkIdentification;
-    private Timer timer;
-    private TimerTask task;
+    private AutoTimer aTimer;
+//    private Timer timer;
+//    private TimerTask task;
 
     /** VARS **/
     private double servoUp = (174.0/180.0);
@@ -112,6 +113,7 @@ public class Autonomous_Code extends LinearOpMode{
         grabber = new Grabber(servo1, servo2);
         liftMotor = new VerticalLiftMotor(motor2);
         vuMarkIdentification = new VuMarkIdentification(hardwareMap, telemetry);
+        aTimer = new AutoTimer();
     }
 
     /** SEQUENCES **/
@@ -120,13 +122,14 @@ public class Autonomous_Code extends LinearOpMode{
         grab();
         liftUp();
         servo0.setPosition(servoDown);
-        timer(1);
+        aTimer.timer(1);
     }
 
-    public  void auto(String color) {
+    public void auto(String color) {
         startSequence();
         boolean colorCheck = color(color);
         knockBall(colorCheck);
+        align();
     }
 
     public void end() {
@@ -190,17 +193,17 @@ public class Autonomous_Code extends LinearOpMode{
 
     private void knockRight() {
         servo3.setPosition(-1);
-        timer(.3);
+        aTimer.timer(.3);
         servo3.setPosition(1);
-        timer(.3);
+        aTimer.timer(.3);
         servo3.setPosition(.5);
     }
 
     private void knockLeft() {
         servo3.setPosition(1);
-        timer(.3);
+        aTimer.timer(.3);
         servo3.setPosition(-1);
-        timer(.3);
+        aTimer.timer(.3);
         servo3.setPosition(.5);
     }
 
@@ -218,7 +221,7 @@ public class Autonomous_Code extends LinearOpMode{
                 maxRed = red;
             if (blue > maxBlue)
                 maxBlue = blue;
-            timer(.1);
+            aTimer.timer(.1);
         }
 
         boolean redVisible;
@@ -241,56 +244,54 @@ public class Autonomous_Code extends LinearOpMode{
 
     /** SERVOS AND MOTORS **/
     public void servoPosUp() {
-        timer(1);
+        aTimer.timer(1);
         servo0.setPosition(servoUp);
-        timer(1);
+        aTimer.timer(1);
     }
 
     public void grab() {
-        timer(.5);
+        aTimer.timer(.5);
         servo2.setPosition(LEFT_CLOSED_POSITION);
         servo1.setPosition(RIGHT_CLOSED_POSITION);
-        timer(.5);
+        aTimer.timer(.5);
     }
 
     public void ungrab() {
-        timer(.5);
+        aTimer.timer(.5);
         servo2.setPosition(LEFT_OPEN_POSITION);
         servo1 .setPosition(RIGHT_OPEN_POSITION);
-        timer(.5);
+        aTimer.timer(.5);
 
     }
 
     public void liftUp() {
         motor2.setPower(1);
-        timer(.35);
+        aTimer.timer(.35);
         motor2.setPower(0);
-        timer(.5);
+        aTimer.timer(.5);
     }
 
     public void liftDown() {
         motor2.setPower(-1);
-        timer(.2);
+        aTimer.timer(.2);
         motor2.setPower(0);
-        timer(.45);
+        aTimer.timer(.45);
     }
 
     /** ANGLE **/
     public void turn(float angle) {
         while (currAngle < angle - angleOffset || currAngle > angle - angleOffset) {
             if (angle > 0) {
-                driveTrain.turnAuto("strafeRight");
-                driveTrain.turnAuto("pivotRightFront");
+                driveTrain.turnAuto("right");
             } else if (angle < 0) {
-                driveTrain.turnAuto("strafeLeft");
-                driveTrain.turnAuto("pivotLeftFront");
+                driveTrain.turnAuto("left");
             }
         }
     }
 
     /** COLUMN **/
     public void pickColumn() {
-        while (column == 3) {
+        while (column == 3 && !aTimer.timer(10)) {
             column= vuMarkIdentification.identify();
             telemetry.addData("column: ", column);
             telemetry.update();
@@ -307,21 +308,21 @@ public class Autonomous_Code extends LinearOpMode{
         }
     }
 
-    /** TIMER **/ //NEEDS MODDING
-    public void timer(final double time) {
-        timePassed = 0;
-        period = 1000;
-
-        timer = new Timer();
-        task = new TimerTask() {
-            @Override
-            public void run() {
-                timePassed += period;
-                if ((timePassed / period) <= time) {
-                    timer.cancel();
-                }
-            }
-        };
-    }
+//    /** TIMER **/ //NEEDS MODDING
+//    public void timer(final double time) {
+//        timePassed = 0;
+//        period = 1000;
+//
+//        timer = new Timer();
+//        task = new TimerTask() {
+//            @Override
+//            public void run() {
+//                timePassed += period;
+//                if ((timePassed / period) <= time) {
+//                    timer.cancel();
+//                }
+//            }
+//        };
+//    }
 
 }
