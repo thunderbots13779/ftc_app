@@ -17,6 +17,7 @@ public class Competition extends LinearOpMode {
     private Servo servo0;
     private Servo servo1;
     private Servo servo2;
+    private Servo servo3;
     private NormalizedColorSensor colorSensor;
     private TeleDriveTrain driveTrain;
     private Grabber grabber;
@@ -34,6 +35,7 @@ public class Competition extends LinearOpMode {
         while (opModeIsActive()) {
 
             servo0.setPosition(174.0/180.0);
+            servo3.setPosition(.5);
 
             //DRIVE TRAIN
             move();
@@ -59,7 +61,7 @@ public class Competition extends LinearOpMode {
         servo0 = hardwareMap.get(Servo.class, "servo0");
         servo1 = hardwareMap.get(Servo.class, "servo1");
         servo2 = hardwareMap.get(Servo.class, "servo2");
-
+        servo3 = hardwareMap.get(Servo.class, "servo3");
         colorSensor = hardwareMap.get(NormalizedColorSensor.class, "colorSensor");
 
         //INITIALIZATION

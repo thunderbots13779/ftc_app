@@ -6,6 +6,7 @@ public class TeleDriveTrain {
 
     private DcMotor motorLeft, motorRight, motorMiddle;
 
+    private AutoTimer aTimer;
     private final int MOTOR_0_DIRECTION = 1;
     private final int MOTOR_1_DIRECTION = -1;
     private double x0;
@@ -13,8 +14,10 @@ public class TeleDriveTrain {
     private double ssr;
     private double ssl;
     private double powerScale = (1/1.2);
-    private int gear = 1;
+    private int gear = 2;
     public boolean isPressed = false;
+    double revAngle = 0;
+    double currAngle = revAngle;
 
     public TeleDriveTrain(DcMotor motor0, DcMotor motor1, DcMotor motor3) {
 
