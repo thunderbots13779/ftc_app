@@ -45,6 +45,8 @@ public class Autonomous_Code extends BasicOpMode_Iterative{
     double period;
     double timePassed;
     int column = 3;
+    float angleOffset = 1;
+    float currAngle;
 
     /** CONSTRUCTOR **/
     public Autonomous_Code () {
@@ -268,8 +270,18 @@ public class Autonomous_Code extends BasicOpMode_Iterative{
         timer(.45);
     }
 
-    /** CORRECTION **/
-    public void turn()
+    /** ANGLE **/
+    public void turn(float angle) {
+        while (currAngle < angle - angleOffset || currAngle > angle - angleOffset) {
+            if (angle > 0) {
+                driveTrain.turnAuto("strafeRight");
+                driveTrain.turnAuto("pivotRightFront");
+            } else if (angle < 0) {
+                driveTrain.turnAuto("strafeLeft");
+                driveTrain.turnAuto("pivotLeftFront");
+            }
+        }
+    }
 
     /** COLUMN **/
     public void pickColumn() {

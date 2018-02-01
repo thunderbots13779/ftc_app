@@ -83,6 +83,25 @@ public class TankDriveTrain {
         }
     }
 
+    public void turnAuto(String direction) {
+        if (direction.equals("strafeLeft")){
+            motorMiddle.setPower(.5);
+        } else if (direction.equals("strafeRight")){
+            motorMiddle.setPower(-.5);
+        } else if (direction.equals("pivotLeftBack")){
+            motorLeft.setPower(.4);
+        } else if (direction.equals("pivotRightBack")){
+            motorRight.setPower(-.5);
+        } else if (direction.equals("pivotLeftFront")){
+            motorLeft.setPower(-.4);
+        } else if (direction.equals("pivotRightFront")){
+            motorRight.setPower(.5);
+        } else {
+            motorRight.setPower(0);
+            motorLeft.setPower(0);
+        }
+    }
+
     public void moveAuto(String direction, double time) {
         if (direction.equals("back")) {
             motorRight.setPower(-.5);
