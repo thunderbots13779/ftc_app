@@ -6,10 +6,6 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.NormalizedColorSensor;
 import com.qualcomm.robotcore.hardware.NormalizedRGBA;
 import com.qualcomm.robotcore.hardware.Servo;
-import org.firstinspires.ftc.robotcontroller.external.samples.BasicOpMode_Iterative;
-
-import java.util.Timer;
-import java.util.TimerTask;
 
 @Autonomous
 public class Autonomous_Code extends LinearOpMode{
@@ -28,6 +24,7 @@ public class Autonomous_Code extends LinearOpMode{
     private Grabber grabber;
     private VerticalLiftMotor liftMotor;
     private VuMarkIdentification vuMarkIdentification;
+    private AutonomousMovement moveAuto;
     private AutoTimer aTimer;
 //    private Timer timer;
 //    private TimerTask task;
@@ -41,7 +38,7 @@ public class Autonomous_Code extends LinearOpMode{
     private final double RIGHT_CLOSED_POSITION = (118.0/180.0);
     double back = 0;
     double turn = 0;
-    double columnTime = 0;
+    long columnTime = 0;
     double columnShift = .2;
     String strafeDirection;
     double period;
@@ -52,19 +49,19 @@ public class Autonomous_Code extends LinearOpMode{
 
     /** CONSTRUCTOR **/
     public Autonomous_Code () {
-        this.motor0 = motor0;
-        this.motor1 = motor1;
-        this.motor2 = motor2;
-        this.motor3 = motor3;
-        this.servo0 = servo0;
-        this.servo1 = servo1;
-        this.servo2 = servo2;
-        this.servo3 = servo3;
-        this.colorSensor = colorSensor;
-        this.driveTrain = driveTrain;
-        this.grabber = grabber;
-        this.liftMotor = liftMotor;
-        this.vuMarkIdentification = vuMarkIdentification;
+//        this.motor0 = motor0;
+//        this.motor1 = motor1;
+//        this.motor2 = motor2;
+//        this.motor3 = motor3;
+//        this.servo0 = servo0;
+//        this.servo1 = servo1;
+//        this.servo2 = servo2;
+//        this.servo3 = servo3;
+//        this.colorSensor = colorSensor;
+//        this.driveTrain = driveTrain;
+//        this.grabber = grabber;
+//        this.liftMotor = liftMotor;
+//        this.vuMarkIdentification = vuMarkIdentification;
     }
 
     /** OP MODE **/
@@ -113,7 +110,7 @@ public class Autonomous_Code extends LinearOpMode{
         grabber = new Grabber(servo1, servo2);
         liftMotor = new VerticalLiftMotor(motor2);
         vuMarkIdentification = new VuMarkIdentification(hardwareMap, telemetry);
-        aTimer = new AutoTimer();
+        moveAuto = new AutonomousMovement(motor0, motor1, motor2, motor3, servo1, servo2, servo3);
     }
 
     /** SEQUENCES **/
@@ -122,61 +119,67 @@ public class Autonomous_Code extends LinearOpMode{
         grab();
         liftUp();
         servo0.setPosition(servoDown);
-        aTimer.timer(1);
+        pause(1000);
     }
 
     public void auto(String color) {
         startSequence();
         boolean colorCheck = color(color);
         knockBall(colorCheck);
-        align();
+        align(color);
     }
 
     public void end() {
         columnShift();
-        driveTrain.moveAuto(strafeDirection, columnTime);
+        moveAuto.move(strafeDirection, columnTime);
         ungrab();
-        driveTrain.moveAuto("fwd", .45);
-        driveTrain.moveAuto("back", .3);
+        moveAuto.move("fwd", 450);
+        moveAuto.move("back", 300);
         grab();
         liftDown();
-        driveTrain.moveAuto("fwd", .4);
-        driveTrain.moveAuto("back", .15);
+        moveAuto.move("fwd", 400);
+        moveAuto.move("back", 150);
     }
 
-    public void align() {
-        driveTrain.moveAuto("back", back);
-        driveTrain.moveAuto("fwd", back/2);
+    public void align(String direction) {
+        if(direction.equals("blue")) {
+            moveAuto.move("left", 500);
+            moveAuto.move("right", 800);
+            moveAuto.move("left", 350);
+        } else {
+            moveAuto.move("right", 500);
+            moveAuto.move("left", 500);
+            moveAuto.move("right", 350);
+        }
     }
 
     /** CASES **/
     public void redTop() {
-        driveTrain.moveAuto("back", back);
-        driveTrain.moveAuto("left", turn);
-        driveTrain.moveAuto("fwd", .45);
+        moveAuto.move("back", 500);
+        turn(90);
+        moveAuto.move("fwd", 450);
         end();
     }
 
     public void redBottom() {
-        driveTrain.moveAuto("back", .8);
-        driveTrain.moveAuto("right", 1.5);
-        driveTrain.moveAuto("strafeLeft", .5);
-        driveTrain.moveAuto("pivotLeftBack", .3);
+        moveAuto.move("back", 800);
+        turn(90);
+        moveAuto.move("left", 500);
+        moveAuto.move("pivotLeftBack", 300);
         end();
     }
 
     public void blueTop() {
-        driveTrain.moveAuto("fwd", .7);
-        driveTrain.moveAuto("left", 1.1);
-        driveTrain.moveAuto("fwd", .45);
+        moveAuto.move("fwd", 700);
+        turn(90);
+        moveAuto.move("fwd", 450);
         end();
     }
 
     public void blueBottom() {
-        driveTrain.moveAuto("fwd", .4);
-        driveTrain.moveAuto("right", .7);
-        driveTrain.moveAuto("fwd", .2);
-        driveTrain.moveAuto("fwd", .35);
+        moveAuto.move("fwd", 400);
+        turn(90);
+        moveAuto.move("fwd", 550);
         end();
     }
 
@@ -192,19 +195,13 @@ public class Autonomous_Code extends LinearOpMode{
     }
 
     private void knockRight() {
-        servo3.setPosition(-1);
-        aTimer.timer(.3);
-        servo3.setPosition(1);
-        aTimer.timer(.3);
-        servo3.setPosition(.5);
+        moveAuto.dropdown("right", 300);
+        moveAuto.dropdown("left", 300);
     }
 
     private void knockLeft() {
-        servo3.setPosition(1);
-        aTimer.timer(.3);
-        servo3.setPosition(-1);
-        aTimer.timer(.3);
-        servo3.setPosition(.5);
+        moveAuto.dropdown("left", 300);
+        moveAuto.dropdown("right", 300);
     }
 
     public boolean color(String color) {
@@ -214,14 +211,13 @@ public class Autonomous_Code extends LinearOpMode{
 
         for (int i = 0; i < 10; i++) {
             NormalizedRGBA colors = colorSensor.getNormalizedColors();
-
             double red = scale * colors.red;
             double blue = scale * colors.blue;
             if (red > maxRed)
                 maxRed = red;
             if (blue > maxBlue)
                 maxBlue = blue;
-            aTimer.timer(.1);
+            pause(100);
         }
 
         boolean redVisible;
@@ -244,54 +240,50 @@ public class Autonomous_Code extends LinearOpMode{
 
     /** SERVOS AND MOTORS **/
     public void servoPosUp() {
-        aTimer.timer(1);
+        pause(1000);
         servo0.setPosition(servoUp);
-        aTimer.timer(1);
+        pause(1000);
     }
 
     public void grab() {
-        aTimer.timer(.5);
+        pause(500);
         servo2.setPosition(LEFT_CLOSED_POSITION);
         servo1.setPosition(RIGHT_CLOSED_POSITION);
-        aTimer.timer(.5);
+        pause(1000);
     }
 
     public void ungrab() {
-        aTimer.timer(.5);
+        pause(500);
         servo2.setPosition(LEFT_OPEN_POSITION);
         servo1 .setPosition(RIGHT_OPEN_POSITION);
-        aTimer.timer(.5);
-
+        pause(1000);
     }
 
     public void liftUp() {
-        motor2.setPower(1);
-        aTimer.timer(.35);
-        motor2.setPower(0);
-        aTimer.timer(.5);
+        moveAuto.lift("up", 350);
+        pause(1000);
     }
 
     public void liftDown() {
-        motor2.setPower(-1);
-        aTimer.timer(.2);
-        motor2.setPower(0);
-        aTimer.timer(.45);
+        moveAuto.lift("down", 200);
+        pause(450);
     }
 
     /** ANGLE **/
     public void turn(float angle) {
         while (currAngle < angle - angleOffset || currAngle > angle - angleOffset) {
             if (angle > 0) {
-                driveTrain.turnAuto("right");
+                moveAuto.turn("right");
             } else if (angle < 0) {
-                driveTrain.turnAuto("left");
+                moveAuto.turn("left");
             }
         }
     }
 
     /** COLUMN **/
     public void pickColumn() {
-        while (column == 3 && !aTimer.timer(10)) {
+        aTimer = new AutoTimer(10000);
+        while (column == 3 && !aTimer.checkTime()) {
             column= vuMarkIdentification.identify();
             telemetry.addData("column: ", column);
             telemetry.update();
@@ -300,15 +292,22 @@ public class Autonomous_Code extends LinearOpMode{
 
     public void columnShift() {
         if (column == 0) {
-            strafeDirection = "strafeLeft";
+            strafeDirection = "left";
             columnTime -= columnShift;
         } else if (column == 2) {
-            strafeDirection = "strafeRight";
+            strafeDirection = "right";
             columnTime += columnShift;
         }
     }
 
-//    /** TIMER **/ //NEEDS MODDING
+    /** TIMER **/ //NEEDS MODDING
+    public void pause(long time) {
+        aTimer = new AutoTimer(time);
+        while(!aTimer.checkTime()) {
+
+        }
+    }
+
 //    public void timer(final double time) {
 //        timePassed = 0;
 //        period = 1000;

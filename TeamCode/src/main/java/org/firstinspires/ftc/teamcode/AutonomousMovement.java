@@ -1,11 +1,12 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Servo;
 
 public class AutonomousMovement {
 
-    private DcMotor motorLeft, motorRight, motorMiddle;
-
+    private DcMotor motorLeft, motorRight, motorMiddle, motorLift;
+    private Servo leftGrabber, rightGrabber, colorKnocker;
     private AutoTimer aTimer;
     private final int MOTOR_0_DIRECTION = 1;
     private final int MOTOR_1_DIRECTION = -1;
@@ -19,30 +20,19 @@ public class AutonomousMovement {
     double revAngle = 0;
     double currAngle = revAngle;
 
-    public AutonomousMovement(DcMotor motor0, DcMotor motor1, DcMotor motor3) {
+    public AutonomousMovement(DcMotor motor0, DcMotor motor1, DcMotor motor2, DcMotor motor3, Servo servo1, Servo servo2, Servo servo3) {
 
         this.motorLeft = motor0;
         this.motorRight = motor1;
         this.motorMiddle = motor3;
+        this.motorLift = motor3;
+        this.leftGrabber = servo1;
+        this.rightGrabber = servo2;
+        this.colorKnocker = servo3;
 
     }
 
-    public void turnAuto(String direction/*, double angle*/) {
-//        while (!checkAngle(angle)) {
-        if (direction.equals("right")) {
-            motorMiddle.setPower(-.5);
-            motorRight.setPower(.5);
-        } else if (direction.equals("left")) {
-            motorMiddle.setPower(-.5);
-            motorLeft.setPower(-.4);
-        } else {
-            motorLeft.setPower(0);
-            motorRight.setPower(0);
-            motorMiddle.setPower(0);
-        }
-    }
-
-    public void moveAuto(String direction, long time) {
+    public void move(String direction, long time) {
         aTimer = new AutoTimer(time);
         while (!aTimer.checkTime()) {
             if (direction.equals("back")) {
@@ -52,19 +42,58 @@ public class AutonomousMovement {
                 motorRight.setPower(.5);
                 motorLeft.setPower(-.4);
             } else if (direction.equals("right")) {
-                motorRight.setPower(.5);
-                motorLeft.setPower(.4);
-            } else if (direction.equals("left")) {
-                motorRight.setPower(-.5);
-                motorLeft.setPower(-.4);
-            } else if (direction.equals("strafeLeft")) {
-                motorMiddle.setPower(.5);
-            } else if (direction.equals("strafeRight")) {
                 motorMiddle.setPower(-.5);
+            } else if (direction.equals("left")) {
+                motorMiddle.setPower(.5);
             } else {
                 motorRight.setPower(0);
                 motorLeft.setPower(0);
+                motorMiddle.setPower(0);
             }
         }
+        motorRight.setPower(0);
+        motorLeft.setPower(0);
+        motorMiddle.setPower(0);
     }
+
+    public void turn(String direction) {
+        if (direction.equals("left")) {
+            motorMiddle.setPower(.5);
+            motorRight.setPower(.5);
+        } else if (direction.equals("right")) {
+            motorMiddle.setPower(-.5);
+            motorLeft.setPower(-.5);
+        } else {
+            motorMiddle.setPower(0);
+        }
+    }
+
+    public void lift(String direction, long time) {
+        aTimer = new AutoTimer(time);
+        while (!aTimer.checkTime()) {
+            if (direction.equals("up")) {
+                motorLift.setPower(.5);
+            } else if (direction.equals("down")) {
+                motorLift.setPower(-.5);
+            } else {
+                motorLift.setPower(0);
+            }
+        }
+        motorLift.setPower(0);
+    }
+
+    public void dropdown(String direction, long time) {
+        aTimer = new AutoTimer(time);
+        while (!aTimer.checkTime()) {
+            if (direction.equals("right")) {
+                colorKnocker.setPosition(-1);
+            } else if (direction.equals("left")) {
+                colorKnocker.setPosition(1);
+            } else {
+                colorKnocker.setPosition(.5);
+            }
+        }
+        colorKnocker.setPosition(.5);
+    }
+
 }
