@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.NormalizedColorSensor;
 import com.qualcomm.robotcore.hardware.NormalizedRGBA;
@@ -11,7 +12,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 @Autonomous
-public class Autonomous_Code extends BasicOpMode_Iterative{
+public class Autonomous_Code extends LinearOpMode{
 
     /** INITS **/
     private DcMotor motor0;
@@ -66,28 +67,32 @@ public class Autonomous_Code extends BasicOpMode_Iterative{
     }
 
     /** OP MODE **/
-
     @Override
-    public void start() {
-
-        timer.scheduleAtFixedRate(task, 0, (long) period);
+    public void runOpMode() {
 
     }
-
-    @Override
-    public void loop() {
-
-        telemetry.addData("Seconds Passes", timePassed / period);
-        telemetry.update();
-
-    }
-
-    @Override
-    public void stop() {
-
-        timer.cancel();
-
-    }
+//
+//    @Override
+//    public void start() {
+//
+//        timer.scheduleAtFixedRate(task, 0, (long) period);
+//
+//    }
+//
+//    @Override
+//    public void loop() {
+//
+//        telemetry.addData("Seconds Passes", timePassed / period);
+//        telemetry.update();
+//
+//    }
+//
+//    @Override
+//    public void stop() {
+//
+//        timer.cancel();
+//
+//    }
 
     /** MAPS **/
     public void initialization() {

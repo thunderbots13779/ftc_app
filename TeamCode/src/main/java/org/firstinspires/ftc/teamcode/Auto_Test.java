@@ -7,15 +7,14 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
  */
 
 @Autonomous
-public class Auto_Test extends Autonomous_Code{
+public class Auto_Test extends AutoTimer{
 
     @Override
     public void runOpMode() {
 
         if (opModeIsActive()) {
-            initialization();
-            auto("blue");
-            redBottom();
+            telemetry.addData("Time: ", getTime());
+            telemetry.update();
         }
     }
 
