@@ -23,6 +23,8 @@ public class DriveTrain {
     public Orientation angles;
     public Acceleration gravity;
 
+    public double angle;
+
     private DcMotor motorLeft, motorRight, motorMiddle;
     private int motorLeftDirection = 1;
     private int motorRightDirection = -1;
@@ -51,8 +53,24 @@ public class DriveTrain {
 
     }
 
-    public void turnAbsolute(double angle) {
+    public void turnAbsolute(float angleEnd) {
 
+        while (angles == null) {
+
+        }
+
+        float initial = angles.firstAngle;
+        while (angles.firstAngle < angleEnd) {
+            float percent = 1 - ((angles.firstAngle - initial) / (angleEnd - initial));
+
+            float power = -1 * (percent * 0.6f + 0.1f);
+
+            motorLeft.setPower(power);
+            motorRight.setPower(power);
+        }
+
+        motorLeft.setPower(0);
+        motorRight.setPower(0);
 
     }
 

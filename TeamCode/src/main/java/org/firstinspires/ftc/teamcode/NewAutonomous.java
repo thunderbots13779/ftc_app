@@ -83,13 +83,15 @@ public class NewAutonomous extends OpMode
     @Override
     public void start() {
         driveTrain.startUpdates();
+        driveTrain.turnAbsolute(90);
     }
 
     @Override
     public void loop() {
+
         if(driveTrain.angles != null) {
             telemetry.addLine()
-                    .addData("hello: ", 1);
+                    .addData("z: ", driveTrain.angles.firstAngle);
 //                    .addData("z", new Func<String>() {
 //                        @Override
 //                        public String value() {
