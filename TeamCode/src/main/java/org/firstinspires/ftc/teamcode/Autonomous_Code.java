@@ -167,7 +167,7 @@ public class Autonomous_Code extends LinearOpMode{
 
     public void blueBottom() {
         moveAuto.move("fwd", 400);
-        turnAngle.turnAbsolute(90);
+        turnAngle.turnAbsolute(180);
         moveAuto.move("fwd", 550);
         end();
     }
@@ -258,20 +258,9 @@ public class Autonomous_Code extends LinearOpMode{
         pause(450);
     }
 
-    /** ANGLE **/
-    public void turn(float angle) {
-        while (currAngle < angle - angleOffset || currAngle > angle - angleOffset) {
-            if (angle > 0) {
-                moveAuto.turn("right");
-            } else if (angle < 0) {
-                moveAuto.turn("left");
-            }
-        }
-    }
-
     /** COLUMN **/
     public void pickColumn() {
-        aTimer = new AutoTimer(10000);
+        aTimer = new AutoTimer(1000);
         while (column == 3 && !aTimer.checkTime()) {
             column= vuMarkIdentification.identify();
             telemetry.addData("column: ", column);
