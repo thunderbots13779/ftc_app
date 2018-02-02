@@ -12,6 +12,8 @@ public class BlueBottom extends Autonomous_Code{
     @Override
     public void runOpMode() {
 
+        waitForStart();
+
         if (opModeIsActive()) {
             initialization();
             auto("blue");

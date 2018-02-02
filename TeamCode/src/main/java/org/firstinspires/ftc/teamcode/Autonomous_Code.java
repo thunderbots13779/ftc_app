@@ -26,6 +26,7 @@ public class Autonomous_Code extends LinearOpMode{
     private VuMarkIdentification vuMarkIdentification;
     private AutonomousMovement moveAuto;
     private AutoTimer aTimer;
+    private DriveTrain turnAngle;
 //    private Timer timer;
 //    private TimerTask task;
 
@@ -49,19 +50,6 @@ public class Autonomous_Code extends LinearOpMode{
 
     /** CONSTRUCTOR **/
     public Autonomous_Code () {
-//        this.motor0 = motor0;
-//        this.motor1 = motor1;
-//        this.motor2 = motor2;
-//        this.motor3 = motor3;
-//        this.servo0 = servo0;
-//        this.servo1 = servo1;
-//        this.servo2 = servo2;
-//        this.servo3 = servo3;
-//        this.colorSensor = colorSensor;
-//        this.driveTrain = driveTrain;
-//        this.grabber = grabber;
-//        this.liftMotor = liftMotor;
-//        this.vuMarkIdentification = vuMarkIdentification;
     }
 
     /** OP MODE **/
@@ -110,6 +98,7 @@ public class Autonomous_Code extends LinearOpMode{
         grabber = new Grabber(servo1, servo2);
         liftMotor = new VerticalLiftMotor(motor2);
         vuMarkIdentification = new VuMarkIdentification(hardwareMap, telemetry);
+        turnAngle = new DriveTrain(motor0, motor1, motor3, hardwareMap);
         moveAuto = new AutonomousMovement(motor0, motor1, motor2, motor3, servo1, servo2, servo3);
     }
 
@@ -156,14 +145,14 @@ public class Autonomous_Code extends LinearOpMode{
     /** CASES **/
     public void redTop() {
         moveAuto.move("back", 500);
-        turn(90);
+        turnAngle.turnAbsolute(90);
         moveAuto.move("fwd", 450);
         end();
     }
 
     public void redBottom() {
         moveAuto.move("back", 800);
-        turn(90);
+        turnAngle.turnAbsolute(90);
         moveAuto.move("left", 500);
         moveAuto.move("pivotLeftBack", 300);
         end();
@@ -171,14 +160,14 @@ public class Autonomous_Code extends LinearOpMode{
 
     public void blueTop() {
         moveAuto.move("fwd", 700);
-        turn(90);
+        turnAngle.turnAbsolute(90);
         moveAuto.move("fwd", 450);
         end();
     }
 
     public void blueBottom() {
         moveAuto.move("fwd", 400);
-        turn(90);
+        turnAngle.turnAbsolute(90);
         moveAuto.move("fwd", 550);
         end();
     }
