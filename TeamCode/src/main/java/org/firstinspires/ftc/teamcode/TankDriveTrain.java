@@ -2,7 +2,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-public class TeleDriveTrain {
+public class TankDriveTrain {
 
     private DcMotor motorLeft, motorRight, motorMiddle;
 
@@ -19,7 +19,7 @@ public class TeleDriveTrain {
     double revAngle = 0;
     double currAngle = revAngle;
 
-    public TeleDriveTrain(DcMotor motor0, DcMotor motor1, DcMotor motor3) {
+    public TankDriveTrain(DcMotor motor0, DcMotor motor1, DcMotor motor3) {
 
         this.motorLeft = motor0;
         this.motorRight = motor1;
@@ -27,7 +27,7 @@ public class TeleDriveTrain {
 
     }
 
-    private void gearSwitch(int gear)
+    public void gearSwitch(int gear)
     {
 
         switch(gear) {
@@ -99,7 +99,7 @@ public class TeleDriveTrain {
         }
     }
 
-    public int getGear() {
-        return gear;
-    }
+    public double getPowerScale() { return powerScale; }
+    public double getGear() { return gear; }
+
 }
