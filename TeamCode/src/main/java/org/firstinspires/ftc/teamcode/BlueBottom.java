@@ -13,9 +13,8 @@ public class BlueBottom extends Autonomous_Code{
     public void runOpMode() {
 
         waitForStart();
-
-        if (opModeIsActive()) {
-            initialization();
+        initialization();
+        if(opModeIsActive()) {
             auto("blue");
             blueBottom();
         }

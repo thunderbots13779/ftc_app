@@ -51,28 +51,55 @@ public class DriveTrain {
 
         imu.startAccelerationIntegration(new Position(), new Velocity(), 1000);
 
+        motor0.setZeroPowerBehavior((DcMotor.ZeroPowerBehavior.BRAKE));
+        motor1.setZeroPowerBehavior((DcMotor.ZeroPowerBehavior.BRAKE));
+
     }
 
-    public void turnAbsolute(float angleEnd) {
+//    public void turnAbsolute(float angleEnd) {
+//
+//        while (angles == null) {
+//
+//        }
+//
+//        float initial = angles.firstAngle;
+//        while (angles.firstAngle < angleEnd) {
+//            float percent = 1 - ((angles.firstAngle - initial) / (angleEnd - initial));
+//
+//            float power = -1 * (percent * 0.6f + 0.1f);
+//
+//            motorLeft.setPower(power);
+//            motorRight.setPower(power);
+//        }
+//
+//        motorLeft.setPower(0);
+//        motorRight.setPower(0);
+//
+//    }
+    public void turnAbsolute(float angle) {
+
+        float marginOfError = 12;
+
+        float right = angle - marginOfError;
+        float left = angle + marginOfError;
 
         while (angles == null) {
 
         }
 
-        float initial = angles.firstAngle;
-        while (angles.firstAngle < angleEnd) {
-            float percent = 1 - ((angles.firstAngle - initial) / (angleEnd - initial));
+        float multiplier = angle / Math.abs(angle);
 
-            float power = -1 * (percent * 0.6f + 0.1f);
-
-            motorLeft.setPower(power);
-            motorRight.setPower(power);
+        while (!(angles.firstAngle < left && angles.firstAngle > right)) {
+            motorLeft.setPower(-0.35f * multiplier);
+            motorRight.setPower(-0.35f * multiplier);
         }
 
         motorLeft.setPower(0);
         motorRight.setPower(0);
-
     }
+
+
+
 
     public void startUpdates() {
         timer = new Timer();

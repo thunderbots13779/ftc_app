@@ -11,10 +11,10 @@ public class RedBottom extends Autonomous_Code{
 
     @Override
     public void runOpMode() {
-
+        waitForStart();
+        initialization();
         if (opModeIsActive()) {
-            initialization();
-            auto("blue");
+            auto("red");
             redBottom();
         }
     }

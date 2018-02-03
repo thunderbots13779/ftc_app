@@ -25,10 +25,13 @@ public class AutonomousMovement {
         this.motorLeft = motor0;
         this.motorRight = motor1;
         this.motorMiddle = motor3;
-        this.motorLift = motor3;
+        this.motorLift = motor2;
         this.leftGrabber = servo1;
         this.rightGrabber = servo2;
         this.colorKnocker = servo3;
+
+        motorLeft.setZeroPowerBehavior((DcMotor.ZeroPowerBehavior.BRAKE));
+        motorRight.setZeroPowerBehavior((DcMotor.ZeroPowerBehavior.BRAKE));
 
     }
 
@@ -42,9 +45,9 @@ public class AutonomousMovement {
                 motorRight.setPower(.5);
                 motorLeft.setPower(-.4);
             } else if (direction.equals("right")) {
-                motorMiddle.setPower(-.5);
+                motorMiddle.setPower(-1);
             } else if (direction.equals("left")) {
-                motorMiddle.setPower(.5);
+                motorMiddle.setPower(1);
             } else {
                 motorRight.setPower(0);
                 motorLeft.setPower(0);
@@ -54,18 +57,26 @@ public class AutonomousMovement {
         motorRight.setPower(0);
         motorLeft.setPower(0);
         motorMiddle.setPower(0);
+        pause();
     }
 
-    public void turn(String direction) {
-        if (direction.equals("left")) {
-            motorMiddle.setPower(.5);
-            motorRight.setPower(.5);
-        } else if (direction.equals("right")) {
-            motorMiddle.setPower(-.5);
-            motorLeft.setPower(-.5);
-        } else {
-            motorMiddle.setPower(0);
+    public void turn(String direction, long time) {
+        aTimer = new AutoTimer(time);
+        while (!aTimer.checkTime()) {
+            if (direction.equals("left")) {
+                motorLeft.setPower(-.4);
+                motorRight.setPower(-.5);
+            } else if (direction.equals("right")) {
+                motorRight.setPower(.5);
+                motorLeft.setPower(.4);
+            } else {
+                motorRight.setPower(0);
+                motorLeft.setPower(0);
+            }
         }
+        motorRight.setPower(0);
+        motorLeft.setPower(0);
+        pause();
     }
 
     public void lift(String direction, long time) {
@@ -80,6 +91,7 @@ public class AutonomousMovement {
             }
         }
         motorLift.setPower(0);
+        pause();
     }
 
     public void dropdown(String direction, long time) {
@@ -94,6 +106,14 @@ public class AutonomousMovement {
             }
         }
         colorKnocker.setPosition(.5);
+        pause();
+    }
+
+    private void pause() {
+        aTimer = new AutoTimer(750);
+        while(!aTimer.checkTime()) {
+
+        }
     }
 
 }

@@ -11,9 +11,9 @@ public class RedTop extends Autonomous_Code{
 
     @Override
     public void runOpMode() {
-
+        waitForStart();
+        initialization();
         if (opModeIsActive()) {
-            initialization();
             auto("blue");
             redTop();
         }
