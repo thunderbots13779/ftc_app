@@ -26,13 +26,6 @@ public class Autonomous_Code extends LinearOpMode{
     BNO055IMU imu;
 
     public Orientation angles;
-    public Acceleration gravity;
-
-    public double angle;
-
-    private DcMotor motorLeft, motorRight, motorMiddle;
-    private int motorLeftDirection = 1;
-    private int motorRightDirection = -1;
 
     public Timer timer;
     public TimerTask task;
@@ -50,9 +43,7 @@ public class Autonomous_Code extends LinearOpMode{
     private TankDriveTrain driveTrain;
     private Grabber grabber;
     private VerticalLiftMotor liftMotor;
-    private VuMarkIdentification vuMarkIdentification;
-//    private Timer timer;
-//    private TimerTask task;
+//    private VuMarkIdentification vuMarkIdentification;
 
     /** VARS **/
     private double servoUp = (174.0/180.0);
@@ -62,16 +53,10 @@ public class Autonomous_Code extends LinearOpMode{
     private final double RIGHT_OPEN_POSITION = (73.0/180.0);
     private final double RIGHT_CLOSED_POSITION = (118.0/180.0);
 
-    double back = 0;
-    double turn = 0;
     long columnTime = 350;
     double columnShift = .2;
     String strafeDirection = "";
-    double period;
-    double timePassed;
     int column = 3;
-    float angleOffset = 1;
-    float currAngle;
 
     /** TIME VARIABLES **/
     long knockTime = 150;
@@ -103,7 +88,7 @@ public class Autonomous_Code extends LinearOpMode{
         driveTrain = new TankDriveTrain(motor0, motor1, motor3);
         grabber = new Grabber(servo1, servo2);
         liftMotor = new VerticalLiftMotor(motor2);
-        vuMarkIdentification = new VuMarkIdentification(hardwareMap, telemetry);
+//        vuMarkIdentification = new VuMarkIdentification(hardwareMap, telemetry);
 
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
         parameters.angleUnit           = BNO055IMU.AngleUnit.DEGREES;
@@ -125,30 +110,29 @@ public class Autonomous_Code extends LinearOpMode{
     }
 
     /** SEQUENCES **/
-    public void startSequence() {
-        pickColumn();
+    public void startSequence(String direction) {
+//        pickColumn(direction);
         grab();
         liftUp();
         servo0.setPosition(servoDown);
         pause(1000);
     }
 
-    public void auto(String color) {
-        startSequence();
+    public void auto(String color, String direction) {
+        startSequence(direction);
         boolean colorCheck = color(color);
         knockBall(colorCheck);
         align(color);
     }
 
     public void end() {
-//        columnShift();
         move("fwd", 450);
         ungrab();
         move("back", 450);
         grab();
         liftDown();
         move("fwd", 500);
-        move("back", 150);
+        move("back", 300);
         stopUpdates();
     }
 
@@ -160,21 +144,18 @@ public class Autonomous_Code extends LinearOpMode{
             move("back", first);
             pause(1000);
             turnAbsolute(0);
-//            moveAuto.move("fwd", alignT);
-//            moveAuto.move("back", backout);
         } else {
             move("front", first);
             pause(1000);
             turnAbsolute(0);
-//            moveAuto.move("fwd", alignT);
-//            moveAuto.move("back", backout);
         }
     }
 
     /** CASES **/
     public void redTop() {
         move("back", 1000);
-        turnAbsolute(90);
+        turnAbsolute(-90);
+//        columnShiftTop();
         end();
     }
 
@@ -184,11 +165,6 @@ public class Autonomous_Code extends LinearOpMode{
         pause(1000);
         move("fwd", 250);
         move("left", columnTime);
-//        if (column == 1) {
-//            moveAuto.move("right", columnTime + 100);
-//        } else if (column == 2) {
-//            moveAuto.move("right", columnTime + 200);
-//        }
         turnAbsolute(0);
         end();
     }
@@ -196,22 +172,16 @@ public class Autonomous_Code extends LinearOpMode{
     public void blueTop() {
         move("fwd", 1000);
         turnAbsolute(90);
+//        columnShiftTop();
         end();
     }
 
     public void redBottom() {
         move("right", 1000);
-//        moveAuto.turn("right", 1850);
-//        pause(100);
         turnAbsolute(180);
         pause(1000);
         move("fwd", 250);
         move("right", columnTime);
-//        if (column == 1) {
-//            moveAuto.move("right", columnTime + 100);
-//        } else if (column == 2) {
-//            moveAuto.move("right", columnTime + 200);
-//        }
         turnAbsolute(180);
         end();
     }
@@ -304,26 +274,34 @@ public class Autonomous_Code extends LinearOpMode{
     }
 
     /** COLUMN **/
-    public void pickColumn() {
-        long duration = 3000;
-        long endTime = System.currentTimeMillis() + duration;
-        while (column == 3 && !checkTime(endTime) && opModeIsActive()) {
-            column= vuMarkIdentification.identify();
-            telemetry.addData("column: ", column);
-            telemetry.update();
-        }
-        if (column == 3) {
-            column = 1;
+//    public void pickColumn(String direction) {
+//        long duration = 3000;
+//        long endTime = System.currentTimeMillis() + duration;
+//        while (column == 3 && !checkTime(endTime) && opModeIsActive()) {
+//            column= vuMarkIdentification.identify();
+//            telemetry.addData("column: ", column);
+//            telemetry.update();
+//        }
+//        if (column == 3 && direction.equals("bottom")) {
+//            column = 0;
+//        } else if(column == 3 && direction.equals("top")) {
+//            column = 1;
+//        }
+//    }
+
+    public void columnShiftBottom() {
+        if (column == 1) {
+            move("right", columnTime + 100);
+        } else if (column == 2) {
+            move("right", columnTime + 200);
         }
     }
 
-    public void columnShift() {
+    public void columnShiftTop() {
         if (column == 0) {
-            strafeDirection = "left";
-            columnTime -= columnShift;
+            move("left", columnTime - 100);
         } else if (column == 2) {
-            strafeDirection = "right";
-            columnTime += columnShift;
+            move("right", columnTime + 100);
         }
     }
 
@@ -363,25 +341,6 @@ public class Autonomous_Code extends LinearOpMode{
         pause();
     }
 
-    public void turn(String direction, long time) {
-        long endTime = System.currentTimeMillis() + time;
-        while (!checkTime(endTime) && opModeIsActive()) {
-            if (direction.equals("left")) {
-                motor0.setPower(-.4);
-                motor1.setPower(-.5);
-            } else if (direction.equals("right")) {
-                motor1.setPower(.5);
-                motor0.setPower(.4);
-            } else {
-                motor1.setPower(0);
-                motor0.setPower(0);
-            }
-        }
-        motor1.setPower(0);
-        motor0.setPower(0);
-        pause();
-    }
-
     public void lift(String direction, long time) {
         long endTime = System.currentTimeMillis() + time;
         while (!checkTime(endTime) && opModeIsActive()) {
@@ -413,7 +372,7 @@ public class Autonomous_Code extends LinearOpMode{
     }
 
     private void pause() {
-        long endTime = System.currentTimeMillis() + 750;
+        long endTime = System.currentTimeMillis() + 500;
         while(!checkTime(endTime) && opModeIsActive()) {
 
         }

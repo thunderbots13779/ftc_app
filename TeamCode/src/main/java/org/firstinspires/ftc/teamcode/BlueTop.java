@@ -15,7 +15,7 @@ public class BlueTop extends Autonomous_Code{
         initialization();
 
         if (opModeIsActive()) {
-            auto("blue");
+            auto("blue", "top");
             blueTop();
         }
     }

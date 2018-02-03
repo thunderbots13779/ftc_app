@@ -14,7 +14,7 @@ public class RedBottom extends Autonomous_Code{
         waitForStart();
         initialization();
         if (opModeIsActive()) {
-            auto("red");
+            auto("red", "bottom");
             redBottom();
         }
     }
