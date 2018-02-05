@@ -14,7 +14,7 @@ public class RedTop extends Autonomous_Code{
         waitForStart();
         initialization();
         if (opModeIsActive()) {
-            auto("blue", "top");
+            auto("red", "top");
             redTop();
         }
     }

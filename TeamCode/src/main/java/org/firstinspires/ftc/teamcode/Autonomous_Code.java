@@ -112,17 +112,22 @@ public class Autonomous_Code extends LinearOpMode{
     /** SEQUENCES **/
     public void startSequence(String direction) {
 //        pickColumn(direction);
+        servo1.setPosition(100.0/180.0);
+        servo2.setPosition(100.0/180.0);
+        lift("down", 300);
+
+        pause(500);
         grab();
+        pause(500);
         liftUp();
         servo0.setPosition(servoDown);
-        pause(1000);
+        pause(500);
     }
 
     public void auto(String color, String direction) {
         startSequence(direction);
         boolean colorCheck = color(color);
         knockBall(colorCheck);
-        align(color);
     }
 
     public void end() {
@@ -153,24 +158,25 @@ public class Autonomous_Code extends LinearOpMode{
 
     /** CASES **/
     public void redTop() {
-        move("back", 1000);
-        turnAbsolute(-90);
+        move("back", 1600);
+        turnAbsolute(90);
 //        columnShiftTop();
         end();
     }
 
     public void blueBottom() {
-        move("left", 1000);
+        move("fwd", 900);
         turnAbsolute(0);
-        pause(1000);
-        move("fwd", 250);
-        move("left", columnTime);
+        pause(750);
+        move("right", 250);
+        turnAbsolute(0);
+        pause(750);
         turnAbsolute(0);
         end();
     }
 
     public void blueTop() {
-        move("fwd", 1000);
+        move("fwd", 1010);
         turnAbsolute(90);
 //        columnShiftTop();
         end();
