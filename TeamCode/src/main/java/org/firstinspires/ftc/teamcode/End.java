@@ -2,10 +2,6 @@ package org.firstinspires.ftc.teamcode;
 
 public class End implements Action {
 
-    public void initialize() {
-
-    }
-
     public void start() {
 
     }
@@ -14,12 +10,12 @@ public class End implements Action {
 
     }
 
-    public boolean check() {
-        return true;
-    }
-
     public void end() {
 
+    }
+
+    public boolean check() {
+        return true;
     }
 
 }
