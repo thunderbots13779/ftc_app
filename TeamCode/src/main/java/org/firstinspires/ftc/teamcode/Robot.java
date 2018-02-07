@@ -53,12 +53,6 @@ public class Robot {
 
     public static Orientation angles;
 
-
-
-    public static double motor_left_angle;
-    public static double motor_right_angle;
-    public static double motor_center_angle;
-
     // Define Final Variables
 
     public static final double servoUp = (174.0/180.0);
@@ -128,6 +122,12 @@ public class Robot {
             }
         };
         timer.scheduleAtFixedRate(task, 0, 1);
+    }
+
+    public void resetMotors() {
+        motor_left.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        motor_right.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        motor_center.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
     }
 
 }
