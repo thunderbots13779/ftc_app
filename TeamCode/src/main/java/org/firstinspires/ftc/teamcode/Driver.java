@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 enum State {
-    INITIALIZE, START, CHECK, STOP
+    START, LOOP, STOP
 }
 
 public class Driver extends OpMode {

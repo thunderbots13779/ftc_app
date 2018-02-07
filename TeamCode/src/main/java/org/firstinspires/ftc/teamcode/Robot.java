@@ -53,6 +53,8 @@ public class Robot {
 
     public static Orientation angles;
 
+
+
     public static double motor_left_angle;
     public static double motor_right_angle;
     public static double motor_center_angle;
@@ -72,7 +74,11 @@ public class Robot {
     public static final double WHEEL_Circumference = 2 * Math.PI * WHEEL_DIAMETER / 2;
 
 
+<<<<<<< HEAD
     public void Robot() {
+=======
+    public static void initialize() {
+>>>>>>> 7937d308af6632764f1012ad3e5e78452a052b6a
 
         // Finding the Motors from the Configuration
 

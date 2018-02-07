@@ -4,10 +4,11 @@ public class Grab implements Actionable {
 
     boolean open = false;
 
-    public void initialize() {
+    public void start() {
 
     }
 
+<<<<<<< HEAD
     public void start() {
         if (open) {
             Robot.servo_leftGrabber.setPosition(Robot.OPEN_POSITION_LEFT);
@@ -18,9 +19,13 @@ public class Grab implements Actionable {
             Robot.servo_rightGrabber.setPosition(Robot.OPEN_POSITION_RIGHT);
             open = !open;
         }
+=======
+    public void loop() {
+
+>>>>>>> 7937d308af6632764f1012ad3e5e78452a052b6a
     }
 
-    public void loop() {
+    public void end() {
 
     }
 
@@ -28,8 +33,11 @@ public class Grab implements Actionable {
         return true;
     }
 
+<<<<<<< HEAD
     public void stop() {
 
     }
 
+=======
+>>>>>>> 7937d308af6632764f1012ad3e5e78452a052b6a
 }
