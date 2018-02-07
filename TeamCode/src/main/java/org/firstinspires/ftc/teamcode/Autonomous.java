@@ -2,23 +2,23 @@ package org.firstinspires.ftc.teamcode;
 
 public class Autonomous extends Driver {
 
-    Action[] actions = {new Grab()};
+    Action[] actions = {
+            new Initialize(),
+            new Grab(),
+            new End()
+    };
 
     @Override
     public void loop() {
-        State state = State.INITIALIZE;
+        State state = State.START;
 
         switch (state) {
 
-            case INITIALIZE:
-                state = State.START;
-                actions[0].initialize();
-                break;
             case START:
-                state = State.CHECK;
+                state = State.LOOP;
                 actions[0].start();
                 break;
-            case CHECK:
+            case LOOP:
                 if (actions[0].check()) {
                     actions[0].loop();
                     break;

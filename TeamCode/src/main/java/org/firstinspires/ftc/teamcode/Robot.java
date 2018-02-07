@@ -72,9 +72,7 @@ public class Robot {
     public static final double WHEEL_Circumference = 2 * Math.PI * WHEEL_DIAMETER / 2;
 
 
-    public Robot(HardwareMap hardwareMap) {
-
-        this.hardwareMap = hardwareMap;
+    public static void initialize() {
 
         // Finding the Motors from the Configuration
 
