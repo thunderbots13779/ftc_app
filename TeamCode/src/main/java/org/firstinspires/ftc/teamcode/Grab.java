@@ -1,6 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
-public class Grab implements Actionable {
+public class Grab implements Action {
 
     boolean open = false;
 
