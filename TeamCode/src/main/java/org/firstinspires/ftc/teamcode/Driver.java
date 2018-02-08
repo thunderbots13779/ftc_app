@@ -6,7 +6,7 @@ public class Driver extends OpMode {
 
     @Override
     public void init() {
-
+        map.hardwareMap = hardwareMap;
     }
 
     @Override
