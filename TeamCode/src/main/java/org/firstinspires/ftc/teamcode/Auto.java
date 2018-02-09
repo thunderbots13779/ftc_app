@@ -9,7 +9,7 @@ public class Auto extends Driver {
 
     Action[] actions = {
             new Initialize(),
-            new Grab(),
+            new Grab_Auto(),
             new End()
     };
 

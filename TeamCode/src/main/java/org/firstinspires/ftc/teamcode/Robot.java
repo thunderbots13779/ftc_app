@@ -18,6 +18,8 @@ import java.util.TimerTask;
 
 public class Robot {
 
+    /** Object Definitions **/
+
     // Define the Motors
 
 //    public static DcMotor mo\tor_left;
@@ -48,8 +50,9 @@ public class Robot {
 
     public static Orientation angles;
 
-    // Define Final Variables
+    /** Constants **/
 
+    //Servo Constants
     public static final double servoUp = (174.0/180.0);
     public static final double servoDown = (67.0/180.0);
 
@@ -61,6 +64,10 @@ public class Robot {
 
     public static final double WHEEL_DIAMETER = 0;
     public static final double WHEEL_Circumference = 2 * Math.PI * WHEEL_DIAMETER / 2;
+
+    /** Action Variables **/
+    public static boolean backButtonPressed = false;
+    public static boolean open = true;
 
 
     public static void initialize() {
