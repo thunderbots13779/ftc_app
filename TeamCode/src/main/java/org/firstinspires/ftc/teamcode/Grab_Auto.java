@@ -4,21 +4,24 @@ package org.firstinspires.ftc.teamcode;
  * Created by Pramodh on 2/8/18.
  */
 
-public class Grab_Auto implements Action {
+public class Grab_Auto extends Timed {
 
+    Robot.Grabber_State state = Robot.Grabber_State.CLOSED;
 
-    public Grab_Auto(Robot.Grabber_State state, double time) {
+    public Grab_Auto(long duration) {
+        super(duration);
     }
 
     public void start() {
-        if (Robot.open) {
+        if(state == Robot.Grabber_State.CLOSED) {
+            Robot.servo_leftGrabber.setPosition(Robot.CLOSED_POSITION_LEFT);
+            Robot.servo_rightGrabber.setPosition(Robot.CLOSED_POSITION_RIGHT);
+        } else if (state == Robot.Grabber_State.OPEN) {
+            Robot.servo_leftGrabber.setPosition();
+            Robot.servo_rightGrabber.setPosition();
+        } else if (state == Robot.Grabber_State.FULLY_OPEN) {
             Robot.servo_leftGrabber.setPosition(Robot.OPEN_POSITION_LEFT);
             Robot.servo_rightGrabber.setPosition(Robot.OPEN_POSITION_RIGHT);
-            Robot.open = !Robot.open;
-        } else {
-            Robot.servo_leftGrabber.setPosition(Robot.OPEN_POSITION_LEFT);
-            Robot.servo_rightGrabber.setPosition(Robot.OPEN_POSITION_RIGHT);
-            Robot.open = !Robot.open;
         }
     }
 
