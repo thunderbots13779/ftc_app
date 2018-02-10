@@ -65,6 +65,12 @@ public class Robot {
     public static final double WHEEL_DIAMETER = 0;
     public static final double WHEEL_Circumference = 2 * Math.PI * WHEEL_DIAMETER / 2;
 
+    /** Auto Action Variables **/
+    //Grabber
+    enum Grabber_State {
+        CLOSED, OPEN, FULLY_OPEN;
+    }
+
     /** Action Variables **/
     public static boolean backButtonPressed = false;
     public static boolean open = true;

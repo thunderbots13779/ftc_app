@@ -6,6 +6,10 @@ package org.firstinspires.ftc.teamcode;
 
 public class Grab_Auto implements Action {
 
+
+    public Grab_Auto(Robot.Grabber_State state, double time) {
+    }
+
     public void start() {
         if (Robot.open) {
             Robot.servo_leftGrabber.setPosition(Robot.OPEN_POSITION_LEFT);
@@ -17,6 +21,7 @@ public class Grab_Auto implements Action {
             Robot.open = !Robot.open;
         }
     }
+
     public void loop() {
 
     }
