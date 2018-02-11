@@ -6,7 +6,8 @@ public class Driver extends OpMode {
 
     @Override
     public void init() {
-        map.hardwareMap = hardwareMap;
+//        Robot.hardwareMap = hardwareMap;
+        Robot.initialize();
     }
 
     @Override

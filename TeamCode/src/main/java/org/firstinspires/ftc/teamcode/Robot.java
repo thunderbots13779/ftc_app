@@ -3,6 +3,8 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Gamepad;
+import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.NormalizedColorSensor;
 import com.qualcomm.robotcore.hardware.Servo;
 
@@ -19,6 +21,12 @@ import java.util.TimerTask;
 public class Robot {
 
     /** Object Definitions **/
+
+    // Hardware Map
+    public static HardwareMap hardwareMap;
+
+    // Gamepad
+    public static Gamepad gamepad1;
 
     // Define the Motors
 
@@ -83,18 +91,21 @@ public class Robot {
 
     public static void initialize() {
 
+
         // Finding the Motors from the Configuration
 
 //        motor_left = map.hardwareMap.get(DcMotor.class, "motor_left");
 //        motor_right = map.hardwareMap.get(DcMotor.class, "motor_right");
 //        motor_center = map.hardwareMap.get(DcMotor.class, "motor_center");
+          motor_leftIntake = hardwareMap.get(DcMotor.class, "motor_leftIntake");
+          motor_rightIntake = hardwareMap.get(DcMotor.class, "motor_rightIntake");\
 //
 //        // Finding the Servos from the Configuration
 //
 //        servo_swivel = map.hardwareMap.get(Servo.class, "servo_swivel");
 //        servo_dropper = map.hardwareMap.get(Servo.class, "servo_dropper");
-        servo_leftGrabber = map.hardwareMap.get(Servo.class, "servo_leftGrabber");
-        servo_rightGrabber = map.hardwareMap.get(Servo.class, "servo_rightGrabber");
+//        servo_leftGrabber = hardwareMap.get(Servo.class, "servo_leftGrabber");
+//        servo_rightGrabber = hardwareMap.get(Servo.class, "servo_rightGrabber");
 
         // Finding the Gyroscope
 
