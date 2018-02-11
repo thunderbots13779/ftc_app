@@ -14,6 +14,8 @@ public class TeleOP extends Driver{
 
     @Override
     public void loop() {
+        telemetry.addData("motor position: ", Robot.motor_leftIntake.getCurrentPosition());
+        telemetry.update();
         switch (state) {
             case START:
                 state = State.LOOP;

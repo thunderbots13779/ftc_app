@@ -35,6 +35,7 @@ public class Robot {
 //    public static DcMotor motor_center;
       public static DcMotor motor_leftIntake;
       public static DcMotor motor_rightIntake;
+      public static DcMotor motor_flipper;
 
     // Define the Servos
 
