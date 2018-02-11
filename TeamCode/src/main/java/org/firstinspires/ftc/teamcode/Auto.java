@@ -9,16 +9,11 @@ public class Auto extends Driver {
 
     Action[] actions = {
             new Initialize(),
-            new Grab_Auto(500),
             new End()
     };
 
     @Override
     public void loop() {
-
-        telemetry.addData("action", i);
-        telemetry.update();
-
         switch (state) {
             case START:
                 state = State.LOOP;

@@ -25,6 +25,8 @@ public class Robot {
 //    public static DcMotor mo\tor_left;
 //    public static DcMotor motor_right;
 //    public static DcMotor motor_center;
+      public static DcMotor motor_leftIntake;
+      public static DcMotor motor_rightIntake;
 
     // Define the Servos
 
@@ -66,15 +68,18 @@ public class Robot {
     public static final double WHEEL_Circumference = 2 * Math.PI * WHEEL_DIAMETER / 2;
 
     /** Auto Action Variables **/
-    //Grabber
-    enum Grabber_State {
-        CLOSED, OPEN, FULLY_OPEN;
-    }
 
     /** Action Variables **/
+    public static double leftTrigger;
+    public static double rightTrigger;
     public static boolean backButtonPressed = false;
     public static boolean open = true;
+    public static double powerScaleFactor = 1.0/1.2;
 
+    /** Methods **/
+    public static double powerScale(double scale) {
+        return powerScaleFactor*Math.pow(scale, 2);
+    }
 
     public static void initialize() {
 
