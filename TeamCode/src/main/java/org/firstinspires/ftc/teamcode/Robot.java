@@ -97,8 +97,8 @@ public class Robot {
 //        motor_left = map.hardwareMap.get(DcMotor.class, "motor_left");
 //        motor_right = map.hardwareMap.get(DcMotor.class, "motor_right");
 //        motor_center = map.hardwareMap.get(DcMotor.class, "motor_center");
-          motor_leftIntake = hardwareMap.get(DcMotor.class, "motor_leftIntake");
-          motor_rightIntake = hardwareMap.get(DcMotor.class, "motor_rightIntake");
+//          motor_leftIntake = hardwareMap.get(DcMotor.class, "motor_leftIntake");
+//          motor_rightIntake = hardwareMap.get(DcMotor.class, "motor_rightIntake");
 //
 //        // Finding the Servos from the Configuration
 //
