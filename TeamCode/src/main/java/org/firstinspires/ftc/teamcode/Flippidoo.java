@@ -15,8 +15,7 @@ public class Flippidoo implements Action{
     public void loop() {
         if(Robot.gamepad1.a){
             Robot.motor_flipper.setPower(1);
-        }
-        else{
+        } else {
             Robot.motor_flipper.setPower(0);
         }
     }
