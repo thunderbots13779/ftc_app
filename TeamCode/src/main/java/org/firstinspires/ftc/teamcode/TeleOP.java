@@ -15,7 +15,7 @@ public class TeleOP extends Driver{
     @Override
     public void loop() {
         if (Robot.angles != null) {
-            telemetry.addData("z: ", Robot.angles.firstAngle);
+            telemetry.addData("z: ", Robot.currentHeading);
         }
 //        switch (state) {
 //            case START:

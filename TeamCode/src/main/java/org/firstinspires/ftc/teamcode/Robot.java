@@ -59,6 +59,8 @@ public class Robot {
     // Define State Variables
 
     public static Orientation angles;
+    public static float finalHeading = 0;
+    public static float currentHeading = 0;
 
     /** Constants **/
 
@@ -143,6 +145,12 @@ public class Robot {
             @Override
             public void run() {
                 angles   = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+                currentHeading = Robot.angles.firstAngle + finalHeading;
+                if (Math.abs((currentHeading)) > 180) {
+                    float direction = -(Math.abs(currentHeading) / (currentHeading));
+                    currentHeading = 180 - Math.abs((currentHeading) % 180);
+                    currentHeading *= direction;
+                }
             }
         };
         timer.scheduleAtFixedRate(task, 0, 1);

@@ -20,6 +20,7 @@ public class Driver extends OpMode {
 
     @Override
     public void stop() {
+        Robot.finalHeading = Robot.angles.firstAngle;
         Robot.timer.cancel();
     }
 
