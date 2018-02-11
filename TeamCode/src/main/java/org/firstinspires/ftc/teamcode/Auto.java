@@ -9,11 +9,22 @@ public class Auto extends Driver {
 
     Action[] actions = {
             new Initialize(),
+//            new Grab_Auto(),
+            new Timed(10000),
             new End()
     };
 
     @Override
     public void loop() {
+
+        telemetry.addData("action", i);
+        if (Robot.angles != null) {
+            telemetry.addData("z rotation", Robot.angles.firstAngle);
+            telemetry.addData("y rotation", Robot.angles.secondAngle);
+            telemetry.addData("x rotation", Robot.angles.thirdAngle);
+        }
+        telemetry.update();
+
         switch (state) {
             case START:
                 state = State.LOOP;

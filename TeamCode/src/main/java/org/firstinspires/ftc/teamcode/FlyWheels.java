@@ -6,17 +6,20 @@ package org.firstinspires.ftc.teamcode;
 
 public class FlyWheels implements Action{
 
-    public FlyWheels (double leftTrigger, double rightTrigger) {
-        Robot.leftTrigger = leftTrigger;
-        Robot.rightTrigger = rightTrigger;
+    public FlyWheels () {
     }
 
     public void start() {
 
     }
     public void loop() {
-        Robot.motor_leftIntake.setPower(Robot.powerScale(Robot.leftTrigger));
-        Robot.motor_leftIntake.setPower(Robot.powerScale(Robot.leftTrigger));
+        if (Robot.gamepad1.left_trigger > 0) {
+            Robot.motor_leftIntake.setPower(Robot.powerScale(Robot.gamepad1.left_trigger));
+            Robot.motor_rightIntake.setPower(-Robot.powerScale(Robot.gamepad1.left_trigger));
+        } else {
+            Robot.motor_leftIntake.setPower(-Robot.powerScale(Robot.gamepad1.right_trigger));
+            Robot.motor_rightIntake.setPower(Robot.powerScale(Robot.gamepad1.right_trigger));
+        }
     }
 
     public void end() {

@@ -9,7 +9,7 @@ public class TeleOP extends Driver{
 
     Action[] actions = {
             new Initialize(),
-            new FlyWheels(gamepad1.left_trigger, gamepad1.right_trigger)
+            new FlyWheels()
     };
 
     @Override

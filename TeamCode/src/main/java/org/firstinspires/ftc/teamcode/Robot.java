@@ -30,7 +30,7 @@ public class Robot {
 
     // Define the Motors
 
-//    public static DcMotor mo\tor_left;
+//    public static DcMotor motor_left;
 //    public static DcMotor motor_right;
 //    public static DcMotor motor_center;
       public static DcMotor motor_leftIntake;
@@ -98,18 +98,16 @@ public class Robot {
 //        motor_right = map.hardwareMap.get(DcMotor.class, "motor_right");
 //        motor_center = map.hardwareMap.get(DcMotor.class, "motor_center");
           motor_leftIntake = hardwareMap.get(DcMotor.class, "motor_leftIntake");
-          motor_rightIntake = hardwareMap.get(DcMotor.class, "motor_rightIntake");\
+          motor_rightIntake = hardwareMap.get(DcMotor.class, "motor_rightIntake");
 //
 //        // Finding the Servos from the Configuration
 //
 //        servo_swivel = map.hardwareMap.get(Servo.class, "servo_swivel");
 //        servo_dropper = map.hardwareMap.get(Servo.class, "servo_dropper");
-//        servo_leftGrabber = hardwareMap.get(Servo.class, "servo_leftGrabber");
-//        servo_rightGrabber = hardwareMap.get(Servo.class, "servo_rightGrabber");
 
         // Finding the Gyroscope
 
-//        imu = map.hardwareMap.get(BNO055IMU.class, "imu");
+        imu = hardwareMap.get(BNO055IMU.class, "imu");
 
         // Finding the Color Sensor
 
@@ -117,17 +115,17 @@ public class Robot {
 
         // Initialize the Gyrosensor
 
-//        BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
-//        parameters.angleUnit           = BNO055IMU.AngleUnit.DEGREES;
-//        parameters.accelUnit           = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
-//        parameters.calibrationDataFile = "BNO055IMUCalibration.json"; // see the calibration sample opmode
-//        parameters.loggingEnabled      = true;
-//        parameters.loggingTag          = "IMU";
-//        parameters.accelerationIntegrationAlgorithm = new JustLoggingAccelerationIntegrator();
-//
-//        imu.initialize(parameters);
-//
-//        imu.startAccelerationIntegration(new Position(), new Velocity(), 1000);
+        BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
+        parameters.angleUnit           = BNO055IMU.AngleUnit.DEGREES;
+        parameters.accelUnit           = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
+        parameters.calibrationDataFile = "BNO055IMUCalibration.json"; // see the calibration sample opmode
+        parameters.loggingEnabled      = true;
+        parameters.loggingTag          = "IMU";
+        parameters.accelerationIntegrationAlgorithm = new JustLoggingAccelerationIntegrator();
+
+        imu.initialize(parameters);
+
+        imu.startAccelerationIntegration(new Position(), new Velocity(), 1000);
 
         // Setting Motor Behavior
 //
@@ -135,18 +133,20 @@ public class Robot {
 //        motor_right.setZeroPowerBehavior((DcMotor.ZeroPowerBehavior.BRAKE));
 //        motor_center.setZeroPowerBehavior((DcMotor.ZeroPowerBehavior.BRAKE));
 
+//        startUpdates();
+
     }
 
-//    public static void startUpdates() {
-//        timer = new Timer();
-//        task = new TimerTask() {
-//            @Override
-//            public void run() {
-//                angles   = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
-//            }
-//        };
-//        timer.scheduleAtFixedRate(task, 0, 1);
-//    }
+    public static void startUpdates() {
+        timer = new Timer();
+        task = new TimerTask() {
+            @Override
+            public void run() {
+                angles   = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+            }
+        };
+        timer.scheduleAtFixedRate(task, 0, 1);
+    }
 //
 //    public void resetMotors() {
 //        motor_left.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
