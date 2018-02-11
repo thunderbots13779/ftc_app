@@ -8,7 +8,7 @@ public class Initialize implements Action {
 
     public void start() {
 
-        Robot.initialize();
+//        Robot.initialize();
 
     }
 
