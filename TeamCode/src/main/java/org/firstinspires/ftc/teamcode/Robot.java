@@ -30,12 +30,12 @@ public class Robot {
 
     // Define the Motors
 
-//    public static DcMotor motor_left;
-//    public static DcMotor motor_right;
-//    public static DcMotor motor_center;
-      public static DcMotor motor_leftIntake;
-      public static DcMotor motor_rightIntake;
-      public static DcMotor motor_flipper;
+    public static DcMotor motor_left;
+    public static DcMotor motor_right;
+    public static DcMotor motor_center;
+    public static DcMotor motor_leftIntake;
+    public static DcMotor motor_rightIntake;
+    public static DcMotor motor_flipper;
 
     // Define the Servos
 
@@ -84,12 +84,14 @@ public class Robot {
     public static boolean backButtonPressed = false;
     public static boolean open = true;
     public static double powerScaleFactor = 1.0/1.2;
+    public static double lowerPowerScaleFactor = 1.0/1.5;
     public static double theta;
 
     /** Methods **/
     public static double powerScale(double scale) {
         return powerScaleFactor*Math.pow(scale, 2);
     }
+    public static double lowerPowerScale(double scale) {return lowerPowerScaleFactor*Math.pow(scale, 2);}
 
     public static void initialize() {
 

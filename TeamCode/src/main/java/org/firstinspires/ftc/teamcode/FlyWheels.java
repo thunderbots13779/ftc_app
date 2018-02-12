@@ -6,9 +6,6 @@ package org.firstinspires.ftc.teamcode;
 
 public class FlyWheels implements Action{
 
-    public FlyWheels () {
-    }
-
     public void start() {
 
     }

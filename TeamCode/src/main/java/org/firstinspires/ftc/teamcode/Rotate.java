@@ -1,33 +1,25 @@
 package org.firstinspires.ftc.teamcode;
 
 /**
- * Created by Pramodh on 2/10/18.
+ * Created by Pramodh on 2/12/18.
  */
 
 public class Rotate implements Action{
 
-    double x;
-    double y;
-    double angle;
-
     public void start() {
+
     }
     public void loop() {
-        x = Robot.gamepad1.right_stick_x;
-        y = Robot.gamepad1.right_stick_y;
-        angle  = Math.toDegrees(Math.asin((-1*y)/(Math.sqrt(Math.pow(x, 2)+Math.pow(-1*y, 2)))));
-        if(y == -1 && x == 0) {
-            Robot.theta = 0;
-        } else if (y >= 0 && x >= 0){
-            Robot.theta = 90-angle;
-        } else if (y <= 0 && x >= 0) {
-            Robot.theta = 180-angle;
-        } else if (y <= 0 && x <= 0) {
-            Robot.theta = angle-90;
-        } else if (y >= 0 && x <= 0) {
-            Robot.theta = 360-angle;
+        if (Robot.gamepad1.left_stick_x > 0) {
+            Robot.motor_left.setPower(1);
+            Robot.motor_right.setPower(1);
+        } else if (Robot.gamepad1.left_stick_x < 0){
+            Robot.motor_left.setPower(-1);
+            Robot.motor_right.setPower(-1);
+        } else {
+            Robot.motor_left.setPower(0);
+            Robot.motor_right.setPower(0);
         }
-
     }
 
     public void end() {
