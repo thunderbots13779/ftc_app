@@ -86,6 +86,7 @@ public class Robot {
     public static double powerScaleFactor = 1.0/1.2;
     public static double lowerPowerScaleFactor = 1.0/1.5;
     public static double theta;
+    public static float targetAngle;
 
     /** Methods **/
     public static double powerScale(double scale) {
@@ -103,7 +104,7 @@ public class Robot {
 //        motor_center = map.hardwareMap.get(DcMotor.class, "motor_center");
           motor_leftIntake = hardwareMap.get(DcMotor.class, "motor_leftIntake");
           motor_rightIntake = hardwareMap.get(DcMotor.class, "motor_rightIntake");
-//          motor_flipper = hardwareMap.get(DcMotor.class, "motor_flipper");
+          motor_flipper = hardwareMap.get(DcMotor.class, "motor_flipper");
 //
 //        // Finding the Servos from the Configuration
 //
