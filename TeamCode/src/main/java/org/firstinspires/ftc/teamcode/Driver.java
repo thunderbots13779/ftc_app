@@ -11,6 +11,17 @@ public class Driver extends OpMode {
         Robot.gamepad1 = gamepad1;
         Robot.initialize();
         Robot.startUpdates();
+
+    }
+
+    @Override
+    public void init_loop() {
+
+    }
+
+    @Override
+    public void start() {
+
     }
 
     @Override
@@ -20,8 +31,10 @@ public class Driver extends OpMode {
 
     @Override
     public void stop() {
+
         Robot.finalHeading = Robot.angles.firstAngle;
         Robot.timer.cancel();
+
     }
 
 }

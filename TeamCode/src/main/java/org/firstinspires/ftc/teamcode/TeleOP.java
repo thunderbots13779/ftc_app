@@ -17,6 +17,15 @@ public class TeleOP extends Driver{
         if (Robot.angles != null) {
             telemetry.addData("z: ", Robot.currentHeading);
         }
+        telemetry.addData("motor position: ", Robot.motor_left.getCurrentPosition());
+        float position = 1680f;
+        float power;
+        if (Robot.motor_left.getCurrentPosition() < position)
+            power = 1 - (Robot.motor_left.getCurrentPosition() / position) / 2;
+        else
+            power = 0;
+        telemetry.addData("motor power: ", power);
+        Robot.motor_left.setPower(power);
 //        switch (state) {
 //            case START:
 //                state = State.LOOP;

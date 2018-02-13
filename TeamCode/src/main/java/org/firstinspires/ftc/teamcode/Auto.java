@@ -8,9 +8,9 @@ public class Auto extends Driver {
     int i = 0;
 
     Action[] actions = {
-            new Initialize(),
 //            new Grab_Auto(),
-            new Timed(10000),
+//            new Timed(10000),
+//            new RunToPosition(1600, Robot.motor_left),
             new End()
     };
 
@@ -18,11 +18,11 @@ public class Auto extends Driver {
     public void loop() {
 
         telemetry.addData("action", i);
-        if (Robot.angles != null) {
-            telemetry.addData("z rotation", Robot.angles.firstAngle);
-            telemetry.addData("y rotation", Robot.angles.secondAngle);
-            telemetry.addData("x rotation", Robot.angles.thirdAngle);
-        }
+//        if (Robot.angles != null) {
+//            telemetry.addData("z rotation", Robot.angles.firstAngle);
+//            telemetry.addData("y rotation", Robot.angles.secondAngle);
+//            telemetry.addData("x rotation", Robot.angles.thirdAngle);
+//        }
         telemetry.update();
 
         switch (state) {

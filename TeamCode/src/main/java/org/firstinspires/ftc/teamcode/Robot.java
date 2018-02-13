@@ -30,7 +30,7 @@ public class Robot {
 
     // Define the Motors
 
-//    public static DcMotor motor_left;
+    public static DcMotor motor_left;
 //    public static DcMotor motor_right;
 //    public static DcMotor motor_center;
       public static DcMotor motor_leftIntake;
@@ -96,14 +96,14 @@ public class Robot {
 
         // Finding the Motors from the Configuration
 
-//        motor_left = map.hardwareMap.get(DcMotor.class, "motor_left");
+        motor_left = hardwareMap.get(DcMotor.class, "motor_left");
 //        motor_right = map.hardwareMap.get(DcMotor.class, "motor_right");
 //        motor_center = map.hardwareMap.get(DcMotor.class, "motor_center");
-//          motor_leftIntake = hardwareMap.get(DcMotor.class, "motor_leftIntake");
-//          motor_rightIntake = hardwareMap.get(DcMotor.class, "motor_rightIntake");
-//
-//        // Finding the Servos from the Configuration
-//
+//        motor_leftIntake = hardwareMap.get(DcMotor.class, "motor_leftIntake");
+//        motor_rightIntake = hardwareMap.get(DcMotor.class, "motor_rightIntake");
+
+        // Finding the Servos from the Configuration
+
 //        servo_swivel = map.hardwareMap.get(Servo.class, "servo_swivel");
 //        servo_dropper = map.hardwareMap.get(Servo.class, "servo_dropper");
 
@@ -130,6 +130,10 @@ public class Robot {
         imu.startAccelerationIntegration(new Position(), new Velocity(), 1000);
 
         // Setting Motor Behavior
+
+        motor_left.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        motor_left.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        motor_left.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 //
 //        motor_left.setZeroPowerBehavior((DcMotor.ZeroPowerBehavior.BRAKE));
 //        motor_right.setZeroPowerBehavior((DcMotor.ZeroPowerBehavior.BRAKE));
@@ -145,21 +149,34 @@ public class Robot {
             @Override
             public void run() {
                 angles   = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
-                currentHeading = Robot.angles.firstAngle + finalHeading;
-                if (Math.abs((currentHeading)) > 180) {
-                    float direction = -(Math.abs(currentHeading) / (currentHeading));
-                    currentHeading = 180 - Math.abs((currentHeading) % 180);
-                    currentHeading *= direction;
-                }
+                currentHeading = getRelativeHeading(Robot.angles.firstAngle, finalHeading);
             }
         };
         timer.scheduleAtFixedRate(task, 0, 1);
     }
-//
-//    public void resetMotors() {
-//        motor_left.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+    public static void resetMotors() {
+        motor_left.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 //        motor_right.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 //        motor_center.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-//    }
+    }
+
+
+    public static float getRelativeHeading(float frameHeading, float directedHeading) {
+
+        float relativeHeading = frameHeading + directedHeading;
+
+        if (Math.abs(relativeHeading) > 180) {
+
+            float direction = -(Math.abs(relativeHeading) / (relativeHeading));
+
+            relativeHeading = 180 - Math.abs(relativeHeading % 180);
+            relativeHeading *= direction;
+
+        }
+
+        return relativeHeading;
+
+    }
 
 }
