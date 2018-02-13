@@ -16,7 +16,7 @@ public class Test extends LinearOpMode {
     @Override
     public void runOpMode() {
 
-          motor0 = hardwareMap.get(DcMotor.class, "motor0");
+          motor0 = hardwareMap.get(DcMotor.class, "motor_left");
 
         //Wait for the game to start (driver presses PLAY)
         waitForStart();
@@ -25,9 +25,9 @@ public class Test extends LinearOpMode {
         while (opModeIsActive()) {
 
             if(gamepad1.left_bumper) {
-                motor0.setPower(1);
+                motor0.setPower(.47);
             } else if (gamepad1.right_bumper) {
-                motor0.setPower(-1);
+                motor0.setPower(-.47);
             } else {
                 motor0.setPower(0);
             }
