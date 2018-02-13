@@ -18,14 +18,16 @@ public class RunToPosition implements Action {
     public void start() {
 
         motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        motor.setPower(1);
-        motor.setTargetPosition(degreesToTicks(degrees));
+//        motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+//        motor.setPower(.5);
+//        motor.setTargetPosition(revolution(degrees));
 
     }
 
     public void loop() {
-
+        if (motor.getCurrentPosition() < revolution(degrees)) {
+            motor.setPower(.1);
+        }
     }
 
     public void end() {
@@ -42,6 +44,10 @@ public class RunToPosition implements Action {
             return true;
         }
 
+    }
+
+    public int revolution(int rot) {
+        return rot*1680;
     }
 
     public int degreesToTicks(int degrees) {
