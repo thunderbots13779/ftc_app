@@ -30,11 +30,12 @@ public class Robot {
 
     // Define the Motors
 
-//    public static DcMotor motor_left;
-//    public static DcMotor motor_right;
-//    public static DcMotor motor_center;
-      public static DcMotor motor_leftIntake;
-      public static DcMotor motor_rightIntake;
+    public static DcMotor motor_left;
+    public static DcMotor motor_right;
+    public static DcMotor motor_center;
+    public static DcMotor motor_leftIntake;
+    public static DcMotor motor_rightIntake;
+    public static DcMotor motor_flipper;
 
     // Define the Servos
 
@@ -83,11 +84,15 @@ public class Robot {
     public static boolean backButtonPressed = false;
     public static boolean open = true;
     public static double powerScaleFactor = 1.0/1.2;
+    public static double lowerPowerScaleFactor = 1.0/1.5;
+    public static double theta;
+    public static float targetAngle;
 
     /** Methods **/
     public static double powerScale(double scale) {
         return powerScaleFactor*Math.pow(scale, 2);
     }
+    public static double lowerPowerScale(double scale) {return lowerPowerScaleFactor*Math.pow(scale, 2);}
 
     public static void initialize() {
 
@@ -99,6 +104,7 @@ public class Robot {
 //        motor_center = map.hardwareMap.get(DcMotor.class, "motor_center");
           motor_leftIntake = hardwareMap.get(DcMotor.class, "motor_leftIntake");
           motor_rightIntake = hardwareMap.get(DcMotor.class, "motor_rightIntake");
+          motor_flipper = hardwareMap.get(DcMotor.class, "motor_flipper");
 //
 //        // Finding the Servos from the Configuration
 //
@@ -107,7 +113,7 @@ public class Robot {
 
         // Finding the Gyroscope
 
-        imu = hardwareMap.get(BNO055IMU.class, "imu");
+//        imu = hardwareMap.get(BNO055IMU.class, "imu");
 
         // Finding the Color Sensor
 
@@ -115,17 +121,17 @@ public class Robot {
 
         // Initialize the Gyrosensor
 
-        BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
-        parameters.angleUnit           = BNO055IMU.AngleUnit.DEGREES;
-        parameters.accelUnit           = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
-        parameters.calibrationDataFile = "BNO055IMUCalibration.json"; // see the calibration sample opmode
-        parameters.loggingEnabled      = true;
-        parameters.loggingTag          = "IMU";
-        parameters.accelerationIntegrationAlgorithm = new JustLoggingAccelerationIntegrator();
-
-        imu.initialize(parameters);
-
-        imu.startAccelerationIntegration(new Position(), new Velocity(), 1000);
+//        BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
+//        parameters.angleUnit           = BNO055IMU.AngleUnit.DEGREES;
+//        parameters.accelUnit           = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
+//        parameters.calibrationDataFile = "BNO055IMUCalibration.json"; // see the calibration sample opmode
+//        parameters.loggingEnabled      = true;
+//        parameters.loggingTag          = "IMU";
+//        parameters.accelerationIntegrationAlgorithm = new JustLoggingAccelerationIntegrator();
+//
+//        imu.initialize(parameters);
+//
+//        imu.startAccelerationIntegration(new Position(), new Velocity(), 1000);
 
         // Setting Motor Behavior
 //
@@ -136,18 +142,18 @@ public class Robot {
 //        startUpdates();
 
     }
-
-    public static void startUpdates() {
-        timer = new Timer();
-        task = new TimerTask() {
-            @Override
-            public void run() {
-                angles   = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
-            }
-        };
-        timer.scheduleAtFixedRate(task, 0, 1);
-    }
 //
+//    public static void startUpdates() {
+//        timer = new Timer();
+//        task = new TimerTask() {
+//            @Override
+//            public void run() {
+//                angles   = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+//            }
+//        };
+//        timer.scheduleAtFixedRate(task, 0, 1);
+//    }
+////
 //    public void resetMotors() {
 //        motor_left.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 //        motor_right.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);

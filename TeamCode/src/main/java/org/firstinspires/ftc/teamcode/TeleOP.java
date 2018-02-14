@@ -9,11 +9,17 @@ public class TeleOP extends Driver{
 
     Action[] actions = {
             new Initialize(),
-            new FlyWheels()
+            new FlyWheels(),
+            new Radion()
     };
 
     @Override
     public void loop() {
+        telemetry.addData("motor position: ", Robot.motor_leftIntake.getCurrentPosition());
+        telemetry.addData("x", Robot.gamepad1.right_stick_x);
+        telemetry.addData("y", -1*Robot.gamepad1.right_stick_y);
+        telemetry.addData("theta", Robot.theta);
+        telemetry.update();
         switch (state) {
             case START:
                 state = State.LOOP;
