@@ -7,7 +7,7 @@ public class Auto extends Driver {
     State state = State.START;
     int i = 0;
 
-    Action[] actions = {
+    Action[] actions = { 
             new Initialize(),
 //            new Grab_Auto(),
 //            new Timed(10000),

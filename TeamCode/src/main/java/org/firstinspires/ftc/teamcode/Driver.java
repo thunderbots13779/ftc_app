@@ -21,7 +21,7 @@ public class Driver extends OpMode {
 
     @Override
     public void start() {
-
+//        Robot.startUpdates();
     }
 
     @Override
