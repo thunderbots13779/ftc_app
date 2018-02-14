@@ -10,14 +10,6 @@ public class  RunToPosition implements Action {
 
     Motors motors;
 
-    enum Motors {
-        LEFT,
-        RIGHT,
-        CENTER,
-        FlIPPER,
-        RAISER
-    }
-
     public RunToPosition(int degrees, Motors motors) {
 
         this.degrees = degrees;
@@ -35,7 +27,7 @@ public class  RunToPosition implements Action {
             case CENTER:
                 motor = Robot.motor_center;
                 break;
-            case FLIPPER:
+            case FlIPPER:
                 motor = Robot.motor_flipper;
                 break;
             case RAISER:

@@ -27,6 +27,7 @@ public class Robot {
 
     // Gamepad
     public static Gamepad gamepad1;
+    public static Gamepad gamepad2;
 
     // Define the Motors
 
@@ -36,6 +37,7 @@ public class Robot {
     public static DcMotor motor_leftIntake;
     public static DcMotor motor_rightIntake;
     public static DcMotor motor_raiser;
+    public static DcMotor motor_flipper;
     // Define the Servos
 
     public static Servo servo_swivel;

@@ -14,7 +14,7 @@ public class TeleOP extends Driver{
 
     @Override
     public void loop() {
-        new RunToPosition(1, Robot.motor_left);
+        new RunToPosition(1, Motors.FlIPPER);
 //        if (Robot.angles != null) {
 //            telemetry.addData("z: ", Robot.currentHeading);
 //        }
