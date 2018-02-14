@@ -2,7 +2,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-public class RunToPosition implements Action {
+public class  RunToPosition implements Action {
 
     public int degrees;
 
@@ -14,31 +14,31 @@ public class RunToPosition implements Action {
         this.motor = motor;
 
     }
-
+//TODO: hi
     public void start() {
 
-        motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-//        motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-//        motor.setPower(.5);
-//        motor.setTargetPosition(revolution(degrees));
+        Robot.motor_left.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        Robot.motor_left.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        Robot.motor_left.setPower(.5);
+        Robot.motor_left.setTargetPosition(revolution(degrees));
 
     }
 
     public void loop() {
-        if (motor.getCurrentPosition() < revolution(degrees)) {
-            motor.setPower(.1);
-        }
+//        if (motor.getCurrentPosition() < revolution(degrees)) {
+//            motor.setPower(.1);
+//        }
     }
 
     public void end() {
 
-        motor.setPower(0);
+        Robot.motor_left.setPower(0);
 
     }
 
     public boolean check() {
 
-        if (!motor.isBusy()) {
+        if (!Robot.motor_left.isBusy()) {
             return false;
         } else {
             return true;

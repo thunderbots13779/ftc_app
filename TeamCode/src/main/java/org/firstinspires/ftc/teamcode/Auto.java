@@ -19,6 +19,7 @@ public class Auto extends Driver {
     public void loop() {
 
         telemetry.addData("action", i);
+        telemetry.addData("ticks", Robot.motor_left.getCurrentPosition());
 //        if (Robot.angles != null) {
 //            telemetry.addData("z rotation", Robot.angles.firstAngle);
 //            telemetry.addData("y rotation", Robot.angles.secondAngle);
