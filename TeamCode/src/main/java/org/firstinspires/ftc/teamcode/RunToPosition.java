@@ -8,15 +8,40 @@ public class  RunToPosition implements Action {
 
     public DcMotor motor;
 
-    public RunToPosition(int degrees, DcMotor motor) {
+    Motors motors;
+
+    enum Motors {
+        LEFT,
+        RIGHT,
+        CENTER,
+        FlIPPER,
+        RAISER
+    }
+
+    public RunToPosition(int degrees, Motors motors) {
 
         this.degrees = degrees;
-        this.motor = motor;
+        this.motors = motors;
 
     }
-//TODO: hi
     public void start() {
-
+        switch (motors) {
+            case LEFT:
+                motor = Robot.motor_left;
+                break;
+            case RIGHT:
+                motor = Robot.motor_right;
+                break;
+            case CENTER:
+                motor = Robot.motor_center;
+                break;
+            case FLIPPER:
+                motor = Robot.motor_flipper;
+                break;
+            case RAISER:
+                motor = Robot.motor_raiser;
+                break;
+        }
         Robot.motor_left.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         Robot.motor_left.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         Robot.motor_left.setPower(.5);

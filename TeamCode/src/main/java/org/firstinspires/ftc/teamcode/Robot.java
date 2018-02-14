@@ -31,11 +31,11 @@ public class Robot {
     // Define the Motors
 
     public static DcMotor motor_left;
-//    public static DcMotor motor_right;
-//    public static DcMotor motor_center;
-      public static DcMotor motor_leftIntake;
-      public static DcMotor motor_rightIntake;
-
+    public static DcMotor motor_right;
+    public static DcMotor motor_center;
+    public static DcMotor motor_leftIntake;
+    public static DcMotor motor_rightIntake;
+    public static DcMotor motor_raiser;
     // Define the Servos
 
     public static Servo servo_swivel;

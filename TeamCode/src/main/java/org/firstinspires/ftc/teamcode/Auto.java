@@ -11,7 +11,7 @@ public class Auto extends Driver {
             new Initialize(),
 //            new Grab_Auto(),
 //            new Timed(10000),
-            new RunToPosition(1, Robot.motor_left),
+            new RunToPosition(1, RunToPosition.Motors.LEFT),
             new End()
     };
 
