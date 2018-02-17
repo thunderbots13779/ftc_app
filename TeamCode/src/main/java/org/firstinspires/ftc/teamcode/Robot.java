@@ -92,6 +92,17 @@ public class Robot {
     public static double theta;
     public static float targetAngle;
 
+    /** Encoder Stuff **/
+    //Encoder run
+    public static RunToPosition left = new RunToPosition(-1, Motors.FlIPPER, .7);
+    public static RunToPosition right = new RunToPosition(1, Motors.FlIPPER, .5);
+    public static RunToPosition up = new RunToPosition(-1, Motors.RAISER, .7);
+    public static RunToPosition down = new RunToPosition(1, Motors.RAISER, .5);
+    //Encoder start
+    public static double start;
+    public static double mid;
+    public static double end;
+
     /** Methods **/
     public static double powerScale(double scale) {
         return powerScaleFactor*Math.pow(scale, 2);

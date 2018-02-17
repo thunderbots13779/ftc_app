@@ -6,13 +6,15 @@ public class  RunToPosition implements Action {
 
     public double revolutions;
     public DcMotor motor;
+    public double power;
 
     Motors motors;
 
-    public RunToPosition(double revolutions, Motors motors) {
+    public RunToPosition(double revolutions, Motors motors, double power) {
 
         this.revolutions = revolutions;
         this.motors = motors;
+        this.power = power;
 
     }
     public void start() {
@@ -33,10 +35,11 @@ public class  RunToPosition implements Action {
                 motor = Robot.motor_raiser;
                 break;
         }
+        motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
         motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         motor.setTargetPosition(revolution(revolutions));
-        motor.setPower(.5);
+        motor.setPower(power);
     }
 
     public void loop() {

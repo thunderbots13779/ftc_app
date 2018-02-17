@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.hardware.DcMotor;
+
 import org.firstinspires.ftc.robotcore.internal.usb.exception.RobotUsbUnspecifiedException;
 
 /**
@@ -8,16 +10,22 @@ import org.firstinspires.ftc.robotcore.internal.usb.exception.RobotUsbUnspecifie
 
 public class Raiser implements Action{
 
+
+
     public void start() {
     }
     public void loop() {
         if (Robot.gamepad2.dpad_up){
-            new RunToPosition(-1, Motors.RAISER).start();
+            Robot.up.start();
         } else if (Robot.gamepad2.dpad_down) {
-            new RunToPosition(1, Motors.RAISER).start();
+            Robot.down.start();
         }
-
-
+        if(Robot.up.check()) {
+            Robot.motor_flipper.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        }
+        if(Robot.down.check()) {
+            Robot.motor_flipper.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        }
     }
 
     public void end() {
