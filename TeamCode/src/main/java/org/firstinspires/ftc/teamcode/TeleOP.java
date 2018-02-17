@@ -1,33 +1,39 @@
 package org.firstinspires.ftc.teamcode;
 
+import android.text.method.HideReturnsTransformationMethod;
+
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotor;
 
 @TeleOp
 public class TeleOP extends Driver{
 
     State state = State.START;
+    Raiser raiser =  new Raiser();
+    FlyWheels flyWheels = new FlyWheels();
+    Flippidoo flip = new Flippidoo();
+
+    Action[] actions = {
+//            new FlyWheels(),
+
+    };
+
+    @Override
+    public void init() {
+        super.init();
 
 
-//    Action[] actions = {
-//            new Initialize(),
-//            new FlyWheels()
-//    };
+    }
 
     @Override
     public void loop() {
-        new RunToPosition(1, Motors.FlIPPER);
-//        if (Robot.angles != null) {
-//            telemetry.addData("z: ", Robot.currentHeading);
-//        }
-//        telemetry.addData("motor positionn: ", Robot.motor_left.getCurrentPosition());
-//        float position = 1680f;
-//        float power;
-//        if (Robot.motor_left.getCurrentPosition() < position)
-//            power = 1 - (Robot.motor_left.getCurrentPosition() / position) / 2;
-//        else
-//            power = 0;
-//        telemetry.addData("motor power: ", power);
-//        Robot.motor_left.setPower(power);
+        flyWheels.loop();
+        raiser.loop();
+        flip.loop();
+//          flyWheels.loop();
+//        Robot.motor_raiser.setTargetPosition(1600);
+//        Robot.motor_raiser.setPower(1);
+//        raiser.loop();
 //        switch (state) {
 //            case START:
 //                state = State.LOOP;
@@ -50,5 +56,6 @@ public class TeleOP extends Driver{
 //        }
 
     }
+
 
 }

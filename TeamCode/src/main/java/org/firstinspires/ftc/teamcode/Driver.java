@@ -9,8 +9,9 @@ public class Driver extends OpMode {
 
         Robot.hardwareMap = hardwareMap;
         Robot.gamepad1 = gamepad1;
+        Robot.gamepad2 = gamepad2;
         Robot.initialize();
-        Robot.startUpdates();
+//        Robot.startUpdates();
 
     }
 
@@ -32,8 +33,8 @@ public class Driver extends OpMode {
     @Override
     public void stop() {
 
-        Robot.finalHeading = Robot.angles.firstAngle;
-        Robot.timer.cancel();
+//        Robot.finalHeading = Robot.angles.firstAngle;
+//        Robot.timer.cancel();
 
     }
 
