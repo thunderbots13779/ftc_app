@@ -1,10 +1,13 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.TeleOP_Actions;
+
+import org.firstinspires.ftc.teamcode.Action;
+import org.firstinspires.ftc.teamcode.Robot;
 
 /**
  * Created by Pramodh on 2/10/18.
  */
 
-public class FlyWheels implements Action{
+public class FlyWheels implements Action {
 
     public void start() {
 

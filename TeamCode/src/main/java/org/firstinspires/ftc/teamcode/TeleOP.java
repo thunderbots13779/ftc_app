@@ -1,9 +1,11 @@
 package org.firstinspires.ftc.teamcode;
 
-import android.text.method.HideReturnsTransformationMethod;
-
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.DcMotor;
+
+import org.firstinspires.ftc.teamcode.TeleOP_Actions.Flippidoo;
+import org.firstinspires.ftc.teamcode.TeleOP_Actions.FlyWheels;
+import org.firstinspires.ftc.teamcode.TeleOP_Actions.Move;
+import org.firstinspires.ftc.teamcode.TeleOP_Actions.Raiser;
 
 @TeleOp
 public class TeleOP extends Driver{

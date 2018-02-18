@@ -1,12 +1,15 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.TeleOP_Actions;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
+
+import org.firstinspires.ftc.teamcode.Action;
+import org.firstinspires.ftc.teamcode.Robot;
 
 /**
  * Created by Pramodh on 2/10/18.
  */
 
-public class Flippidoo implements Action{
+public class Flippidoo implements Action {
 
     public enum FlipperPositions {
         BOTTOM,
