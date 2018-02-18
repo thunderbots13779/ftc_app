@@ -11,11 +11,11 @@ public class FlyWheels implements Action{
     }
     public void loop() {
         if(Robot.gamepad2.a) {
-            Robot.motor_leftIntake.setPower(-Robot.powerScale(Robot.gamepad2.left_trigger));
-            Robot.motor_rightIntake.setPower(Robot.powerScale(Robot.gamepad2.right_trigger));
-        } else {
             Robot.motor_leftIntake.setPower(Robot.powerScale(Robot.gamepad2.left_trigger));
             Robot.motor_rightIntake.setPower(-Robot.powerScale(Robot.gamepad2.right_trigger));
+        } else {
+            Robot.motor_leftIntake.setPower(-Robot.powerScale(Robot.gamepad2.left_trigger));
+            Robot.motor_rightIntake.setPower(Robot.powerScale(Robot.gamepad2.right_trigger));
         }
     }
 

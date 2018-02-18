@@ -12,6 +12,7 @@ public class TeleOP extends Driver{
     Raiser raiser =  new Raiser();
     FlyWheels flyWheels = new FlyWheels();
     Flippidoo flip = new Flippidoo();
+    Move move = new Move();
 
     Action[] actions = {
 //            new FlyWheels(),
@@ -30,6 +31,8 @@ public class TeleOP extends Driver{
         flyWheels.loop();
         raiser.loop();
         flip.loop();
+        move.loop();
+
 //          flyWheels.loop();
 //        Robot.motor_raiser.setTargetPosition(1600);
 //        Robot.motor_raiser.setPower(1);
