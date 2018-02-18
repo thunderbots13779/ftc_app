@@ -32,7 +32,7 @@ public class TeleOP extends Driver{
     public void loop() {
         flyWheels.loop();
         raiser.loop();
-        flip.loop();
+//        flip.loop();
         move.loop();
 
 //          flyWheels.loop();

@@ -119,9 +119,9 @@ public class Robot {
 
         // Finding the Motors from the Configuration
 
-        motor_left = hardwareMap.get(DcMotor.class, "motor_left");
-        motor_right = hardwareMap.get(DcMotor.class, "motor_right");
-//        motor_center = map.hardwareMap.get(DcMotor.class, "motor_center");
+          motor_left = hardwareMap.get(DcMotor.class, "motor_left");
+          motor_right = hardwareMap.get(DcMotor.class, "motor_right");
+          motor_center = hardwareMap.get(DcMotor.class, "motor_center");
           motor_leftIntake = hardwareMap.get(DcMotor.class, "motor_leftIntake");
           motor_rightIntake = hardwareMap.get(DcMotor.class, "motor_rightIntake");
           motor_raiser = hardwareMap.get(DcMotor.class, "motor_raiser");
