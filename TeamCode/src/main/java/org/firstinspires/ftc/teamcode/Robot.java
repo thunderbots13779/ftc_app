@@ -94,8 +94,6 @@ public class Robot {
 
     /** Encoder Stuff **/
     //Encoder run
-    public static RunToPosition left = new RunToPosition(-.1, Motors.FlIPPER, .5);
-    public static RunToPosition right = new RunToPosition(.1, Motors.FlIPPER, .7);
     public static RunToPosition up = new RunToPosition(-1, Motors.RAISER, .7);
     public static RunToPosition down = new RunToPosition(1, Motors.RAISER, .5);
     //Encoder start
