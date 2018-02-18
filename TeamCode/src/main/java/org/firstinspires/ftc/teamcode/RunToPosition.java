@@ -28,9 +28,6 @@ public class  RunToPosition implements Action {
             case CENTER:
                 motor = Robot.motor_center;
                 break;
-            case FlIPPER:
-                motor = Robot.motor_flipper;
-                break;
             case RAISER:
                 motor = Robot.motor_raiser;
                 break;
