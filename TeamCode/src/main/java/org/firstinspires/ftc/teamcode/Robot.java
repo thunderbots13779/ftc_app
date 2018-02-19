@@ -100,6 +100,7 @@ public class Robot {
     public static double start;
     public static double mid;
     public static double end;
+    public static boolean active = false;
 
     /** Methods **/
     public static double powerScale(double scale) {
@@ -108,8 +109,10 @@ public class Robot {
     public static double lowerPowerScale(double scale) {return lowerPowerScaleFactor*Math.pow(scale, 2);}
     public static double evenLowerPowerScale(double scale) {return evenLowerPowerScaleFactor*Math.pow(scale, 2);}
     public static void flipperPosition(double position) {
+        active = true;
         servo_left.setPosition(position/180.0);
         servo_right.setPosition((180.0-position)/180.0);
+        active = false;
     }
 
     public static void initialize() {

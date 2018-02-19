@@ -27,12 +27,12 @@ public class Flippidoo implements Action {
         switch (flipperPos) {
             case BOTTOM:
                 Robot.flipperPosition(0.0);
-                if (Robot.gamepad2.right_bumper)
+                if (Robot.gamepad2.right_bumper && !Robot.active)
                     flipperPos = FlipperPositions.MIDDLE;
                 break;
             case MIDDLE:
                 Robot.flipperPosition(20.0);
-                if (Robot.gamepad2.left_bumper) {
+                if (Robot.gamepad2.left_bumper && !Robot.active) {
                     flipperPos = FlipperPositions.BOTTOM;
                 } else {
                     flipperPos = FlipperPositions.TOP;
@@ -40,7 +40,7 @@ public class Flippidoo implements Action {
                 break;
             case TOP:
                 Robot.flipperPosition(110.0);
-                if (Robot.gamepad2.left_bumper)
+                if (Robot.gamepad2.left_bumper && !Robot.active)
                     flipperPos = FlipperPositions.MIDDLE;
                 break;
         }

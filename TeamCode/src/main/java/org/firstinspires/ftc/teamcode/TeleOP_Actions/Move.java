@@ -14,13 +14,33 @@ public class Move implements Action {
     }
     public void loop() {
         if(Robot.gamepad1.left_stick_button) {
-            Robot.motor_center.setPower(-Robot.lowerPowerScale(Robot.gamepad1.left_stick_x));
-            Robot.motor_right.setPower(Robot.lowerPowerScale(Robot.gamepad1.left_stick_y));
-            Robot.motor_left.setPower(-Robot.lowerPowerScale(Robot.gamepad1.left_stick_y));
+            if (Robot.gamepad1.left_stick_x >= 0) {
+                Robot.motor_center.setPower(-Robot.lowerPowerScale(Robot.gamepad1.left_stick_x));
+            } else {
+                Robot.motor_center.setPower(Robot.lowerPowerScale(Robot.gamepad1.left_stick_x));
+            }
+            if (Robot.gamepad1.left_stick_y >= 0) {
+                Robot.motor_right.setPower(Robot.lowerPowerScale(Robot.gamepad1.left_stick_y));
+                Robot.motor_left.setPower(-Robot.lowerPowerScale(Robot.gamepad1.left_stick_y));
+            } else {
+                Robot.motor_right.setPower(-Robot.lowerPowerScale(Robot.gamepad1.left_stick_y));
+                Robot.motor_left.setPower(Robot.lowerPowerScale(Robot.gamepad1.left_stick_y));
+            }
+
         } else {
-            Robot.motor_center.setPower(-Robot.powerScale(Robot.gamepad1.left_stick_x));
-            Robot.motor_right.setPower(Robot.powerScale(Robot.gamepad1.left_stick_y));
-            Robot.motor_left.setPower(-Robot.powerScale(Robot.gamepad1.left_stick_y));
+            if (Robot.gamepad1.left_stick_x >= 0) {
+                Robot.motor_center.setPower(-Robot.powerScale(Robot.gamepad1.left_stick_x));
+            } else {
+                Robot.motor_center.setPower(Robot.powerScale(Robot.gamepad1.left_stick_x));
+            }
+            if (Robot.gamepad1.left_stick_y >= 0) {
+                Robot.motor_right.setPower(Robot.powerScale(Robot.gamepad1.left_stick_y));
+                Robot.motor_left.setPower(-Robot.powerScale(Robot.gamepad1.left_stick_y));
+            } else {
+                Robot.motor_right.setPower(-Robot.powerScale(Robot.gamepad1.left_stick_y));
+                Robot.motor_left.setPower(Robot.powerScale(Robot.gamepad1.left_stick_y));
+            }
+
         }
 
     }
