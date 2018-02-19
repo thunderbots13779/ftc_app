@@ -1,10 +1,13 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.Actions;
+
+import org.firstinspires.ftc.teamcode.Actions.Action;
+import org.firstinspires.ftc.teamcode.Robot;
 
 /**
  * Created by Pramodh on 2/12/18.
  */
 
-public class Move implements Action{
+public class Move implements Action {
 
     public void start() {
 

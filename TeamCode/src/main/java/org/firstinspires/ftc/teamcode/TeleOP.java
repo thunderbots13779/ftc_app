@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 @TeleOp
 public class TeleOP extends Driver{
 
-    State state = State.START;
+//    State state = State.START;
 
 
 //    Action[] actions = {
@@ -14,8 +14,20 @@ public class TeleOP extends Driver{
 //    };
 
     @Override
+    public void start() {
+
+        super.start();
+        Robot.servo_leftFlipper.setPosition(97/180.0);
+        Robot.servo_rightFlipper.setPosition(84/180.0);
+
+    }
+
+    @Override
     public void loop() {
-        new RunToPosition(1, Motors.FlIPPER);
+        telemetry.addData("position: ", Robot.servo_leftFlipper.getPosition());
+        telemetry.addData("position: ", Robot.servo_rightFlipper.getPosition());
+        telemetry.update();
+//        new RunToPosition(1, Motors.FlIPPER);
 //        if (Robot.angles != null) {
 //            telemetry.addData("z: ", Robot.currentHeading);
 //        }

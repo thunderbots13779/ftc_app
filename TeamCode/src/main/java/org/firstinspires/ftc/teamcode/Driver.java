@@ -10,7 +10,7 @@ public class Driver extends OpMode {
         Robot.hardwareMap = hardwareMap;
         Robot.gamepad1 = gamepad1;
         Robot.initialize();
-        Robot.startUpdates();
+//        Robot.startUpdates();
 
     }
 
