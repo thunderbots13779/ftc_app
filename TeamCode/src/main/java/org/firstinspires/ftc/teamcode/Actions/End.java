@@ -1,4 +1,6 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.Actions;
+
+import org.firstinspires.ftc.teamcode.Actions.Action;
 
 public class End implements Action {
 

@@ -14,6 +14,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.robotcore.external.navigation.Position;
 import org.firstinspires.ftc.robotcore.external.navigation.Velocity;
+import org.firstinspires.ftc.teamcode.Actions.RunToPosition;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -42,8 +43,9 @@ public class Robot {
 
     public static Servo servo_swivel;
     public static Servo servo_dropper;
-    public static Servo servo_left;
-    public static Servo servo_right;
+
+    public static Servo servo_leftFlipper;
+    public static Servo servo_rightFlipper;
 
     // Define the Gyroscope
 
@@ -61,8 +63,11 @@ public class Robot {
     // Define State Variables
 
     public static Orientation angles;
+
     public static float finalHeading = 0;
     public static float currentHeading = 0;
+
+    public static float targetHeading = 0;
 
     /** Constants **/
 
@@ -70,11 +75,8 @@ public class Robot {
     public static final double servoUp = (174.0/180.0);
     public static final double servoDown = (67.0/180.0);
 
-    public static final double OPEN_POSITION_LEFT = (129.0/180.0);
-    public static final double OPEN_POSITION_RIGHT = (73.0/180.0);
-
-    public static final double CLOSED_POSITION_LEFT = (84.0/180.0);
-    public static final double CLOSED_POSITION_RIGHT = (118.0/180.0);
+    public static final double leftRaiserUp = (97/180.0);
+    public static final double rightServerUp = (84/180.0);
 
     public static final double WHEEL_DIAMETER = 0;
     public static final double WHEEL_Circumference = 2 * Math.PI * WHEEL_DIAMETER / 2;
@@ -110,8 +112,8 @@ public class Robot {
     public static double evenLowerPowerScale(double scale) {return evenLowerPowerScaleFactor*Math.pow(scale, 2);}
     public static void flipperPosition(double position) {
         active = true;
-        servo_left.setPosition(position/180.0);
-        servo_right.setPosition((180.0-position)/180.0);
+        servo_leftFlipper.setPosition(position/180.0);
+        servo_rightFlipper.setPosition((180.0-position)/180.0);
         active = false;
     }
 
@@ -126,63 +128,60 @@ public class Robot {
           motor_leftIntake = hardwareMap.get(DcMotor.class, "motor_leftIntake");
           motor_rightIntake = hardwareMap.get(DcMotor.class, "motor_rightIntake");
           motor_raiser = hardwareMap.get(DcMotor.class, "motor_raiser");
-          servo_left = hardwareMap.get(Servo.class, "servo_left");
-          servo_right = hardwareMap.get(Servo.class, "servo_right");
+          servo_leftFlipper = hardwareMap.get(Servo.class, "servo_left");
+          servo_rightFlipper = hardwareMap.get(Servo.class, "servo_right");
 //        servo_swivel = map.hardwareMap.get(Servo.class, "servo_swivel");
 //        servo_dropper = map.hardwareMap.get(Servo.class, "servo_dropper");
 
+
         // Finding the Gyroscope
 
-//        imu = hardwareMap.get(BNO055IMU.class, "imu");
+        imu = hardwareMap.get(BNO055IMU.class, "imu");
 
         // Finding the Color Sensor
 
-//        colorSensor = map.hardwareMap.get(NormalizedColorSensor.class, "colorSensor");
+//        colorSensor = hardwareMap.get(NormalizedColorSensor.class, "colorSensor");
 
         // Initialize the Gyrosensor
 
-//        BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
-//        parameters.angleUnit           = BNO055IMU.AngleUnit.DEGREES;
-//        parameters.accelUnit           = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
-//        parameters.calibrationDataFile = "BNO055IMUCalibration.json"; // see the calibration sample opmode
-//        parameters.loggingEnabled      = true;
-//        parameters.loggingTag          = "IMU";
-//        parameters.accelerationIntegrationAlgorithm = new JustLoggingAccelerationIntegrator();
-//
-//        imu.initialize(parameters);
-//
-//        imu.startAccelerationIntegration(new Position(), new Velocity(), 1000);
+        initializeIMU();
 
         // Setting Motor Behavior
-//
-//        motor_left.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-//        motor_left.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-//        motor_left.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-//
+
 //        motor_left.setZeroPowerBehavior((DcMotor.ZeroPowerBehavior.BRAKE));
 //        motor_right.setZeroPowerBehavior((DcMotor.ZeroPowerBehavior.BRAKE));
 //        motor_center.setZeroPowerBehavior((DcMotor.ZeroPowerBehavior.BRAKE));
 
-//        startUpdates();
+        startUpdates();
 
     }
-//
-//    public static void startUpdates() {
-//        timer = new Timer();
-//        task = new TimerTask() {
-//            @Override
-//            public void run() {
-//                angles   = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
-//            }
-//        };
-//        timer.scheduleAtFixedRate(task, 0, 1);
-//    }
-////
-//    public void resetMotors() {
-//        motor_left.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-//        motor_right.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-//        motor_center.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-//    }
+
+    public static void initializeIMU() {
+
+        BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
+        parameters.angleUnit           = BNO055IMU.AngleUnit.DEGREES;
+        parameters.accelUnit           = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
+        parameters.calibrationDataFile = "BNO055IMUCalibration.json"; // see the calibration sample opmode
+        parameters.loggingEnabled      = true;
+        parameters.loggingTag          = "IMU";
+        parameters.accelerationIntegrationAlgorithm = new JustLoggingAccelerationIntegrator();
+
+        imu.initialize(parameters);
+
+        imu.startAccelerationIntegration(new Position(), new Velocity(), 1000);
+
+    }
+
+    public static void startUpdates() {
+        timer = new Timer();
+        task = new TimerTask() {
+            @Override
+            public void run() {
+                angles   = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+            }
+        };
+        timer.scheduleAtFixedRate(task, 0, 1);
+    }
 
 
 //    public static float getRelativeHeading(float frameHeading, float directedHeading) {

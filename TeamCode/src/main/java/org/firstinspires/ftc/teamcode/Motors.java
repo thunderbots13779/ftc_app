@@ -1,6 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
-enum Motors {
+public enum Motors {
     LEFT,
     RIGHT,
     CENTER,
