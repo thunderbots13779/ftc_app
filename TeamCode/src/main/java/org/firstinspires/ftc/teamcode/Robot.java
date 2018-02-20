@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.NormalizedColorSensor;
+import com.qualcomm.robotcore.hardware.NormalizedRGBA;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
@@ -54,6 +55,18 @@ public class Robot {
     // Define the Color Sensor
 
     public static NormalizedColorSensor colorSensor;
+    public static NormalizedRGBA colors;
+
+    public static final int scale = 100;
+    public static double maxRed = 0;
+    public static double maxBlue = 0;
+    public static boolean correctColor;
+
+    public enum AllianceColor {
+        RED, BLUE;
+    }
+
+    public static AllianceColor allianceColor;
 
     // Define the Timers
 
