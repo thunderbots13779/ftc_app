@@ -8,10 +8,9 @@ public class Auto extends Driver {
     int i = 0;
 
     Action[] actions = { 
-            new Initialize(),
 //            new Grab_Auto(),
 //            new Timed(10000),
-            new RunToPosition(1, Motors.LEFT),
+//            new RunToPosition(1, Motors.LEFT),
             new End()
     };
 

@@ -4,16 +4,17 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 
 public class  RunToPosition implements Action {
 
-    public int degrees;
-
+    public double revolutions;
     public DcMotor motor;
+    public double power;
 
     Motors motors;
 
-    public RunToPosition(int degrees, Motors motors) {
+    public RunToPosition(double revolutions, Motors motors, double power) {
 
-        this.degrees = degrees;
+        this.revolutions = revolutions;
         this.motors = motors;
+        this.power = power;
 
     }
     public void start() {
@@ -27,24 +28,19 @@ public class  RunToPosition implements Action {
             case CENTER:
                 motor = Robot.motor_center;
                 break;
-            case FlIPPER:
-                motor = Robot.motor_flipper;
-                break;
             case RAISER:
                 motor = Robot.motor_raiser;
                 break;
         }
-        Robot.motor_left.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        Robot.motor_left.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        Robot.motor_left.setPower(.5);
-        Robot.motor_left.setTargetPosition(revolution(degrees));
-
+        motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        motor.setTargetPosition(revolution(revolutions));
+        motor.setPower(power);
     }
 
     public void loop() {
-//        if (motor.getCurrentPosition() < revolution(degrees)) {
-//            motor.setPower(.1);
-//        }
+
     }
 
     public void end() {
@@ -63,8 +59,8 @@ public class  RunToPosition implements Action {
 
     }
 
-    public int revolution(int rot) {
-        return rot*1680;
+    public int revolution(double rot) {
+        return (int)(rot*1680);
     }
 
     public int degreesToTicks(int degrees) {

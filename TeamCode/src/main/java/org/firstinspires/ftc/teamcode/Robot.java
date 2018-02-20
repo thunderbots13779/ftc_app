@@ -37,14 +37,13 @@ public class Robot {
     public static DcMotor motor_leftIntake;
     public static DcMotor motor_rightIntake;
     public static DcMotor motor_raiser;
-    public static DcMotor motor_flipper;
 
     // Define the Servos
 
     public static Servo servo_swivel;
     public static Servo servo_dropper;
-    public static Servo servo_leftGrabber;
-    public static Servo servo_rightGrabber;
+    public static Servo servo_left;
+    public static Servo servo_right;
 
     // Define the Gyroscope
 
@@ -89,26 +88,46 @@ public class Robot {
     public static boolean open = true;
     public static double powerScaleFactor = 1.0/1.2;
     public static double lowerPowerScaleFactor = 1.0/1.5;
+    public static double evenLowerPowerScaleFactor = 1.0/1.6;
     public static double theta;
     public static float targetAngle;
+
+    /** Encoder Stuff **/
+    //Encoder run
+    public static RunToPosition up = new RunToPosition(-1, Motors.RAISER, .7);
+    public static RunToPosition down = new RunToPosition(1, Motors.RAISER, .5);
+    //Encoder start
+    public static double start;
+    public static double mid;
+    public static double end;
+    public static boolean active = false;
 
     /** Methods **/
     public static double powerScale(double scale) {
         return powerScaleFactor*Math.pow(scale, 2);
     }
     public static double lowerPowerScale(double scale) {return lowerPowerScaleFactor*Math.pow(scale, 2);}
+    public static double evenLowerPowerScale(double scale) {return evenLowerPowerScaleFactor*Math.pow(scale, 2);}
+    public static void flipperPosition(double position) {
+        active = true;
+        servo_left.setPosition(position/180.0);
+        servo_right.setPosition((180.0-position)/180.0);
+        active = false;
+    }
 
     public static void initialize() {
 
 
         // Finding the Motors from the Configuration
 
-        motor_left = hardwareMap.get(DcMotor.class, "motor_left");
-//        motor_right = map.hardwareMap.get(DcMotor.class, "motor_right");
-//        motor_center = map.hardwareMap.get(DcMotor.class, "motor_center");
+          motor_left = hardwareMap.get(DcMotor.class, "motor_left");
+          motor_right = hardwareMap.get(DcMotor.class, "motor_right");
+          motor_center = hardwareMap.get(DcMotor.class, "motor_center");
           motor_leftIntake = hardwareMap.get(DcMotor.class, "motor_leftIntake");
           motor_rightIntake = hardwareMap.get(DcMotor.class, "motor_rightIntake");
-          motor_flipper = hardwareMap.get(DcMotor.class, "motor_flipper");
+          motor_raiser = hardwareMap.get(DcMotor.class, "motor_raiser");
+          servo_left = hardwareMap.get(Servo.class, "servo_left");
+          servo_right = hardwareMap.get(Servo.class, "servo_right");
 //        servo_swivel = map.hardwareMap.get(Servo.class, "servo_swivel");
 //        servo_dropper = map.hardwareMap.get(Servo.class, "servo_dropper");
 
@@ -135,10 +154,10 @@ public class Robot {
 //        imu.startAccelerationIntegration(new Position(), new Velocity(), 1000);
 
         // Setting Motor Behavior
-
-        motor_left.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        motor_left.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        motor_left.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+//
+//        motor_left.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+//        motor_left.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+//        motor_left.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 //
 //        motor_left.setZeroPowerBehavior((DcMotor.ZeroPowerBehavior.BRAKE));
 //        motor_right.setZeroPowerBehavior((DcMotor.ZeroPowerBehavior.BRAKE));
@@ -166,21 +185,21 @@ public class Robot {
 //    }
 
 
-    public static float getRelativeHeading(float frameHeading, float directedHeading) {
-
-        float relativeHeading = frameHeading + directedHeading;
-
-        if (Math.abs(relativeHeading) > 180) {
-
-            float direction = -(Math.abs(relativeHeading) / (relativeHeading));
-
-            relativeHeading = 180 - Math.abs(relativeHeading % 180);
-            relativeHeading *= direction;
-
-        }
-
-        return relativeHeading;
-
-    }
+//    public static float getRelativeHeading(float frameHeading, float directedHeading) {
+//
+//        float relativeHeading = frameHeading + directedHeading;
+//
+//        if (Math.abs(relativeHeading) > 180) {
+//
+//            float direction = -(Math.abs(relativeHeading) / (relativeHeading));
+//
+//            relativeHeading = 180 - Math.abs(relativeHeading % 180);
+//            relativeHeading *= direction;
+//
+//        }
+//
+//        return relativeHeading;
+//
+//    }
 
 }

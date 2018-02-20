@@ -4,6 +4,5 @@ enum Motors {
     LEFT,
     RIGHT,
     CENTER,
-    FlIPPER,
     RAISER
 }
