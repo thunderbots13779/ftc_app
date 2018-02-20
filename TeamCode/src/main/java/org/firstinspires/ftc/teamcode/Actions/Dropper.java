@@ -11,6 +11,8 @@ import org.firstinspires.ftc.teamcode.Robot;
 public class Dropper {
     public void start() {
         new ColorCheck();
+        Robot.servo_swivel.setPosition(90);
+        Robot.servo_dropper.setPosition(Robot.servoDown);
         if (Robot.correctColor) {
             Robot.servo_swivel.setPosition(0.0);
         } else  {
