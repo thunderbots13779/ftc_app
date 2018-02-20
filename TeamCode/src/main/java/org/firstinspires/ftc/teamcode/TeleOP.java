@@ -17,13 +17,14 @@ public class TeleOP extends Driver{
     public void start() {
 
         super.start();
-        Robot.servo_leftFlipper.setPosition(97/180.0);
-        Robot.servo_rightFlipper.setPosition(84/180.0);
+
 
     }
 
     @Override
     public void loop() {
+        Robot.servo_leftFlipper.setPosition(gamepad1.right_trigger);
+        Robot.servo_rightFlipper.setPosition(gamepad1.left_trigger);
         telemetry.addData("position: ", Robot.servo_leftFlipper.getPosition());
         telemetry.addData("position: ", Robot.servo_rightFlipper.getPosition());
         telemetry.update();
