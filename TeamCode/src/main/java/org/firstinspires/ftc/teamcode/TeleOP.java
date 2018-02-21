@@ -3,6 +3,9 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.Actions.*;
+import org.firstinspires.ftc.teamcode.Actions.TeleOP.FlyWheels;
+import org.firstinspires.ftc.teamcode.Actions.TeleOP.Move;
+import org.firstinspires.ftc.teamcode.Actions.TeleOP.Raiser;
 
 @TeleOp
 public class TeleOP extends Driver{

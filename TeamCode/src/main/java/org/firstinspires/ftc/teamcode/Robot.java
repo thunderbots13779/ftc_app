@@ -52,6 +52,14 @@ public class Robot {
     public static Servo servo_leftFlipper;
     public static Servo servo_rightFlipper;
 
+    public static boolean bottom;
+
+    //TODO: Change these values!!
+    public static final double leftFlipperTop = 0;
+    public static final double rightFlipperTop = 0;
+    public static final double leftFlipperBottom = 0;
+    public static final double rightFlipperBottom = 0;
+
     // Define the Gyroscope
 
     public static BNO055IMU imu;
@@ -161,7 +169,6 @@ public class Robot {
 
 //        colorSensor = hardwareMap.get(NormalizedColorSensor.class, "colorSensor");
 
-        // Initialize the Gyrosensor
 
         initializeIMU();
 

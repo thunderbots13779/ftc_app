@@ -4,7 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 public class Driver extends OpMode {
 
-    enum State {
+    public enum State {
         START, LOOP, STOP
     }
 

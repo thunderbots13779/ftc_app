@@ -1,9 +1,11 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.Autonomous_OPModes;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.Actions.Action;
 import org.firstinspires.ftc.teamcode.Actions.End;
 import org.firstinspires.ftc.teamcode.Actions.RunToPosition;
+import org.firstinspires.ftc.teamcode.Driver;
+import org.firstinspires.ftc.teamcode.Robot;
 
 @Autonomous
 public class Auto extends Driver {
@@ -12,7 +14,6 @@ public class Auto extends Driver {
     int i = 0;
 
     Action[] actions = {
-//            new Initialize(),
 //            new Grab_Auto(),
 //            new Timed(10000),
 //            new RunToPosition(360, Motors.LEFT),

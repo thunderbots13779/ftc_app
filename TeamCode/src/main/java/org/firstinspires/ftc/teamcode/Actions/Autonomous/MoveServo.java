@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Actions.ServoActions;
+package org.firstinspires.ftc.teamcode.Actions.Autonomous;
 
 import org.firstinspires.ftc.teamcode.Actions.Action;
 import org.firstinspires.ftc.teamcode.Robot;

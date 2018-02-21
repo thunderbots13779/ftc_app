@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Actions;
+package org.firstinspires.ftc.teamcode.Actions.TeleOP;
 
 import org.firstinspires.ftc.teamcode.Actions.Action;
 import org.firstinspires.ftc.teamcode.Robot;
@@ -13,6 +13,7 @@ public class Move implements Action {
 
     }
     public void loop() {
+        //TODO: Fix these controls to go both ways again
         if(Robot.gamepad1.left_stick_button) {
             Robot.motor_center.setPower(-Robot.lowerPowerScale(Robot.gamepad1.left_stick_x));
             Robot.motor_right.setPower(Robot.lowerPowerScale(Robot.gamepad1.left_stick_y));

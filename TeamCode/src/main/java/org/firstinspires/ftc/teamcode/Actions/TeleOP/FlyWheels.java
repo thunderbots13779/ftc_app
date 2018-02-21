@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Actions;
+package org.firstinspires.ftc.teamcode.Actions.TeleOP;
 
 import org.firstinspires.ftc.teamcode.Actions.Action;
 import org.firstinspires.ftc.teamcode.Robot;
@@ -13,6 +13,7 @@ public class FlyWheels implements Action {
 
     }
     public void loop() {
+        //TODO: Fix these controls to rotate both directions again
         if (Robot.gamepad1.left_trigger > 0) {
             Robot.motor_leftIntake.setPower(Robot.powerScale(Robot.gamepad1.left_trigger));
             Robot.motor_rightIntake.setPower(-Robot.powerScale(Robot.gamepad1.left_trigger));
