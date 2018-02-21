@@ -3,25 +3,20 @@ package org.firstinspires.ftc.teamcode.Actions;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.teamcode.Actions.Action;
-import org.firstinspires.ftc.teamcode.Motors;
 import org.firstinspires.ftc.teamcode.Robot;
 
 public class  RunToPosition implements Action {
 
     public int degrees;
 
-    public DcMotor motor;
-
-    Motors motors;
-
-    public RunToPosition(int degrees, Motors motors, double power) {
+    public RunToPosition(int degrees, Robot.Motors motors, double power) {
 
         this.degrees = degrees;
-        this.motors = motors;
+        Robot.motors = motors;
 
     }
     public void start() {
-        switch (motors) {
+        switch (Robot.motors) {
             case LEFT:
                 setPosition(Robot.motor_leftIntake);
                 break;
@@ -51,7 +46,7 @@ public class  RunToPosition implements Action {
 
         boolean answer = false;
 
-        switch (motors) {
+        switch (Robot.motors) {
             case LEFT:
                 answer = Robot.motor_left.isBusy();
                 break;

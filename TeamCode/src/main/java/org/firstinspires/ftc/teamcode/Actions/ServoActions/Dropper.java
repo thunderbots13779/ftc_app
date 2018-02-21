@@ -1,7 +1,8 @@
-package org.firstinspires.ftc.teamcode.Actions;
+package org.firstinspires.ftc.teamcode.Actions.ServoActions;
 
 import android.graphics.Color;
 
+import org.firstinspires.ftc.teamcode.Actions.ColorCheck;
 import org.firstinspires.ftc.teamcode.Robot;
 
 /**
@@ -11,14 +12,14 @@ import org.firstinspires.ftc.teamcode.Robot;
 public class Dropper {
     public void start() {
         new ColorCheck();
-        Robot.servo_swivel.setPosition(90);
-        Robot.servo_dropper.setPosition(Robot.servoDown);
+        new MoveServo(Robot.Servos.SWIVEL, 90);
+        new MoveServo(Robot.Servos.DROPPER, Robot.servoDown);
         if (Robot.correctColor) {
-            Robot.servo_swivel.setPosition(0.0);
+            new MoveServo(Robot.Servos.SWIVEL, 0);
         } else  {
-            Robot.servo_swivel.setPosition(180.0);
+            new MoveServo(Robot.Servos.SWIVEL, 180);
         }
-        Robot.servo_swivel.setPosition(90);
+        new MoveServo(Robot.Servos.DROPPER, Robot.servoUp);
     }
     public void loop() {
         

@@ -40,11 +40,15 @@ public class Robot {
     public static DcMotor motor_rightIntake;
     public static DcMotor motor_raiser;
 
+    public static Motors motors;
+
+
     // Define the Servos
 
     public static Servo servo_swivel;
     public static Servo servo_dropper;
-
+    public static Servo servo_leftIntake;
+    public static Servo servo_rightIntake;
     public static Servo servo_leftFlipper;
     public static Servo servo_rightFlipper;
 
@@ -90,6 +94,8 @@ public class Robot {
 
     public static final double leftRaiserUp = (97/180.0);
     public static final double rightServerUp = (84/180.0);
+
+    public static Servos servos;
 
     public static final double WHEEL_DIAMETER = 0;
     public static final double WHEEL_Circumference = 2 * Math.PI * WHEEL_DIAMETER / 2;
@@ -213,5 +219,21 @@ public class Robot {
 //        return relativeHeading;
 //
 //    }
+
+    public enum Servos {
+        LEFT_FLIPPER,
+        RIGHT_FLIPPER,
+        LEFT_INTAKE,
+        RIGHT_INTAKE,
+        DROPPER,
+        SWIVEL
+    }
+
+    public enum Motors {
+        LEFT,
+        RIGHT,
+        CENTER,
+        RAISER
+    }
 
 }
