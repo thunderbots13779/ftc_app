@@ -3,10 +3,6 @@ package org.firstinspires.ftc.teamcode.Actions.Autonomous;
 import org.firstinspires.ftc.teamcode.Actions.Action;
 import org.firstinspires.ftc.teamcode.Robot;
 
-/**
- * Created by Pramodh on 2/10/18.
- */
-
 public class MoveServo implements Action {
 
     double position;

@@ -2,10 +2,6 @@ package org.firstinspires.ftc.teamcode.Actions.Autonomous;
 
 import org.firstinspires.ftc.teamcode.Robot;
 
-/**
- * Created by Pramodh on 2/18/18.
- */
-
 public class Dropper {
     public void start() {
         new ColorCheck();

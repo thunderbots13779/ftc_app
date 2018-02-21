@@ -44,27 +44,17 @@ public class  RunToPosition implements Action {
 
     public boolean check() {
 
-        boolean answer = false;
-
         switch (Robot.motors) {
             case LEFT:
-                answer = Robot.motor_left.isBusy();
-                break;
+                return Robot.motor_left.isBusy();
             case RIGHT:
-                answer = Robot.motor_right.isBusy();
-                break;
+                return Robot.motor_right.isBusy();
             case CENTER:
-                answer = Robot.motor_center.isBusy();
-                break;
+                return Robot.motor_center.isBusy();
             case RAISER:
-                answer = Robot.motor_raiser.isBusy();
-                break;
-        }
-
-        if (!answer) {
-            return false;
-        } else {
-            return true;
+                return Robot.motor_raiser.isBusy();
+            default:
+                return false;
         }
 
     }

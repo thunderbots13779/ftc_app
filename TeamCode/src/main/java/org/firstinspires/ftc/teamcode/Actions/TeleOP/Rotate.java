@@ -3,10 +3,6 @@ package org.firstinspires.ftc.teamcode.Actions.TeleOP;
 import org.firstinspires.ftc.teamcode.Actions.Action;
 import org.firstinspires.ftc.teamcode.Robot;
 
-/**
- * Created by Pramodh on 2/12/18.
- */
-
 public class Rotate implements Action {
 
     public void start() {

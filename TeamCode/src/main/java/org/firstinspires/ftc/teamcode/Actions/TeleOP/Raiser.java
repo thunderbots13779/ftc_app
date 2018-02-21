@@ -6,10 +6,6 @@ import org.firstinspires.ftc.robotcore.internal.usb.exception.RobotUsbUnspecifie
 import org.firstinspires.ftc.teamcode.Actions.Action;
 import org.firstinspires.ftc.teamcode.Robot;
 
-/**
- * Created by Pramodh on 2/10/18.
- */
-
 public class Raiser implements Action {
 
 

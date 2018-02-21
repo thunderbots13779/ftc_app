@@ -4,10 +4,6 @@ import org.firstinspires.ftc.teamcode.Actions.Action;
 import org.firstinspires.ftc.teamcode.Actions.Autonomous.MoveServo;
 import org.firstinspires.ftc.teamcode.Robot;
 
-/**
- * Created by Pramodh on 2/10/18.
- */
-
 public class Flip implements Action {
     public void start() {
         if (Robot.gamepad2.a) {
