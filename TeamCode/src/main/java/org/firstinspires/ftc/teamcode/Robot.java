@@ -152,11 +152,11 @@ public class Robot {
           motor_left = hardwareMap.get(DcMotor.class, "motor_left");
           motor_right = hardwareMap.get(DcMotor.class, "motor_right");
           motor_center = hardwareMap.get(DcMotor.class, "motor_center");
-          motor_leftIntake = hardwareMap.get(DcMotor.class, "motor_leftIntake");
-          motor_rightIntake = hardwareMap.get(DcMotor.class, "motor_rightIntake");
-          motor_raiser = hardwareMap.get(DcMotor.class, "motor_raiser");
-          servo_leftFlipper = hardwareMap.get(Servo.class, "servo_left");
-          servo_rightFlipper = hardwareMap.get(Servo.class, "servo_right");
+//          motor_leftIntake = hardwareMap.get(DcMotor.class, "motor_leftIntake");
+//          motor_rightIntake = hardwareMap.get(DcMotor.class, "motor_rightIntake");
+//          motor_raiser = hardwareMap.get(DcMotor.class, "motor_raiser");
+//          servo_leftFlipper = hardwareMap.get(Servo.class, "servo_left");
+//          servo_rightFlipper = hardwareMap.get(Servo.class, "servo_right");
 //        servo_swivel = map.hardwareMap.get(Servo.class, "servo_swivel");
 //        servo_dropper = map.hardwareMap.get(Servo.class, "servo_dropper");
 

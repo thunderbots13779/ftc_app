@@ -6,6 +6,7 @@ import org.firstinspires.ftc.teamcode.Actions.*;
 import org.firstinspires.ftc.teamcode.Actions.TeleOP.FlyWheels;
 import org.firstinspires.ftc.teamcode.Actions.TeleOP.Move;
 import org.firstinspires.ftc.teamcode.Actions.TeleOP.Raiser;
+import org.firstinspires.ftc.teamcode.Actions.TeleOP.Rotate;
 
 @TeleOp
 public class TeleOP extends Driver{
@@ -14,6 +15,7 @@ public class TeleOP extends Driver{
     Raiser raiser =  new Raiser();
     FlyWheels flyWheels = new FlyWheels();
     Move move = new Move();
+    Rotate rotate = new Rotate();
 
 
     Action[] actions = {
@@ -38,10 +40,8 @@ public class TeleOP extends Driver{
 
     @Override
     public void loop() {
-        flyWheels.loop();
-        raiser.loop();
-//        flip.loop();
         move.loop();
+        rotate.loop();
 
 
     }
