@@ -14,10 +14,8 @@ public class Auto extends Driver {
     int i = 0;
 
     Action[] actions = {
-//            new Grab_Auto(),
-//            new Timed(10000),
-//            new RunToPosition(360, Motors.LEFT),
-//            new RunToPosition(1680, Motors.LEFT),
+//            new RunToPosition(100, Robot.Motors.FLIP),
+//        new RunToPosition(-100, Robot.Motors.FLIP),
             new End()
     };
 
@@ -35,13 +33,13 @@ public class Auto extends Driver {
 
 
         telemetry.addData("action", i);
-        telemetry.addData("ticks", Robot.motor_leftIntake.getCurrentPosition());
-//        if (Robot.angles != null) {
-//            telemetry.addData("z rotation", Robot.angles.firstAngle);
-//            telemetry.addData("y rotation", Robot.angles.secondAngle);
-//            telemetry.addData("x rotation", Robot.angles.thirdAngle);
-//        }
-        telemetry.update();
+        telemetry.addData("ticks", Robot.motor_flipper.getCurrentPosition());
+////        if (Robot.angles != null) {
+////            telemetry.addData("z rotation", Robot.angles.firstAngle);
+////            telemetry.addData("y rotation", Robot.angles.secondAngle);
+////            telemetry.addData("x rotation", Robot.angles.thirdAngle);
+////        }
+//        telemetry.update();
 
 
 

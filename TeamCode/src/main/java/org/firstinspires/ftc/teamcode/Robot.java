@@ -39,6 +39,7 @@ public class Robot {
     public static DcMotor motor_leftIntake;
     public static DcMotor motor_rightIntake;
     public static DcMotor motor_raiser;
+    public static DcMotor motor_flipper;
 
     public static Motors motors;
 
@@ -122,9 +123,9 @@ public class Robot {
     public static float targetAngle;
 
     /** Encoder Stuff **/
-    //Encoder run
-    public static RunToPosition up = new RunToPosition(-1, Motors.RAISER, .7);
-    public static RunToPosition down = new RunToPosition(1, Motors.RAISER, .5);
+//    //Encoder run
+//    public static RunToPosition up = new RunToPosition(-1, Motors.RAISER, .7);
+//    public static RunToPosition down = new RunToPosition(1, Motors.RAISER, .5);
     //Encoder start
     public static double start;
     public static double mid;
@@ -149,9 +150,10 @@ public class Robot {
 
         // Finding the Motors from the Configuration
 
-          motor_left = hardwareMap.get(DcMotor.class, "motor_left");
-          motor_right = hardwareMap.get(DcMotor.class, "motor_right");
-          motor_center = hardwareMap.get(DcMotor.class, "motor_center");
+//          motor_left = hardwareMap.get(DcMotor.class, "motor_left");
+//          motor_right = hardwareMap.get(DcMotor.class, "motor_right");
+//          motor_center = hardwareMap.get(DcMotor.class, "motor_center");
+          motor_flipper = hardwareMap.get(DcMotor.class, "motor_flipper");
 //          motor_leftIntake = hardwareMap.get(DcMotor.class, "motor_leftIntake");
 //          motor_rightIntake = hardwareMap.get(DcMotor.class, "motor_rightIntake");
 //          motor_raiser = hardwareMap.get(DcMotor.class, "motor_raiser");
@@ -240,7 +242,8 @@ public class Robot {
         LEFT,
         RIGHT,
         CENTER,
-        RAISER
+        RAISER,
+        FLIP
     }
 
 }

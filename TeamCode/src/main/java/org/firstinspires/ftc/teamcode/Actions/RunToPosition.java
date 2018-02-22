@@ -9,7 +9,7 @@ public class  RunToPosition implements Action {
 
     public int degrees;
 
-    public RunToPosition(int degrees, Robot.Motors motors, double power) {
+    public RunToPosition(int degrees, Robot.Motors motors) {
 
         this.degrees = degrees;
         Robot.motors = motors;
@@ -29,12 +29,13 @@ public class  RunToPosition implements Action {
             case RAISER:
                 setPosition(Robot.motor_raiser);
                 break;
+            case FLIP:
+                setPosition(Robot.motor_flipper);
+                break;
         }
     }
 
     public void loop() {
-
-
 
     }
 
@@ -53,6 +54,8 @@ public class  RunToPosition implements Action {
                 return Robot.motor_center.isBusy();
             case RAISER:
                 return Robot.motor_raiser.isBusy();
+            case FLIP:
+                return Robot.motor_flipper.isBusy();
             default:
                 return false;
         }
@@ -66,19 +69,6 @@ public class  RunToPosition implements Action {
         motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         motor.setPower(1);
         motor.setTargetPosition(currentPosition + degrees);
-
-    }
-
-    public int revolution(int rot) {
-        return rot*1680;
-    }
-
-    public int degreesToTicks(int degrees) {
-
-        int ticks = (int)(1120 * degrees / 360d);
-
-        return ticks;
-
     }
 
 }

@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.teamcode.Actions.*;
 import org.firstinspires.ftc.teamcode.Actions.TeleOP.FlyWheels;
@@ -32,17 +33,12 @@ public class TeleOP extends Driver{
 
     @Override
     public void start() {
-
-        super.start();
-
-
+        new RunToPosition(100, Robot.Motors.FLIP).start();
+        new RunToPosition(-100, Robot.Motors.FLIP).start();
     }
 
     @Override
     public void loop() {
-        move.loop();
-        rotate.loop();
-
 
     }
 
