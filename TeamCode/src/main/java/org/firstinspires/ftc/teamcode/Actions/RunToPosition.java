@@ -10,13 +10,14 @@ public class  RunToPosition implements Action {
     public int degrees;
     DcMotor motor;
     int currentPosition;
-
+    int marginOfError = 100;
 
 
     public RunToPosition(int degrees, Robot.Motors motors) {
 
         this.degrees = degrees;
         Robot.motors = motors;
+
 
     }
     public void start() {
@@ -50,7 +51,7 @@ public class  RunToPosition implements Action {
 
     public boolean check() {
 
-        if (motor.getCurrentPosition() == (currentPosition + degrees)) {
+        if (motor.getCurrentPosition() > 1) {
             return true;
         } else {
             return false;
