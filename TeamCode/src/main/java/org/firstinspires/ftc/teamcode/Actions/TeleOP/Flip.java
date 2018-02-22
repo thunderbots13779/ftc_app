@@ -18,35 +18,44 @@ public class Flip implements Action {
         TOP
     }
 
-    FlipperPositions flipperPos = FlipperPositions.BOTTOM;
-
     public void start() {
         Robot.startingPos = Robot.motor_flipper.getCurrentPosition();
     }
 
     public void loop() {
 
-        switch (flipperPos) {
+        switch (Robot.flipperPos) {
             case BOTTOM:
                 if (Robot.gamepad2.right_bumper) {
-                    Robot.active = true;
-                    new RunToPosition(Robot.increment, Robot.Motors.FLIP).start();
-                    flipperPos = FlipperPositions.MIDDLE;
+                    Robot.pos = new RunToPosition(-Robot.increment, Robot.Motors.FLIP);
+                    Robot.pos.start();
+                    if (Robot.pos.check()) {
+                        Robot.flipperPos = FlipperPositions.MIDDLE;
+                    }
                 }
                 break;
             case MIDDLE:
                 if (Robot.gamepad2.left_bumper) {
-                    new RunToPosition(Robot.increment, Robot.Motors.FLIP).start();
-                    flipperPos = FlipperPositions.BOTTOM;
+                    Robot.pos = new RunToPosition(Robot.increment, Robot.Motors.FLIP);
+                    Robot.pos.start();
+                    if (Robot.pos.check()) {
+                        Robot.flipperPos = FlipperPositions.BOTTOM;
+                    }
                 } else if (Robot.gamepad2.right_bumper){
-                    new RunToPosition(-Robot.increment, Robot.Motors.FLIP).start();
-                    flipperPos = FlipperPositions.TOP;
+                    Robot.pos = new RunToPosition(-Robot.increment, Robot.Motors.FLIP);
+                    Robot.pos.start();
+                    if (Robot.pos.check()) {
+                        Robot.flipperPos = FlipperPositions.TOP;
+                    }
                 }
                 break;
             case TOP:
                 if (Robot.gamepad2.left_bumper) {
-                    new RunToPosition(Robot.increment, Robot.Motors.FLIP).start();
-                    flipperPos = FlipperPositions.MIDDLE;
+                    Robot.pos = new RunToPosition(Robot.increment, Robot.Motors.FLIP);
+                    Robot.pos.start();
+                    if (Robot.pos.check()) {
+                        Robot.flipperPos = FlipperPositions.BOTTOM;
+                    }
                 }
                 break;
         }

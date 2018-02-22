@@ -8,6 +8,7 @@ import org.firstinspires.ftc.teamcode.Robot;
 public class  RunToPosition implements Action {
 
     public int degrees;
+    DcMotor motor;
 
     public RunToPosition(int degrees, Robot.Motors motors) {
 
@@ -18,21 +19,22 @@ public class  RunToPosition implements Action {
     public void start() {
         switch (Robot.motors) {
             case LEFT:
-                setPosition(Robot.motor_leftIntake);
+                motor = Robot.motor_leftIntake;
                 break;
             case RIGHT:
-                setPosition(Robot.motor_right);
+                motor = Robot.motor_rightIntake;
                 break;
             case CENTER:
-                setPosition(Robot.motor_center);
+                motor = Robot.motor_center;
                 break;
             case RAISER:
-                setPosition(Robot.motor_raiser);
+                motor = Robot.motor_raiser;
                 break;
             case FLIP:
-                setPosition(Robot.motor_flipper);
+                motor = Robot.motor_flipper;
                 break;
         }
+        setPosition();
     }
 
     public void loop() {
@@ -45,24 +47,15 @@ public class  RunToPosition implements Action {
 
     public boolean check() {
 
-        switch (Robot.motors) {
-            case LEFT:
-                return Robot.motor_left.isBusy();
-            case RIGHT:
-                return Robot.motor_right.isBusy();
-            case CENTER:
-                return Robot.motor_center.isBusy();
-            case RAISER:
-                return Robot.motor_raiser.isBusy();
-            case FLIP:
-                return Robot.motor_flipper.isBusy();
-            default:
-                return false;
+        if (motor.getCurrentPosition() == motor.getTargetPosition()) {
+            return true;
+        } else {
+            return false;
         }
 
     }
 
-    public void setPosition(DcMotor motor) {
+    public void setPosition() {
 
         int currentPosition = motor.getCurrentPosition();
 

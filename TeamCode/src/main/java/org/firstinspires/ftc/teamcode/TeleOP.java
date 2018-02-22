@@ -41,6 +41,17 @@ public class TeleOP extends Driver{
     public void loop() {
         new Flip().loop();
         telemetry.addData("Encoders: ", Robot.motor_flipper.isBusy());
+        switch (Robot.flipperPos) {
+            case BOTTOM:
+                telemetry.addData("BOTTOM: ", Robot.motor_flipper.isBusy());
+                break;
+            case MIDDLE:
+                telemetry.addData("MIDDLE: ", Robot.motor_flipper.isBusy());
+                break;
+            case TOP:
+                telemetry.addData("TOP: ", Robot.motor_flipper.isBusy());
+                break;
+        }
     }
 
 

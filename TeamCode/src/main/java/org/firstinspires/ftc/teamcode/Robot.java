@@ -16,6 +16,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.robotcore.external.navigation.Position;
 import org.firstinspires.ftc.robotcore.external.navigation.Velocity;
 import org.firstinspires.ftc.teamcode.Actions.RunToPosition;
+import org.firstinspires.ftc.teamcode.Actions.TeleOP.Flip;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -44,6 +45,10 @@ public class Robot {
     public static Motors motors;
     public static int startingPos;
     public static int increment = 250;
+
+    public static RunToPosition pos;
+    public static Flip.FlipperPositions flipperPos = Flip.FlipperPositions.BOTTOM;
+
 
     // Define the Servos
 
