@@ -12,7 +12,6 @@ public class  RunToPosition implements Action {
     int currentPosition;
 
 
-
     public RunToPosition(int degrees, Robot.Motors motors) {
 
         this.degrees = degrees;
