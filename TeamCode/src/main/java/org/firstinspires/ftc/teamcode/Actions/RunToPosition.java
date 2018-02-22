@@ -9,6 +9,9 @@ public class  RunToPosition implements Action {
 
     public int degrees;
     DcMotor motor;
+    int currentPosition;
+
+
 
     public RunToPosition(int degrees, Robot.Motors motors) {
 
@@ -47,7 +50,7 @@ public class  RunToPosition implements Action {
 
     public boolean check() {
 
-        if (motor.getCurrentPosition() == motor.getTargetPosition()) {
+        if (motor.getCurrentPosition() == (currentPosition + degrees)) {
             return true;
         } else {
             return false;
@@ -57,9 +60,9 @@ public class  RunToPosition implements Action {
 
     public void setPosition() {
 
-        int currentPosition = motor.getCurrentPosition();
 
         motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        currentPosition = Robot.motor_flipper.getCurrentPosition();
         motor.setPower(1);
         motor.setTargetPosition(currentPosition + degrees);
     }
