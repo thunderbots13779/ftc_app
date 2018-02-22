@@ -5,6 +5,7 @@ import org.firstinspires.ftc.teamcode.Actions.Autonomous.MoveServo;
 import org.firstinspires.ftc.teamcode.Robot;
 
 public class Flip implements Action {
+
     public void start() {
         Robot.startingPos = Robot.motor_flipper.getCurrentPosition();
         if (Robot.gamepad2.a) {
