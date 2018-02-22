@@ -42,6 +42,7 @@ public class Robot {
     public static DcMotor motor_flipper;
 
     public static Motors motors;
+    public static int startingPos;
 
 
     // Define the Servos
