@@ -33,8 +33,9 @@ public class TeleOP extends Driver{
 
     @Override
     public void start() {
-        new RunToPosition(100, Robot.Motors.FLIP).start();
-        new RunToPosition(-100, Robot.Motors.FLIP).start();
+        new RunToPosition(-500, Robot.Motors.FLIP).start();
+        telemetry.addData("Encoders: ", Robot.motor_flipper.isBusy());
+//        new RunToPosition(500, Robot.Motors.FLIP).start();
     }
 
     @Override
