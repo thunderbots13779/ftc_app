@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.teamcode.Actions.*;
+import org.firstinspires.ftc.teamcode.Actions.TeleOP.Flip;
 import org.firstinspires.ftc.teamcode.Actions.TeleOP.FlyWheels;
 import org.firstinspires.ftc.teamcode.Actions.TeleOP.Move;
 import org.firstinspires.ftc.teamcode.Actions.TeleOP.Raiser;
@@ -33,14 +34,13 @@ public class TeleOP extends Driver{
 
     @Override
     public void start() {
-        new RunToPosition(-500, Robot.Motors.FLIP).start();
-        telemetry.addData("Encoders: ", Robot.motor_flipper.isBusy());
 //        new RunToPosition(500, Robot.Motors.FLIP).start();
     }
 
     @Override
     public void loop() {
-
+        new Flip().loop();
+        telemetry.addData("Encoders: ", Robot.motor_flipper.isBusy());
     }
 
 

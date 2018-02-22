@@ -43,7 +43,7 @@ public class Robot {
 
     public static Motors motors;
     public static int startingPos;
-
+    public static int increment = 250;
 
     // Define the Servos
 
@@ -53,8 +53,6 @@ public class Robot {
     public static Servo servo_rightIntake;
     public static Servo servo_leftFlipper;
     public static Servo servo_rightFlipper;
-
-    public static boolean bottom;
 
     //TODO: Change these values!!
     public static final double leftFlipperTop = 0;
