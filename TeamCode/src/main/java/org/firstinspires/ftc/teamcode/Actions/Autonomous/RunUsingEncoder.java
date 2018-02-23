@@ -1,18 +1,18 @@
-package org.firstinspires.ftc.teamcode.Actions;
+package org.firstinspires.ftc.teamcode.Actions.Autonomous;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.teamcode.Actions.Action;
 import org.firstinspires.ftc.teamcode.Robot;
 
-public class  RunToPosition implements Action {
+public class RunUsingEncoder implements Action {
 
     int ticks;
     double power;
     DcMotor motor;
     int marginOfError = 100;
 
-    public RunToPosition(int ticks, Robot.Motors motors, double power) {
+    public RunUsingEncoder(int ticks, Robot.Motors motors, double power) {
 
         this.ticks = ticks;
         this.power = power;
@@ -46,7 +46,7 @@ public class  RunToPosition implements Action {
     }
 
     public void end() {
-
+        motor.setPower(0);
     }
 
     public boolean check() {
@@ -60,7 +60,7 @@ public class  RunToPosition implements Action {
     }
 
     public void setPosition() {
-        motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         motor.setPower(power);
         motor.setTargetPosition(ticks);
     }
