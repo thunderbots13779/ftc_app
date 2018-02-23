@@ -16,8 +16,6 @@ public class Driver extends OpMode {
         Robot.gamepad2 = gamepad2;
         Robot.initialize();
         Robot.resetMotors();
-        Robot.startUpdates();
-
     }
 
     @Override

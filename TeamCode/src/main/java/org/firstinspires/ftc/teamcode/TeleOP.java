@@ -13,8 +13,8 @@ import org.firstinspires.ftc.teamcode.Actions.TeleOP.Rotate;
 @TeleOp
 public class TeleOP extends Driver{
 
-    Raiser raiser =  new Raiser();
-    FlyWheels flyWheels = new FlyWheels();
+    Raiser raiser = new Raiser();
+    FlyWheels intake = new FlyWheels();
     Move move = new Move();
     Rotate rotate = new Rotate();
     Flip flip = new Flip();
@@ -22,26 +22,23 @@ public class TeleOP extends Driver{
     @Override
     public void init() {
         super.init();
+        Robot.floatMotors();
 
 
     }
 
     @Override
     public void start() {
-        raiser.start();
-        flyWheels.start();
-        move.start();
-        rotate.start();
         flip.start();
+        intake.start();
+        move.start();
     }
 
     @Override
     public void loop() {
-        raiser.loop();
-        flyWheels.loop();
-        move.loop();
-        rotate.loop();
         flip.loop();
+        intake.loop();
+        move.loop();
     }
 
 

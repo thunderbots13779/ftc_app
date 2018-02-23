@@ -208,6 +208,12 @@ public class Robot {
         motor_center.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     }
 
+    public static void floatMotors() {
+        motor_left.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        motor_right.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        motor_center.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+    }
+
     public enum Servos {
         LEFT_FLIPPER,
         RIGHT_FLIPPER,

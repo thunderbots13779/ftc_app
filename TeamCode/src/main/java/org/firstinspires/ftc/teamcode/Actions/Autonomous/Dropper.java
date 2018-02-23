@@ -1,10 +1,28 @@
 package org.firstinspires.ftc.teamcode.Actions.Autonomous;
 
+import android.graphics.Color;
+
+import org.firstinspires.ftc.teamcode.Actions.Action;
 import org.firstinspires.ftc.teamcode.Robot;
 
-public class Dropper {
+public class Dropper implements Action {
+
+    Robot.AllianceColor expectedColor;
+    ColorCheck colorCheck = new ColorCheck(expectedColor);
+
+    public Dropper(Robot.AllianceColor allianceColor) {
+        this.expectedColor = allianceColor;
+    }
+
     public void start() {
-        new ColorCheck();
+
+    }
+    public void loop() {
+        colorCheck.loop();
+    }
+
+    public void end() {
+        colorCheck.end();
         new MoveServo(Robot.Servos.SWIVEL, 90);
         new MoveServo(Robot.Servos.DROPPER, Robot.servoDown);
         if (Robot.correctColor) {
@@ -13,13 +31,6 @@ public class Dropper {
             new MoveServo(Robot.Servos.SWIVEL, 180);
         }
         new MoveServo(Robot.Servos.DROPPER, Robot.servoUp);
-    }
-    public void loop() {
-        
-    }
-
-    public void end() {
-
     }
 
     public boolean check() {

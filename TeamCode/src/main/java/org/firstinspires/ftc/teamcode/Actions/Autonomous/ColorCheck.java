@@ -1,7 +1,5 @@
 package org.firstinspires.ftc.teamcode.Actions.Autonomous;
 
-import android.renderscript.AllocationAdapter;
-
 import org.firstinspires.ftc.teamcode.Actions.Action;
 import org.firstinspires.ftc.teamcode.Robot;
 
@@ -11,6 +9,14 @@ import org.firstinspires.ftc.teamcode.Robot;
 
 public class ColorCheck implements Action {
 
+    Robot.AllianceColor expectedColor;
+    double red;
+    double blue;
+
+    public ColorCheck(Robot.AllianceColor allianceColor) {
+        this.expectedColor = allianceColor;
+    }
+
     public void start() {
 
     }
@@ -18,8 +24,8 @@ public class ColorCheck implements Action {
     public void loop() {
 
         Robot.colors = Robot.colorSensor.getNormalizedColors();
-        double red = Robot.scale * Robot.colors.red;
-        double blue = Robot.scale * Robot.colors.blue;
+        red = Robot.scale * Robot.colors.red;
+        blue = Robot.scale * Robot.colors.blue;
         if (red > Robot.maxRed)
             Robot.maxRed = red;
         if (blue > Robot.maxBlue)
@@ -28,7 +34,7 @@ public class ColorCheck implements Action {
     }
 
     public void end() {
-        if (Robot.allianceColor == Robot.AllianceColor.RED) {
+        if (expectedColor == Robot.allianceColor) {
             if (Robot.maxRed > Robot.maxBlue)
                 Robot.correctColor = true;
             else

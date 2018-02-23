@@ -12,11 +12,11 @@ import org.firstinspires.ftc.teamcode.Robot;
 
 public class Flip implements Action {
 
-    double upPower;
-    double downPower;
+    double upPower = .5;
+    double downPower = .3;
     int bottom = 0;
-    int middle = 500;
-    int top = 1000;
+    int middle = -170;
+    int top = -400;
 
     public enum FlipperPositions {
         BOTTOM,
@@ -35,33 +35,25 @@ public class Flip implements Action {
                 if (Robot.gamepad2.right_bumper) {
                     Robot.pos = new RunToPosition(middle, Robot.Motors.FLIP, upPower);
                     Robot.pos.start();
-                    if (Robot.pos.check()) {
-                        Robot.flipperPos = FlipperPositions.MIDDLE;
-                    }
+                    Robot.flipperPos = FlipperPositions.MIDDLE;
                 }
                 break;
             case MIDDLE:
                 if (Robot.gamepad2.left_bumper) {
                     Robot.pos = new RunToPosition(bottom, Robot.Motors.FLIP, downPower);
                     Robot.pos.start();
-                    if (Robot.pos.check()) {
-                        Robot.flipperPos = FlipperPositions.BOTTOM;
-                    }
-                } else if (Robot.gamepad2.right_bumper) {
+                    Robot.flipperPos = FlipperPositions.BOTTOM;
+                } else if (Robot.gamepad2.a) {
                     Robot.pos = new RunToPosition(top, Robot.Motors.FLIP, upPower);
                     Robot.pos.start();
-                    if (Robot.pos.check()) {
-                        Robot.flipperPos = FlipperPositions.TOP;
-                    }
+                    Robot.flipperPos = FlipperPositions.TOP;
                 }
                 break;
             case TOP:
                 if (Robot.gamepad2.left_bumper) {
-                    Robot.pos = new RunToPosition(middle, Robot.Motors.FLIP, downPower);
+                    Robot.pos = new RunToPosition(bottom, Robot.Motors.FLIP, downPower);
                     Robot.pos.start();
-                    if (Robot.pos.check()) {
-                        Robot.flipperPos = FlipperPositions.BOTTOM;
-                    }
+                    Robot.flipperPos = FlipperPositions.BOTTOM;
                 }
                 break;
         }
