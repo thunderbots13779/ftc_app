@@ -39,6 +39,12 @@ public class TeleOP extends Driver{
         flip.loop();
         intake.loop();
         move.loop();
+
+        if (Robot.angles != null) {
+            telemetry.addData("x: ", Robot.angles.firstAngle);
+            telemetry.addData("y: ", Robot.angles.secondAngle);
+            telemetry.addData("z: ", Robot.angles.thirdAngle);
+        }
     }
 
 
