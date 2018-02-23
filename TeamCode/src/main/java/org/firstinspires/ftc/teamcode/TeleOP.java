@@ -29,22 +29,24 @@ public class TeleOP extends Driver{
 
     @Override
     public void start() {
-        flip.start();
-        intake.start();
-        move.start();
+        new RunToPosition(200, Robot.Motors.LEFT, .5).start();
+//        flip.start();
+//        intake.start();
+//        move.start();
     }
 
     @Override
     public void loop() {
-        flip.loop();
-        intake.loop();
-        move.loop();
 
-        if (Robot.angles != null) {
-            telemetry.addData("x: ", Robot.angles.firstAngle);
-            telemetry.addData("y: ", Robot.angles.secondAngle);
-            telemetry.addData("z: ", Robot.angles.thirdAngle);
-        }
+//        flip.loop();
+//        intake.loop();
+//        move.loop();
+//
+//        if (Robot.angles != null) {
+//            telemetry.addData("x: ", Robot.angles.firstAngle);
+//            telemetry.addData("y: ", Robot.angles.secondAngle);
+//            telemetry.addData("z: ", Robot.angles.thirdAngle);
+//        }
     }
 
 
