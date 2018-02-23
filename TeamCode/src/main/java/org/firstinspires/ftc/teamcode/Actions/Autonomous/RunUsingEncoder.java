@@ -60,7 +60,6 @@ public class RunUsingEncoder implements Action {
     }
 
     public void setPosition() {
-        motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         motor.setPower(power);
         motor.setTargetPosition(ticks);
     }

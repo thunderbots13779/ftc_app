@@ -9,12 +9,12 @@ import org.firstinspires.ftc.teamcode.Robot;
 
 public class ColorCheck implements Action {
 
-    Robot.AllianceColor expectedColor;
+    boolean expectedColor;
     double red;
     double blue;
 
-    public ColorCheck(Robot.AllianceColor allianceColor) {
-        this.expectedColor = allianceColor;
+    public ColorCheck(boolean expectedColor) {
+        this.expectedColor = expectedColor;
     }
 
     public void start() {
@@ -34,7 +34,7 @@ public class ColorCheck implements Action {
     }
 
     public void end() {
-        if (expectedColor == Robot.allianceColor) {
+        if (expectedColor == Robot.RED) {
             if (Robot.maxRed > Robot.maxBlue)
                 Robot.correctColor = true;
             else

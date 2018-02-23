@@ -1,13 +1,15 @@
-package org.firstinspires.ftc.teamcode.Actions.Autonomous;
+package org.firstinspires.ftc.teamcode.Actions.Autonomous.Servos;
 
 import org.firstinspires.ftc.teamcode.Actions.Action;
+import org.firstinspires.ftc.teamcode.Actions.Autonomous.Timed;
 import org.firstinspires.ftc.teamcode.Robot;
 
-public class MoveServo implements Action {
+public class MoveServo extends Timed {
 
     double position;
 
-    public MoveServo (Robot.Servos servos, double position) {
+    public MoveServo (Robot.Servos servos, double position, long duration) {
+        super(duration);
         Robot.servos = servos;
         this.position = position;
     }
@@ -21,17 +23,6 @@ public class MoveServo implements Action {
                 Robot.servo_dropper.setPosition(position);
                 break;
         }
-    }
-    public void loop() {
-
-    }
-
-    public void end() {
-
-    }
-
-    public boolean check() {
-        return false;
     }
 
 }

@@ -60,7 +60,6 @@ public class  RunToPosition implements Action {
     }
 
     public void setPosition() {
-        motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         motor.setPower(power);
         motor.setTargetPosition(ticks);
     }

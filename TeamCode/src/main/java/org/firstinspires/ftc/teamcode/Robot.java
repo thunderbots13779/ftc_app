@@ -69,11 +69,7 @@ public class Robot {
 
     public static boolean correctColor;
 
-    public enum AllianceColor {
-        RED, BLUE
-    }
-
-    public static AllianceColor allianceColor;
+    public static boolean RED;
 
     // Define the Timers
 
@@ -94,6 +90,8 @@ public class Robot {
     //Servo Constants
     public static final double servoUp = (174.0/180.0);
     public static final double servoDown = (67.0/180.0);
+    public static final double servoLeft = (0.0/180.0);
+    public static final double servoRight = (180.0/180.0);
 
     public static Servos servos;
 
@@ -185,9 +183,14 @@ public class Robot {
 
     public static void resetMotors() {
         motor_flipper.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        motor_raiser.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         motor_left.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         motor_right.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        motor_raiser.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        motor_flipper.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        motor_raiser.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        motor_left.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        motor_right.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         motor_left.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         motor_right.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);

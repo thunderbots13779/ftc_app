@@ -1,21 +1,24 @@
 package org.firstinspires.ftc.teamcode.Actions.Autonomous;
 
-import android.graphics.Color;
-
 import org.firstinspires.ftc.teamcode.Actions.Action;
+import org.firstinspires.ftc.teamcode.Actions.Autonomous.Servos.Drop;
+import org.firstinspires.ftc.teamcode.Actions.Autonomous.Servos.MoveServo;
+import org.firstinspires.ftc.teamcode.Actions.Autonomous.Servos.SwivelLeft;
+import org.firstinspires.ftc.teamcode.Actions.Autonomous.Servos.SwivelRight;
+import org.firstinspires.ftc.teamcode.Actions.Autonomous.Servos.Up;
 import org.firstinspires.ftc.teamcode.Robot;
 
 public class Dropper implements Action {
 
-    Robot.AllianceColor expectedColor;
+    boolean expectedColor;
     ColorCheck colorCheck = new ColorCheck(expectedColor);
 
-    public Dropper(Robot.AllianceColor allianceColor) {
-        this.expectedColor = allianceColor;
+    public Dropper(boolean expectedColor) {
+        this.expectedColor = expectedColor;
     }
 
     public void start() {
-
+        new Drop().start();
     }
     public void loop() {
         colorCheck.loop();
@@ -23,14 +26,12 @@ public class Dropper implements Action {
 
     public void end() {
         colorCheck.end();
-        new MoveServo(Robot.Servos.SWIVEL, 90);
-        new MoveServo(Robot.Servos.DROPPER, Robot.servoDown);
         if (Robot.correctColor) {
-            new MoveServo(Robot.Servos.SWIVEL, 0);
+            new SwivelLeft().start();
         } else  {
-            new MoveServo(Robot.Servos.SWIVEL, 180);
+            new SwivelRight().start();
         }
-        new MoveServo(Robot.Servos.DROPPER, Robot.servoUp);
+        new Up().start();
     }
 
     public boolean check() {

@@ -13,7 +13,7 @@ import org.firstinspires.ftc.teamcode.Robot;
 public class Auto extends Driver {
 
     State state = State.START;
-    Robot.AllianceColor expectedColor = Robot.AllianceColor.RED;
+    boolean expectedColor = true;
     int i = 0;
 
     Action[] actions = {
@@ -23,7 +23,7 @@ public class Auto extends Driver {
 
     @Override
     public void init() {
-        Robot.allianceColor = Robot.AllianceColor.RED;
+        Robot.RED = true;
     }
 
     @Override
