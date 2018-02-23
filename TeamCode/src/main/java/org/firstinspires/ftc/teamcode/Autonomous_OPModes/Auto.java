@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.Autonomous_OPModes;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.Actions.Action;
+import org.firstinspires.ftc.teamcode.Actions.Autonomous.RunUsingEncoder;
 import org.firstinspires.ftc.teamcode.Actions.End;
 import org.firstinspires.ftc.teamcode.Actions.RunToPosition;
 import org.firstinspires.ftc.teamcode.Driver;
@@ -14,8 +15,7 @@ public class Auto extends Driver {
     int i = 0;
 
     Action[] actions = {
-//            new RunToPosition(100, Robot.Motors.FLIP),
-//        new RunToPosition(-100, Robot.Motors.FLIP),
+            new RunUsingEncoder(1000, Robot.Motors.FLIP, 1),
             new End()
     };
 

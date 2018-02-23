@@ -14,18 +14,6 @@ public class MoveServo implements Action {
 
     public void start() {
         switch (Robot.servos) {
-            case LEFT_FLIPPER:
-                Robot.servo_leftFlipper.setPosition(position);
-                break;
-            case RIGHT_FLIPPER:
-                Robot.servo_rightFlipper.setPosition(position);
-                break;
-            case LEFT_INTAKE:
-                Robot.servo_leftIntake.setPosition(position);
-                break;
-            case RIGHT_INTAKE:
-                Robot.servo_rightIntake.setPosition(position);
-                break;
             case SWIVEL:
                 Robot.servo_swivel.setPosition(position);
                 break;

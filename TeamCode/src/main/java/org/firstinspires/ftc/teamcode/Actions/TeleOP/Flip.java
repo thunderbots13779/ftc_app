@@ -12,6 +12,12 @@ import org.firstinspires.ftc.teamcode.Robot;
 
 public class Flip implements Action {
 
+    double upPower;
+    double downPower;
+    int bottom = 0;
+    int middle = 500;
+    int top = 1000;
+
     public enum FlipperPositions {
         BOTTOM,
         MIDDLE,
@@ -19,7 +25,7 @@ public class Flip implements Action {
     }
 
     public void start() {
-        Robot.startingPos = Robot.motor_flipper.getCurrentPosition();
+
     }
 
     public void loop() {
@@ -27,7 +33,7 @@ public class Flip implements Action {
         switch (Robot.flipperPos) {
             case BOTTOM:
                 if (Robot.gamepad2.right_bumper) {
-                    Robot.pos = new RunToPosition(-Robot.increment, Robot.Motors.FLIP);
+                    Robot.pos = new RunToPosition(middle, Robot.Motors.FLIP, upPower);
                     Robot.pos.start();
                     if (Robot.pos.check()) {
                         Robot.flipperPos = FlipperPositions.MIDDLE;
@@ -36,13 +42,13 @@ public class Flip implements Action {
                 break;
             case MIDDLE:
                 if (Robot.gamepad2.left_bumper) {
-                    Robot.pos = new RunToPosition(Robot.increment, Robot.Motors.FLIP);
+                    Robot.pos = new RunToPosition(bottom, Robot.Motors.FLIP, downPower);
                     Robot.pos.start();
                     if (Robot.pos.check()) {
                         Robot.flipperPos = FlipperPositions.BOTTOM;
                     }
-                } else if (Robot.gamepad2.right_bumper){
-                    Robot.pos = new RunToPosition(-Robot.increment, Robot.Motors.FLIP);
+                } else if (Robot.gamepad2.right_bumper) {
+                    Robot.pos = new RunToPosition(top, Robot.Motors.FLIP, upPower);
                     Robot.pos.start();
                     if (Robot.pos.check()) {
                         Robot.flipperPos = FlipperPositions.TOP;
@@ -51,7 +57,7 @@ public class Flip implements Action {
                 break;
             case TOP:
                 if (Robot.gamepad2.left_bumper) {
-                    Robot.pos = new RunToPosition(Robot.increment, Robot.Motors.FLIP);
+                    Robot.pos = new RunToPosition(middle, Robot.Motors.FLIP, downPower);
                     Robot.pos.start();
                     if (Robot.pos.check()) {
                         Robot.flipperPos = FlipperPositions.BOTTOM;

@@ -43,8 +43,6 @@ public class Robot {
     public static DcMotor motor_flipper;
 
     public static Motors motors;
-    public static int startingPos;
-    public static int increment = 250;
 
     public static RunToPosition pos;
     public static Flip.FlipperPositions flipperPos = Flip.FlipperPositions.BOTTOM;
@@ -54,16 +52,6 @@ public class Robot {
 
     public static Servo servo_swivel;
     public static Servo servo_dropper;
-    public static Servo servo_leftIntake;
-    public static Servo servo_rightIntake;
-    public static Servo servo_leftFlipper;
-    public static Servo servo_rightFlipper;
-
-    //TODO: Change these values!!
-    public static final double leftFlipperTop = 0;
-    public static final double rightFlipperTop = 0;
-    public static final double leftFlipperBottom = 0;
-    public static final double rightFlipperBottom = 0;
 
     // Define the Gyroscope
 
@@ -80,7 +68,7 @@ public class Robot {
     public static boolean correctColor;
 
     public enum AllianceColor {
-        RED, BLUE;
+        RED, BLUE
     }
 
     public static AllianceColor allianceColor;
@@ -126,45 +114,27 @@ public class Robot {
     public static double theta;
     public static float targetAngle;
 
-    /** Encoder Stuff **/
-//    //Encoder run
-//    public static RunToPosition up = new RunToPosition(-1, Motors.RAISER, .7);
-//    public static RunToPosition down = new RunToPosition(1, Motors.RAISER, .5);
-    //Encoder start
-    public static double start;
-    public static double mid;
-    public static double end;
-    public static boolean active = false;
-
     /** Methods **/
     public static double powerScale(double scale) {
         return powerScaleFactor*Math.pow(scale, 2);
     }
     public static double lowerPowerScale(double scale) {return lowerPowerScaleFactor*Math.pow(scale, 2);}
     public static double evenLowerPowerScale(double scale) {return evenLowerPowerScaleFactor*Math.pow(scale, 2);}
-    public static void flipperPosition(double position) {
-        active = true;
-        servo_leftFlipper.setPosition(position/180.0);
-        servo_rightFlipper.setPosition((180.0-position)/180.0);
-        active = false;
-    }
 
     public static void initialize() {
 
 
         // Finding the Motors from the Configuration
 
-//          motor_left = hardwareMap.get(DcMotor.class, "motor_left");
-//          motor_right = hardwareMap.get(DcMotor.class, "motor_right");
-//          motor_center = hardwareMap.get(DcMotor.class, "motor_center");
-//          motor_flipper = hardwareMap.get(DcMotor.class, "motor_flipper");
+          motor_left = hardwareMap.get(DcMotor.class, "motor_left");
+          motor_right = hardwareMap.get(DcMotor.class, "motor_right");
+          motor_center = hardwareMap.get(DcMotor.class, "motor_center");
+          motor_flipper = hardwareMap.get(DcMotor.class, "motor_flipper");
           motor_leftIntake = hardwareMap.get(DcMotor.class, "motor_leftIntake");
-//          motor_rightIntake = hardwareMap.get(DcMotor.class, "motor_rightIntake");
-//          motor_raiser = hardwareMap.get(DcMotor.class, "motor_raiser");
-//          servo_leftFlipper = hardwareMap.get(Servo.class, "servo_left");
-//          servo_rightFlipper = hardwareMap.get(Servo.class, "servo_right");
-//        servo_swivel = map.hardwareMap.get(Servo.class, "servo_swivel");
-//        servo_dropper = map.hardwareMap.get(Servo.class, "servo_dropper");
+          motor_rightIntake = hardwareMap.get(DcMotor.class, "motor_rightIntake");
+          motor_raiser = hardwareMap.get(DcMotor.class, "motor_raiser");
+          servo_swivel = hardwareMap.get(Servo.class, "servo_swivel");
+          servo_dropper = hardwareMap.get(Servo.class, "servo_dropper");
 
 
         // Finding the Gyroscope
@@ -173,16 +143,10 @@ public class Robot {
 
         // Finding the Color Sensor
 
-//        colorSensor = hardwareMap.get(NormalizedColorSensor.class, "colorSensor");
+        colorSensor = hardwareMap.get(NormalizedColorSensor.class, "colorSensor");
 
 
         initializeIMU();
-
-        // Setting Motor Behavior
-
-//        motor_left.setZeroPowerBehavior((DcMotor.ZeroPowerBehavior.BRAKE));
-//        motor_right.setZeroPowerBehavior((DcMotor.ZeroPowerBehavior.BRAKE));
-//        motor_center.setZeroPowerBehavior((DcMotor.ZeroPowerBehavior.BRAKE));
 
         startUpdates();
 
@@ -216,22 +180,33 @@ public class Robot {
     }
 
 
-//    public static float getRelativeHeading(float frameHeading, float directedHeading) {
-//
-//        float relativeHeading = frameHeading + directedHeading;
-//
-//        if (Math.abs(relativeHeading) > 180) {
-//
-//            float direction = -(Math.abs(relativeHeading) / (relativeHeading));
-//
-//            relativeHeading = 180 - Math.abs(relativeHeading % 180);
-//            relativeHeading *= direction;
-//
-//        }
-//
-//        return relativeHeading;
-//
-//    }
+    public static float getRelativeHeading(float frameHeading, float directedHeading) {
+
+        float relativeHeading = frameHeading + directedHeading;
+
+        if (Math.abs(relativeHeading) > 180) {
+
+            float direction = -(Math.abs(relativeHeading) / (relativeHeading));
+
+            relativeHeading = 180 - Math.abs(relativeHeading % 180);
+            relativeHeading *= direction;
+
+        }
+
+        return relativeHeading;
+
+    }
+
+    public static void resetMotors() {
+        motor_flipper.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        motor_left.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        motor_right.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        motor_raiser.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        motor_left.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        motor_right.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        motor_center.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+    }
 
     public enum Servos {
         LEFT_FLIPPER,
