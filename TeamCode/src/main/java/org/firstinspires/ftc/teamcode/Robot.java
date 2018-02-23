@@ -63,8 +63,10 @@ public class Robot {
     public static NormalizedRGBA colors;
 
     public static final int scale = 100;
+
     public static double maxRed = 0;
     public static double maxBlue = 0;
+
     public static boolean correctColor;
 
     public enum AllianceColor {
@@ -93,48 +95,34 @@ public class Robot {
     public static final double servoUp = (174.0/180.0);
     public static final double servoDown = (67.0/180.0);
 
-    public static final double leftRaiserUp = (97/180.0);
-    public static final double rightServerUp = (84/180.0);
-
     public static Servos servos;
-
-    public static final double WHEEL_DIAMETER = 0;
-    public static final double WHEEL_Circumference = 2 * Math.PI * WHEEL_DIAMETER / 2;
 
     /** Auto Action Variables **/
 
     /** Action Variables **/
-    public static double leftTrigger;
-    public static double rightTrigger;
-    public static boolean backButtonPressed = false;
-    public static boolean open = true;
     public static double powerScaleFactor = 1.0/1.2;
     public static double lowerPowerScaleFactor = 1.0/1.5;
-    public static double evenLowerPowerScaleFactor = 1.0/1.6;
-    public static double theta;
-    public static float targetAngle;
 
     /** Methods **/
     public static double powerScale(double scale) {
         return powerScaleFactor*Math.pow(scale, 2);
     }
     public static double lowerPowerScale(double scale) {return lowerPowerScaleFactor*Math.pow(scale, 2);}
-    public static double evenLowerPowerScale(double scale) {return evenLowerPowerScaleFactor*Math.pow(scale, 2);}
 
     public static void initialize() {
 
 
         // Finding the Motors from the Configuration
 
-          motor_left = hardwareMap.get(DcMotor.class, "motor_left");
-          motor_right = hardwareMap.get(DcMotor.class, "motor_right");
-          motor_center = hardwareMap.get(DcMotor.class, "motor_center");
-          motor_flipper = hardwareMap.get(DcMotor.class, "motor_flipper");
-          motor_leftIntake = hardwareMap.get(DcMotor.class, "motor_leftIntake");
-          motor_rightIntake = hardwareMap.get(DcMotor.class, "motor_rightIntake");
-          motor_raiser = hardwareMap.get(DcMotor.class, "motor_raiser");
-          servo_swivel = hardwareMap.get(Servo.class, "servo_swivel");
-          servo_dropper = hardwareMap.get(Servo.class, "servo_dropper");
+        motor_left = hardwareMap.get(DcMotor.class, "motor_left");
+        motor_right = hardwareMap.get(DcMotor.class, "motor_right");
+        motor_center = hardwareMap.get(DcMotor.class, "motor_center");
+        motor_flipper = hardwareMap.get(DcMotor.class, "motor_flipper");
+        motor_leftIntake = hardwareMap.get(DcMotor.class, "motor_leftIntake");
+        motor_rightIntake = hardwareMap.get(DcMotor.class, "motor_rightIntake");
+        motor_raiser = hardwareMap.get(DcMotor.class, "motor_raiser");
+        servo_swivel = hardwareMap.get(Servo.class, "servo_swivel");
+        servo_dropper = hardwareMap.get(Servo.class, "servo_dropper");
 
 
         // Finding the Gyroscope
@@ -163,8 +151,6 @@ public class Robot {
         parameters.accelerationIntegrationAlgorithm = new JustLoggingAccelerationIntegrator();
 
         imu.initialize(parameters);
-
-        imu.startAccelerationIntegration(new Position(), new Velocity(), 1000);
 
     }
 
