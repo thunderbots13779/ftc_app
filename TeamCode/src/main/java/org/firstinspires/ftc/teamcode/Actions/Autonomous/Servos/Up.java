@@ -6,7 +6,7 @@ import org.firstinspires.ftc.teamcode.Robot;
 public class Up extends MoveServo {
 
     public Up () {
-        super(Robot.Servos.DROPPER, Robot.servoUp, 300);
+        super(Robot.Servos.DROPPER, Robot.servoUp, 1000);
     }
 
     public void start() {

@@ -15,6 +15,7 @@ public class MoveServo extends Timed {
     }
 
     public void start() {
+        super.start();
         switch (Robot.servos) {
             case SWIVEL:
                 Robot.servo_swivel.setPosition(position);

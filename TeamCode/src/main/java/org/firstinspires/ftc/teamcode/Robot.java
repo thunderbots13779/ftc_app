@@ -45,7 +45,7 @@ public class Robot {
     public static Motors motors;
 
     public static RunToPosition pos;
-    public static Flip.FlipperPositions flipperPos = Flip.FlipperPositions.BOTTOM;
+    public static FlipperPositions flipperPos = FlipperPositions.BOTTOM;
 
 
     // Define the Servos
@@ -88,8 +88,8 @@ public class Robot {
     /** Constants **/
 
     //Servo Constants
-    public static final double servoUp = (174.0/180.0);
-    public static final double servoDown = (67.0/180.0);
+    public static final double servoDown = (174.0/180.0);
+    public static final double servoUp = (67.0/180.0);
     public static final double servoLeft = (0.0/180.0);
     public static final double servoRight = (180.0/180.0);
 
@@ -183,12 +183,12 @@ public class Robot {
 
     public static void resetMotors() {
         motor_flipper.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        motor_raiser.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+//        motor_raiser.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         motor_left.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         motor_right.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
         motor_flipper.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        motor_raiser.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+//        motor_raiser.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         motor_left.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         motor_right.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
@@ -218,6 +218,12 @@ public class Robot {
         CENTER,
         RAISER,
         FLIP
+    }
+
+    public enum FlipperPositions {
+        BOTTOM,
+        MIDDLE,
+        TOP
     }
 
 }

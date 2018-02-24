@@ -6,11 +6,6 @@ import org.firstinspires.ftc.teamcode.Robot;
 public class Drop extends MoveServo {
 
     public Drop () {
-        super(Robot.Servos.DROPPER, Robot.servoDown, 300);
+        super(Robot.Servos.DROPPER, 180, 1000);
     }
-
-    public void start() {
-        super.start();
-    }
-
 }
