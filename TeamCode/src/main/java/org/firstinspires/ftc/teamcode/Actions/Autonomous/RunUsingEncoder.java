@@ -23,7 +23,7 @@ public class RunUsingEncoder implements Action {
     public void start() {
         switch (Robot.motors) {
             case LEFT:
-                motor = Robot.motor_leftIntake;
+                motor = Robot.motor_left;
                 break;
             case RIGHT:
                 motor = Robot.motor_rightIntake;

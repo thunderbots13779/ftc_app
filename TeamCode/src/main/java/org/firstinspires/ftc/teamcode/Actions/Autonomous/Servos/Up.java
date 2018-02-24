@@ -9,8 +9,4 @@ public class Up extends MoveServo {
         super(Robot.Servos.DROPPER, Robot.servoUp, 1000);
     }
 
-    public void start() {
-        super.start();
-    }
-
 }

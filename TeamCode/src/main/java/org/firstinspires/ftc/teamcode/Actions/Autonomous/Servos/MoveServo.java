@@ -7,16 +7,18 @@ import org.firstinspires.ftc.teamcode.Robot;
 public class MoveServo extends Timed {
 
     double position;
+    Robot.Servos servos;
 
     public MoveServo (Robot.Servos servos, double position, long duration) {
         super(duration);
-        Robot.servos = servos;
+        this.servos = servos;
         this.position = position;
     }
 
     public void start() {
         super.start();
-        switch (Robot.servos) {
+
+        switch (servos) {
             case SWIVEL:
                 Robot.servo_swivel.setPosition(position);
                 break;

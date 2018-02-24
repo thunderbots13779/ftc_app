@@ -16,12 +16,18 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackable;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackableDefaultListener;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
 import org.firstinspires.ftc.teamcode.Actions.Action;
+import org.firstinspires.ftc.teamcode.Actions.Autonomous.Backward;
 import org.firstinspires.ftc.teamcode.Actions.Autonomous.ColorCheck;
+import org.firstinspires.ftc.teamcode.Actions.Autonomous.Forward;
+import org.firstinspires.ftc.teamcode.Actions.Autonomous.MoveAuto;
+import org.firstinspires.ftc.teamcode.Actions.Autonomous.Output;
 import org.firstinspires.ftc.teamcode.Actions.Autonomous.RunUsingEncoder;
 import org.firstinspires.ftc.teamcode.Actions.Autonomous.Servos.Drop;
 import org.firstinspires.ftc.teamcode.Actions.Autonomous.Servos.Knock;
 import org.firstinspires.ftc.teamcode.Actions.Autonomous.Servos.Up;
+import org.firstinspires.ftc.teamcode.Actions.Autonomous.TurnRight;
 import org.firstinspires.ftc.teamcode.Actions.End;
+import org.firstinspires.ftc.teamcode.Actions.Pause;
 import org.firstinspires.ftc.teamcode.Actions.RunToPosition;
 import org.firstinspires.ftc.teamcode.Driver;
 import org.firstinspires.ftc.teamcode.Robot;
@@ -40,20 +46,30 @@ public class Auto extends Driver {
     RelicRecoveryVuMark usable = RelicRecoveryVuMark.UNKNOWN;
 
     State state = State.START;
-    boolean expectedColor = true;
+    boolean expectedColor = false;
     int i = 0;
 
     Action[] actions = {
             new Drop(),
-//            new ColorCheck(expectedColor),
+//            new ColorCheck(expectedColor, 1000),
+            new Pause(),
 //            new Knock(),
-//            new Up(),
+            new Up(),
+//            new MoveAuto(1680, 1),
+            new Backward(1200),
+            new Pause(),
+//            new TurnRight(400),
+//            new Pause(),
+//            new Forward(1000),
+//            new Pause(),
+//            new TurnRight(400),
+//            new Pause(),
+//            new Output(1000),
             new End()
     };
 
     @Override
     public void init() {
-        Robot.RED = true;
         super.init();
         initializeVuforia();
     }
@@ -81,6 +97,10 @@ public class Auto extends Driver {
         } else {
             message = "CENTER";
         }
+        telemetry.addData("action: ", i);
+        telemetry.addData("correct color: ", Robot.correctColor);
+        telemetry.addData("position: ", Robot.motor_left.getCurrentPosition());
+        telemetry.addData("targer: ", Robot.motor_left.getTargetPosition());
         switch (state) {
             case START:
                 state = State.LOOP;

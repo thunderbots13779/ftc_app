@@ -15,6 +15,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.robotcore.external.navigation.Position;
 import org.firstinspires.ftc.robotcore.external.navigation.Velocity;
+import org.firstinspires.ftc.teamcode.Actions.Autonomous.RunUsingEncoder;
 import org.firstinspires.ftc.teamcode.Actions.RunToPosition;
 import org.firstinspires.ftc.teamcode.Actions.TeleOP.Flip;
 
@@ -44,7 +45,7 @@ public class Robot {
 
     public static Motors motors;
 
-    public static RunToPosition pos;
+    public static RunUsingEncoder pos;
     public static FlipperPositions flipperPos = FlipperPositions.BOTTOM;
 
 
@@ -60,16 +61,9 @@ public class Robot {
     // Define the Color Sensor
 
     public static NormalizedColorSensor colorSensor;
-    public static NormalizedRGBA colors;
 
-    public static final int scale = 100;
-
-    public static double maxRed = 0;
-    public static double maxBlue = 0;
 
     public static boolean correctColor;
-
-    public static boolean RED;
 
     // Define the Timers
 
@@ -88,10 +82,11 @@ public class Robot {
     /** Constants **/
 
     //Servo Constants
-    public static final double servoDown = (174.0/180.0);
-    public static final double servoUp = (67.0/180.0);
-    public static final double servoLeft = (0.0/180.0);
-    public static final double servoRight = (180.0/180.0);
+    public static double position;
+    public static final double servoUp = (0.0/180.0);
+    public static final double servoDown = (90.0/180.0);
+    public static final double servoRight = (0.0/180.0);
+    public static final double servoLeft = (90/180.0);
 
     public static Servos servos;
 
@@ -99,13 +94,12 @@ public class Robot {
 
     /** Action Variables **/
     public static double powerScaleFactor = 1.0/1.2;
-    public static double lowerPowerScaleFactor = 1.0/1.5;
 
     /** Methods **/
     public static double powerScale(double scale) {
         return powerScaleFactor*Math.pow(scale, 2);
     }
-    public static double lowerPowerScale(double scale) {return lowerPowerScaleFactor*Math.pow(scale, 2);}
+    public static double highpPwerScale(double scale) {return Math.pow(scale, 2);}
 
     public static void initialize() {
 
@@ -182,13 +176,9 @@ public class Robot {
     }
 
     public static void resetMotors() {
-        motor_flipper.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-//        motor_raiser.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         motor_left.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         motor_right.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-        motor_flipper.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-//        motor_raiser.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         motor_left.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         motor_right.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
@@ -204,10 +194,6 @@ public class Robot {
     }
 
     public enum Servos {
-        LEFT_FLIPPER,
-        RIGHT_FLIPPER,
-        LEFT_INTAKE,
-        RIGHT_INTAKE,
         DROPPER,
         SWIVEL
     }
