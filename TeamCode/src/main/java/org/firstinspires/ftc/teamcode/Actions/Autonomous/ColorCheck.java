@@ -27,7 +27,7 @@ public class ColorCheck extends Timed{
     }
 
     public void start() {
-        if (Robot.colorSensor.getNormalizedColors().red > Robot.colorSensor.getNormalizedColors().blue) {
+        if (Robot.colorSensor.getNormalizedColors().red < Robot.colorSensor.getNormalizedColors().blue) {
             Robot.servo_swivel.setPosition(Robot.servoLeft);
         } else {
             Robot.servo_swivel.setPosition(Robot.servoRight);
