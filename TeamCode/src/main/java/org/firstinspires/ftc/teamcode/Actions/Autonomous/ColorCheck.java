@@ -27,37 +27,34 @@ public class ColorCheck extends Timed{
     }
 
     public void start() {
-        if (Robot.colorSensor.getNormalizedColors().red < Robot.colorSensor.getNormalizedColors().blue) {
-            Robot.servo_swivel.setPosition(Robot.servoLeft);
+        for (int i = 0; i < 11; i++) {
+            colors = Robot.colorSensor.getNormalizedColors();
+            red = scale * colors.red;
+            blue = scale * colors.blue;
+            Log.d("RED: ", "" + red);
+            Log.d("BLUE: ", "" + blue);
+            maxRed += red;
+            maxBlue += blue;
+        }
+        if (expectedColor) {
+            if (maxRed > maxBlue)
+                Robot.servo_swivel.setPosition(Robot.servoLeft);
+            else
+                Robot.servo_swivel.setPosition(Robot.servoRight);
         } else {
-            Robot.servo_swivel.setPosition(Robot.servoRight);
+            if (maxRed < maxBlue)
+                Robot.servo_swivel.setPosition(Robot.servoLeft);
+            else
+                Robot.servo_swivel.setPosition(Robot.servoRight);
         }
     }
 
     public void loop() {
 
-        colors = Robot.colorSensor.getNormalizedColors();
-        red = scale * colors.red;
-        blue = scale * colors.blue;
-        Log.d("RED: ", "" + red);
-        Log.d("BLUE: ", "" + blue);
-        maxRed += red;
-        maxBlue += blue;
-
     }
 
     public void end() {
-//        if (expectedColor) {
-//            if (maxRed > maxBlue)
-//                Robot.servo_swivel.setPosition(Robot.servoLeft);
-//            else
-//                Robot.servo_swivel.setPosition(Robot.servoRight);
-//        } else {
-//            if (maxRed < maxBlue)
-//                Robot.servo_swivel.setPosition(Robot.servoLeft);
-//            else
-//                Robot.servo_swivel.setPosition(Robot.servoRight);
-//        }
+
 
     }
 
