@@ -53,6 +53,8 @@ public class Robot {
 
     public static Servo servo_swivel;
     public static Servo servo_dropper;
+    public static Servo servo_leftGrabber;
+    public static Servo servo_rightGrabber;
 
     // Define the Gyroscope
 
@@ -115,6 +117,9 @@ public class Robot {
         motor_raiser = hardwareMap.get(DcMotor.class, "motor_raiser");
         servo_swivel = hardwareMap.get(Servo.class, "servo_swivel");
         servo_dropper = hardwareMap.get(Servo.class, "servo_dropper");
+        servo_leftGrabber = hardwareMap.get(Servo.class, "servo_leftGrabber");
+        servo_rightGrabber = hardwareMap.get(Servo.class, "servo_rightGrabber");
+
 
 
         // Finding the Gyroscope
