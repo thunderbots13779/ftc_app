@@ -23,6 +23,20 @@ public class TeleOP extends Driver{
     int middle = -170;
     int top = -500;
 
+    private final double LEFT_FULL_OPEN_POSITION = (174.0/180.0);
+    private final double LEFT_OPEN_POSITION = (149.0/180.0);
+    private final double LEFT_CLOSED_POSITION = (84.0/180.0);
+    private final double RIGHT_FULL_OPEN_POSITION = (28.0/180.0);
+    private final double RIGHT_OPEN_POSITION = (53.0/180.0);
+    private final double RIGHT_CLOSED_POSITION = (118.0/180.0);
+
+    public boolean closed = false;
+    public boolean leftClosed = false;
+    public boolean rightClosed = false;
+    public boolean isPressed = false;
+    public boolean sideIsPressed = false;
+
+
     Raiser raiser = new Raiser();
     FlyWheels intake = new FlyWheels();
     Move move = new Move();
@@ -118,6 +132,29 @@ public class TeleOP extends Driver{
             Robot.motor_raiser.setPower(-.3);
         } else {
             Robot.motor_raiser.setPower(0);
+        }
+
+        if (!isPressed) {
+
+            if (change) {
+                if (closed) {
+                    leftServo.setPosition(LEFT_OPEN_POSITION);
+                    rightServo.setPosition(RIGHT_OPEN_POSITION);
+
+                    closed = false;
+                } else {
+                    leftServo.setPosition(LEFT_CLOSED_POSITION);
+                    rightServo.setPosition(RIGHT_CLOSED_POSITION);
+
+                    closed = true;
+                }
+
+                isPressed = true;
+            }
+
+        }
+        if (!change) {
+            isPressed = false;
         }
     }
 
