@@ -88,11 +88,11 @@ public class TeleOP extends Driver{
 //            Robot.motor_rightIntake.setPower(0);
 //        }
 
-        if (Robot.gamepad2.left_trigger > 0) {
-            Robot.motor_flipper.setPower(-Robot.powerScale(Robot.gamepad2.left_trigger));
-        } else if (Robot.gamepad2.right_trigger > 0) {
-            Robot.motor_flipper.setPower(Robot.powerScale(Robot.gamepad2.right_trigger));
-        }
+//        if (Robot.gamepad2.left_trigger > 0) {
+//            Robot.motor_flipper.setPower(-Robot.powerScale(Robot.gamepad2.left_trigger));
+//        } else if (Robot.gamepad2.right_trigger > 0) {
+//            Robot.motor_flipper.setPower(Robot.powerScale(Robot.gamepad2.right_trigger));
+//        }
 
 //        Robot.motor_flipper.setPower(1);
 
@@ -136,15 +136,15 @@ public class TeleOP extends Driver{
 
         if (!isPressed) {
 
-            if (change) {
+            if (Robot.gamepad2.right_trigger!=0) {
                 if (closed) {
-                    leftServo.setPosition(LEFT_OPEN_POSITION);
-                    rightServo.setPosition(RIGHT_OPEN_POSITION);
+                    Robot.servo_leftGrabber.setPosition(LEFT_OPEN_POSITION);
+                    Robot.servo_rightGrabber.setPosition(RIGHT_OPEN_POSITION);
 
                     closed = false;
                 } else {
-                    leftServo.setPosition(LEFT_CLOSED_POSITION);
-                    rightServo.setPosition(RIGHT_CLOSED_POSITION);
+                    Robot.servo_leftGrabber.setPosition(LEFT_CLOSED_POSITION);
+                    Robot.servo_rightGrabber.setPosition(RIGHT_CLOSED_POSITION);
 
                     closed = true;
                 }
@@ -153,7 +153,7 @@ public class TeleOP extends Driver{
             }
 
         }
-        if (!change) {
+        if (Robot.gamepad2.right_trigger==0) {
             isPressed = false;
         }
     }
